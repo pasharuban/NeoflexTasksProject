@@ -1,7 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import { Checkbox, Form } from 'antd';
+
 import { ItemForm } from '../ItemForm/ItemForm';
+
+import FormContainer from '../../containers/FormContainer/FormContainer';
+
+import RequestRegistration from '../RequestRegistration/RequestRegistration';
 
 const StyledCheckbox = styled.div`
   width: 100%;
@@ -30,14 +36,20 @@ const StyledFormItem = styled(Form.Item)`
   }
 `;
 
-export const LoginForm: React.FC = () => {
+const LoginForm: React.FC = () => {
   return (
-    <ItemForm buttonText="Login">
-      <StyledFormItem name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
-        <StyledCheckbox>
-          <Checkbox>Keep me logged in</Checkbox>
-        </StyledCheckbox>
-      </StyledFormItem>
-    </ItemForm>
+    <FormContainer>
+      <ItemForm buttonText="Login">
+        <StyledFormItem name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
+          <StyledCheckbox>
+            <Checkbox>Keep me logged in</Checkbox>
+          </StyledCheckbox>
+        </StyledFormItem>
+      </ItemForm>
+
+      <RequestRegistration />
+    </FormContainer>
   );
 };
+
+export default LoginForm;

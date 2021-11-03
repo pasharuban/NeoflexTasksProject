@@ -16,7 +16,7 @@ const Button = styled.button<ButtonElementTypes>`
   transition: all 0.5s;
 
   &:hover {
-    opacity: 0.85;
+    background: #4f896c;
     cursor: pointer;
   }
 

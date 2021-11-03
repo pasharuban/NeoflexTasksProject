@@ -1,8 +1,8 @@
 import React from 'react';
-import { MainPage } from './pages/MainPage/MainPage';
+import { ConnectedMainPage } from './pages/MainPage/MainPage';
 
 function App() {
-  return <MainPage />;
+  return <ConnectedMainPage />;
 }
 
 export default App;

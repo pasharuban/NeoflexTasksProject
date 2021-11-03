@@ -2,9 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import { css } from 'styled-components';
 
+import { connect } from 'react-redux';
+
 import { Illustration } from './components/Illustration';
 import { Sidebar } from '../../components/Sidebar/Sidebar';
-import { RegistrationForm } from '../../components/RegistrationForm/RegistrationForm';
+
+import LoginForm from '../../components/LoginForm/LoginForm';
+import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
+
+import { State } from '../../redux/reducer';
 
 import mainPageLogo from '../../assets/img/main-page-logo.svg';
 
@@ -25,7 +31,8 @@ const IllustrationSection = styled.div`
   width: 100%;
   max-width: 960px;
 
-  height: 100vh;
+  height: 100%;
+  min-height: 969px;
 
   padding: 100px 130px;
   background: rgba(211, 237, 225, 0.97);
@@ -37,7 +44,8 @@ const LogoAndFormSectionContainer = styled.div`
   width: 100%;
   max-width: 960px;
 
-  height: 100vh;
+  height: 100%;
+  min-height: 969px;
 
   padding: 141px 242px;
   ${alignCenterCenter};
@@ -51,10 +59,13 @@ const MainPageLogo = styled.img`
   margin-bottom: 119px;
 `;
 
-const MainPageContainer = styled.div`
-  height: 100vh;
-`;
-export const MainPage: React.FC = () => {
+const MainPageContainer = styled.div``;
+
+export const MainPage: React.FC<{ openRegForm?: boolean }> = ({ openRegForm }) => {
+  let Form = <LoginForm />;
+
+  if (openRegForm) Form = <RegistrationForm />;
+
   return (
     <MainPageContainer>
       <BeforeSidebarContainer>
@@ -63,7 +74,7 @@ export const MainPage: React.FC = () => {
         </IllustrationSection>
         <LogoAndFormSection>
           <MainPageLogo src={mainPageLogo} alt="company logo" />
-          <RegistrationForm />
+          {Form}
         </LogoAndFormSection>
       </BeforeSidebarContainer>
       <Sidebar />
@@ -71,4 +82,8 @@ export const MainPage: React.FC = () => {
   );
 };
 
-export default MainPage;
+const mapStateToProps = (state: State) => {
+  return { openRegForm: state.updateRegistrationForm };
+};
+
+export const ConnectedMainPage = connect(mapStateToProps, null)(MainPage);
