@@ -9,7 +9,6 @@ import closeFormLogo from '../../assets/img/close-form-icon_32.png';
 
 import { mapDispatchToProps } from '../RequestRegistration/RequestRegistration';
 
-import FormContainer from '../../containers/FormContainer/FormContainer';
 
 const RegistrationFormContainer = styled.div`
   display: flex;
@@ -27,12 +26,12 @@ const CloseFormLogo = styled.img`
 
 const RegistrationForm: React.FC<{ updateRegistrationForm?: () => void }> = ({ updateRegistrationForm }) => {
   return (
-    <FormContainer>
+    <>
       <RegistrationFormContainer>
         <CloseFormLogo onClick={updateRegistrationForm} src={closeFormLogo} alt="close" />
         <ItemForm buttonText="Sign Up" />
       </RegistrationFormContainer>
-    </FormContainer>
+    </>
   );
 };
 

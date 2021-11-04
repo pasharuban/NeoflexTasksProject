@@ -44,19 +44,28 @@ const LogoAndFormSectionContainer = styled.div`
   width: 100%;
   max-width: 960px;
 
-  height: 100%;
-  min-height: 969px;
+  height: 969px;
 
-  padding: 141px 242px;
+  padding: 141px 247px;
   ${alignCenterCenter};
+
+  border:2px solid yellow;
 `;
 
-const LogoAndFormSection: React.FC = ({ children }) => {
-  return <LogoAndFormSectionContainer>{children}</LogoAndFormSectionContainer>;
-};
+const LogoFormWrapper = styled.div `
+  border:2px solid blue;
+  ${alignCenterCenter};
+  flex:1 0 auto;
+`;
 
 const MainPageLogo = styled.img`
   margin-bottom: 119px;
+  border:2px solid black;
+`;
+
+const FormContainer = styled.div `
+  flex:1 0 auto;
+  border:2px solid red;
 `;
 
 const MainPageContainer = styled.div``;
@@ -72,10 +81,14 @@ export const MainPage: React.FC<{ openRegForm?: boolean }> = ({ openRegForm }) =
         <IllustrationSection>
           <Illustration />
         </IllustrationSection>
-        <LogoAndFormSection>
-          <MainPageLogo src={mainPageLogo} alt="company logo" />
-          {Form}
-        </LogoAndFormSection>
+        <LogoAndFormSectionContainer>
+          <LogoFormWrapper>
+           <MainPageLogo src={mainPageLogo} alt="company logo" />
+            <FormContainer>
+            {Form}
+            </FormContainer>
+          </LogoFormWrapper>
+        </LogoAndFormSectionContainer>
       </BeforeSidebarContainer>
       <Sidebar />
     </MainPageContainer>

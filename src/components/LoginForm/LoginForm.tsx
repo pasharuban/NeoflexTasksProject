@@ -5,8 +5,6 @@ import { Checkbox, Form } from 'antd';
 
 import { ItemForm } from '../ItemForm/ItemForm';
 
-import FormContainer from '../../containers/FormContainer/FormContainer';
-
 import RequestRegistration from '../RequestRegistration/RequestRegistration';
 
 const StyledCheckbox = styled.div`
@@ -38,7 +36,7 @@ const StyledFormItem = styled(Form.Item)`
 
 const LoginForm: React.FC = () => {
   return (
-    <FormContainer>
+    <>
       <ItemForm buttonText="Login">
         <StyledFormItem name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
           <StyledCheckbox>
@@ -48,7 +46,8 @@ const LoginForm: React.FC = () => {
       </ItemForm>
 
       <RequestRegistration />
-    </FormContainer>
+
+    </>
   );
 };
 
