@@ -15,9 +15,15 @@ import { State } from '../../redux/reducer';
 import mainPageLogo from '../../assets/img/main-page-logo.svg';
 
 const BeforeSidebarContainer = styled.div`
+  width: 100%;
+
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
+
+  @media screen and (max-width: 1680px) {
+    flex-wrap: wrap;
+  }
 `;
 
 const alignCenterCenter = css`
@@ -29,12 +35,12 @@ const alignCenterCenter = css`
 
 const IllustrationSection = styled.div`
   width: 100%;
-  max-width: 960px;
 
   height: 100%;
   min-height: 969px;
 
   padding: 100px 130px;
+
   background: rgba(211, 237, 225, 0.97);
 
   ${alignCenterCenter}
@@ -42,33 +48,33 @@ const IllustrationSection = styled.div`
 
 const LogoAndFormSectionContainer = styled.div`
   width: 100%;
-  max-width: 960px;
 
-  height: 969px;
+  height: 100%;
+  min-height: 969px;
 
   padding: 141px 247px;
-  ${alignCenterCenter};
 
-  border:2px solid yellow;
+  ${alignCenterCenter}
+
+  border: 2px solid yellow;
 `;
 
-const LogoFormWrapper = styled.div `
-  border:2px solid blue;
+const LogoFormWrapper = styled.div`
   ${alignCenterCenter};
-  flex:1 0 auto;
+  flex: 1 0 auto;
 `;
 
 const MainPageLogo = styled.img`
   margin-bottom: 119px;
-  border:2px solid black;
 `;
 
-const FormContainer = styled.div `
-  flex:1 0 auto;
-  border:2px solid red;
+const FormContainer = styled.div`
+  flex: 1 0 auto;
 `;
 
-const MainPageContainer = styled.div``;
+const MainPageContainer = styled.div`
+  min-height: 100vh;
+`;
 
 export const MainPage: React.FC<{ openRegForm?: boolean }> = ({ openRegForm }) => {
   let Form = <LoginForm />;
@@ -83,10 +89,8 @@ export const MainPage: React.FC<{ openRegForm?: boolean }> = ({ openRegForm }) =
         </IllustrationSection>
         <LogoAndFormSectionContainer>
           <LogoFormWrapper>
-           <MainPageLogo src={mainPageLogo} alt="company logo" />
-            <FormContainer>
-            {Form}
-            </FormContainer>
+            <MainPageLogo src={mainPageLogo} alt="company logo" />
+            <FormContainer>{Form}</FormContainer>
           </LogoFormWrapper>
         </LogoAndFormSectionContainer>
       </BeforeSidebarContainer>

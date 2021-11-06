@@ -9,6 +9,11 @@ import { ButtonElement } from '../ButtonElement/ButtonElement';
 const inputPrefixStyles = { color: '#ADADAD', fontSize: '20px' };
 
 const StyledForm = styled(Form)`
+  width: 100%;
+  min-width: 466px;
+
+  border: 2px solid red;
+
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -33,18 +38,20 @@ const StyledForm = styled(Form)`
 `;
 
 const StyledInput = styled(Input)`
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-
   height: 48px;
-  width: 466px;
+
   border-radius: 16px;
   border: none;
   background: #f0f0f0;
 
+  margin: 0;
+  padding: 0;
+
   input {
+    //input in antd has a wrapper(we set color for it)
+    //input field has another default color(white),so we need to inherit wapper's color.
     background: inherit;
+    //we need input first,then icon(prefix for input)
     order: -1;
 
     &::placeholder {
@@ -61,10 +68,11 @@ const StyledInput = styled(Input)`
 
 const StyledFormItem = styled(Form.Item)`
   display: flex;
-  justify-content: flex-start;
 
   margin-bottom: 32px;
   width: 100%;
+
+  border: 2px solid green;
 
   .ant-form-item-control {
     margin: 0;

@@ -24,7 +24,6 @@ const Logo = styled.img<{ logoMargin: string }>`
 const SidebarPanel = styled.div<{ containerType?: string }>`
   background: #7db59a;
   width: 100%;
-
   ${(props) => {
     const { containerType } = props;
     switch (containerType) {
