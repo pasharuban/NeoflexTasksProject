@@ -3,6 +3,10 @@ import styled from 'styled-components';
 
 import { ButtonElementTypes } from '../../types/buttonElementTypes';
 
+import breakPoints from '../../breakPoints/breakPoints';
+
+const { larger2000 } = breakPoints;
+
 const Button = styled.button<ButtonElementTypes>`
   height: 47px;
   border-radius: 50px;
@@ -10,7 +14,7 @@ const Button = styled.button<ButtonElementTypes>`
   font-family: Inter;
   font-style: normal;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 1.5rem;
   line-height: 36px;
 
   transition: all 0.5s;
@@ -61,6 +65,10 @@ const Button = styled.button<ButtonElementTypes>`
 
     return '1px solid #5193F4;';
   }};
+
+  @media screen and (min-width: ${larger2000}) {
+    height: 80px;
+  }
 `;
 
 export const ButtonElement: React.FC<ButtonElementTypes> = ({

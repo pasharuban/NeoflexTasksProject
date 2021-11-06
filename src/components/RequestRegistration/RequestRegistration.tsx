@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { css } from 'styled-components';
 
+// for typing dispatch
 import { ThunkDispatch } from 'redux-thunk';
 
 import { connect } from 'react-redux';
@@ -10,32 +10,29 @@ import { actionUpdateRegistrationForm } from '../../redux/actions';
 
 import { State, Action } from '../../redux/reducer';
 
-const textStyles = css`
+const RequestRegistrationContainer = styled.div`
+  width: 100%;
+  margin-top: 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const RequestRegistrationText = styled.p`
   font-family: Inter;
   font-style: normal;
   font-weight: normal;
-  font-size: 14px;
+  font-size: 1.16rem;
   line-height: 17px;
 
   color: #2d3436;
 `;
 
-const RequestRegistrationContainer = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  margin-top: 16px;
-`;
-
-const RequestRegistrationText = styled.p`
-  ${textStyles}
-`;
-
 const RequestRegistrationLink = styled.span`
   color: #31b8b8;
   transition: all 0.5s;
+
   &:hover {
     cursor: pointer;
     color: #1d9494;

@@ -15,7 +15,7 @@ const StyledCheckbox = styled.div`
     font-family: Inter;
     font-style: normal;
     font-weight: normal;
-    font-size: 14px;
+    font-size: 1.16rem;
     line-height: 17px;
 
     color: #2d3436;
@@ -46,7 +46,6 @@ const LoginForm: React.FC = () => {
       </ItemForm>
 
       <RequestRegistration />
-
     </>
   );
 };

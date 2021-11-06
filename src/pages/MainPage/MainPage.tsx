@@ -5,8 +5,7 @@ import { css } from 'styled-components';
 import { connect } from 'react-redux';
 
 import { Illustration } from './components/Illustration';
-import { Sidebar } from '../../components/Sidebar/Sidebar';
-
+import { Footer } from '../../components/Footer/Footer';
 import LoginForm from '../../components/LoginForm/LoginForm';
 import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
 
@@ -14,11 +13,11 @@ import { State } from '../../redux/reducer';
 
 import mainPageLogo from '../../assets/img/main-page-logo.svg';
 
-const BeforeSidebarContainer = styled.div`
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-`;
+import { MainPageTypes } from '../../types/mainPageTypes';
+
+import breakPoints from '../../breakPoints/breakPoints';
+
+const { smaller1100, larger2000 } = breakPoints;
 
 const alignCenterCenter = css`
   display: flex;
@@ -29,48 +28,85 @@ const alignCenterCenter = css`
 
 const IllustrationSection = styled.div`
   width: 100%;
-  max-width: 960px;
 
   height: 100%;
-  min-height: 969px;
+  min-height: 100%;
 
-  padding: 100px 130px;
+  flex-grow: 1;
+
+  padding: 5%;
+
   background: rgba(211, 237, 225, 0.97);
 
   ${alignCenterCenter}
+
+  @media screen and (min-width: ${larger2000}) {
+    padding: 1%;
+  }
 `;
 
-const LogoAndFormSectionContainer = styled.div`
+// override styles,because it has same,except bg.
+const LogoAndFormSectionContainer = styled(IllustrationSection)`
+  background: white;
+
+  @media screen and (min-width: ${larger2000}) {
+    padding: 4% 2%;
+  }
+  @media screen and (max-width: ${smaller1100}) {
+    min-height: 100vh;
+  }
+`;
+
+const MainPageContainer = styled.div`
+  height: 100vh;
   width: 100%;
-  max-width: 960px;
 
-  height: 969px;
+  display: flex;
+  flex-direction: column;
 
-  padding: 141px 247px;
-  ${alignCenterCenter};
-
-  border:2px solid yellow;
+  @media screen and (max-width: ${smaller1100}) {
+    height: 100%;
+  }
 `;
 
-const LogoFormWrapper = styled.div `
-  border:2px solid blue;
+const BeforeSidebarContainer = styled.div`
+  width: 100%;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  flex-grow: 5;
+
+  @media screen and (max-width: ${smaller1100}) {
+    flex-wrap: wrap;
+  }
+`;
+
+const LogoFormWrapper = styled.div`
+  width: 100%;
+
+  flex: 1 0 auto;
   ${alignCenterCenter};
-  flex:1 0 auto;
 `;
 
 const MainPageLogo = styled.img`
   margin-bottom: 119px;
-  border:2px solid black;
+
+  @media screen and (min-width: ${larger2000}) {
+    width: 15%;
+  }
 `;
 
-const FormContainer = styled.div `
-  flex:1 0 auto;
-  border:2px solid red;
+const FormContainer = styled.div`
+  flex: 1 0 auto;
+
+  @media screen and (min-width: ${larger2000}) {
+    width: 80%;
+  }
 `;
 
-const MainPageContainer = styled.div``;
-
-export const MainPage: React.FC<{ openRegForm?: boolean }> = ({ openRegForm }) => {
+export const MainPage: React.FC<MainPageTypes> = ({ openRegForm }) => {
   let Form = <LoginForm />;
 
   if (openRegForm) Form = <RegistrationForm />;
@@ -83,14 +119,12 @@ export const MainPage: React.FC<{ openRegForm?: boolean }> = ({ openRegForm }) =
         </IllustrationSection>
         <LogoAndFormSectionContainer>
           <LogoFormWrapper>
-           <MainPageLogo src={mainPageLogo} alt="company logo" />
-            <FormContainer>
-            {Form}
-            </FormContainer>
+            <MainPageLogo src={mainPageLogo} alt="company logo" />
+            <FormContainer>{Form}</FormContainer>
           </LogoFormWrapper>
         </LogoAndFormSectionContainer>
       </BeforeSidebarContainer>
-      <Sidebar />
+      <Footer />
     </MainPageContainer>
   );
 };

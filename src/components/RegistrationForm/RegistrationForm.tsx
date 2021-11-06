@@ -9,7 +9,6 @@ import closeFormLogo from '../../assets/img/close-form-icon_32.png';
 
 import { mapDispatchToProps } from '../RequestRegistration/RequestRegistration';
 
-
 const RegistrationFormContainer = styled.div`
   display: flex;
   flex-direction: column;

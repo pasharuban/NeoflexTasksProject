@@ -1,10 +1,12 @@
 @import '~antd/dist/antd.css';
 
+html {
+  font-size: 12px;
+}
+
 #root {
   width: 100%;
   margin: 0 auto;
-
-  border: 1px solid red;
 }
 
 /* Указываем box sizing */
@@ -57,17 +59,8 @@ a:not([class]) {
   text-decoration-skip-ink: auto;
 }
 
-/* Упрощаем работу с изображениями */
-
-/* Указываем понятную периодичность в потоке данных у article*/
-article > * + * {
-  margin-top: 1em;
-}
-
-/* Наследуем шрифты для инпутов и кнопок */
-input,
-button,
-textarea,
-select {
-  font: inherit;
+@media screen and (min-width: 2000px) {
+  Html {
+    font-size: 25px;
+  }
 }

@@ -6,19 +6,30 @@ import { MailOutlined, LockOutlined } from '@ant-design/icons';
 
 import { ButtonElement } from '../ButtonElement/ButtonElement';
 
+import breakPoints from '../../breakPoints/breakPoints';
+
+const { larger2000 } = breakPoints;
+
+// styles for prefix(icon) inside input
 const inputPrefixStyles = { color: '#ADADAD', fontSize: '20px' };
 
+// customizing antd Form styles
 const StyledForm = styled(Form)`
+  width: 100%;
+  min-width: 466px;
+
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  justify-content: flex-end;
+  align-items: flex-start;
+  justify-content: flex-start;
 
   & label {
+    margin: 0;
+
     font-family: Inter;
     font-style: normal;
     font-weight: 800;
-    font-size: 12px;
+    font-size: 1rem;
     line-height: 15px;
 
     letter-spacing: 2.5px;
@@ -32,42 +43,41 @@ const StyledForm = styled(Form)`
   }
 `;
 
-const StyledInput = styled(Input)`
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
+// customizing antd FormItem styles
+const StyledFormItem = styled(Form.Item)`
+  margin-bottom: 32px;
+  width: 100%;
+`;
 
+const StyledInput = styled(Input)`
   height: 48px;
-  width: 466px;
   border-radius: 16px;
   border: none;
   background: #f0f0f0;
 
+  margin: 0;
+  padding: 0 16px;
+
+  @media screen and (min-width: ${larger2000}) {
+    height: 80px;
+  }
+
   input {
+    //input in antd has a wrapper(we set color for it)
+    //input field has another default bg color(white),so we need to inherit wapper's color.
     background: inherit;
+    //we need input first,next icon(prefix for input)
     order: -1;
+    border-radius: inherit;
 
     &::placeholder {
       font-family: Inter;
       font-style: normal;
       font-weight: normal;
-      font-size: 18px;
-      line-height: 22px;
+      font-size: 1.5rem;
 
       color: #2d3436;
     }
-  }
-`;
-
-const StyledFormItem = styled(Form.Item)`
-  display: flex;
-  justify-content: flex-start;
-
-  margin-bottom: 32px;
-  width: 100%;
-
-  .ant-form-item-control {
-    margin: 0;
   }
 `;
 
@@ -77,7 +87,6 @@ export const ItemForm: React.FC<{ buttonText: string }> = ({ buttonText, childre
       className="item-form"
       name="basic"
       labelCol={{ span: 24 }}
-      wrapperCol={{ span: 16 }}
       initialValues={{ remember: true }}
       autoComplete="off"
     >
