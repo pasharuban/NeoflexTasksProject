@@ -1,9 +1,7 @@
+import { State } from '../types/stateTypes';
+
 export enum Actions {
   UPDATE_REGISTRATION_FORM = 'UPDATE_REGISTRATION_FORM',
-}
-
-export interface State {
-  updateRegistrationForm: boolean;
 }
 
 export interface Action {
@@ -12,12 +10,13 @@ export interface Action {
 
 const initialState: State = {
   updateRegistrationForm: false,
+  userName: 'Ivan Ivanov',
 };
 
 const reducer = (state = initialState, action: Action): State => {
   switch (action.type) {
     case Actions.UPDATE_REGISTRATION_FORM:
-      return { updateRegistrationForm: !state.updateRegistrationForm };
+      return { ...initialState, updateRegistrationForm: !state.updateRegistrationForm };
     default:
       return state;
   }
