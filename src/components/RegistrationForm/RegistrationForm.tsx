@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { ItemForm } from '../ItemForm/ItemForm';
 
-import closeFormLogo from '../../assets/img/close-form-icon_32.png';
+import closeFormLogo from '../../assets/MainPage/icons/close-form-icon_32.png';
 
 import { mapDispatchToProps } from '../RequestRegistration/RequestRegistration';
 

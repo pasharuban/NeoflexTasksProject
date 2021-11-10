@@ -1,8 +1,9 @@
 import React from 'react';
-import { ConnectedMainPage } from './pages/MainPage/MainPage';
+
+import { TasksTablePage } from './pages/TasksTablePage/TasksTablePage';
 
 function App() {
-  return <ConnectedMainPage />;
+  return <TasksTablePage />;
 }
 
 export default App;

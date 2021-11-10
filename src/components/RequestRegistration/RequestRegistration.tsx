@@ -8,7 +8,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionUpdateRegistrationForm } from '../../redux/actions';
 
-import { State, Action } from '../../redux/reducer';
+import { State } from '../../types/stateTypes';
+
+import { Action } from '../../redux/reducer';
 
 const RequestRegistrationContainer = styled.div`
   width: 100%;

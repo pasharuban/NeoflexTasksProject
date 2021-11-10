@@ -7,7 +7,7 @@ import breakPoints from '../../breakPoints/breakPoints';
 
 const { larger2000 } = breakPoints;
 
-const Button = styled.button<ButtonElementTypes>`
+export const Button = styled.button<ButtonElementTypes>`
   height: 47px;
   border-radius: 50px;
 
@@ -28,7 +28,7 @@ const Button = styled.button<ButtonElementTypes>`
     const { width } = props;
     if (width) return width;
 
-    return '200px';
+    return 'auto';
   }};
 
   margin-bottom: ${(props) => {
@@ -63,7 +63,7 @@ const Button = styled.button<ButtonElementTypes>`
     const { typeOfButton } = props;
     if (typeOfButton === 'filled') return 'none';
 
-    return '1px solid #5193F4;';
+    return '1px solid black;';
   }};
 
   @media screen and (min-width: ${larger2000}) {
