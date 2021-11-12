@@ -6,6 +6,8 @@ import Navbar from '../../components/Navbar/Navbar';
 import TasksTable from './components/TasksTable';
 import TableHeader from './components/TableHeader/TableHeader';
 
+import NewClaimTitle from './components/NewClaim/NewClaimTitle';
+
 const TasksTablePageContainer = styled.div`
   width: 100%;
   height: 100vh;
@@ -33,6 +35,7 @@ export const TasksTablePage: React.FC = () => {
       <HeaderAndTableWrapper>
         <Header />
         <Container>
+          <NewClaimTitle />
           <TableHeader />
           <TasksTable />
         </Container>
