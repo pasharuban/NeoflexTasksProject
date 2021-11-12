@@ -1,14 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Form, Input } from 'antd';
+import { Form } from 'antd';
 
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
 
 import { ButtonElement } from '../ButtonElement/ButtonElement';
 
-import breakPoints from '../../breakPoints/breakPoints';
-
-const { larger2000 } = breakPoints;
+import InputElement from '../InputElement/InputElement';
 
 // styles for prefix(icon) inside input
 const inputPrefixStyles = { color: '#ADADAD', fontSize: '20px' };
@@ -49,38 +47,6 @@ const StyledFormItem = styled(Form.Item)`
   width: 100%;
 `;
 
-const StyledInput = styled(Input)`
-  height: 48px;
-  border-radius: 16px;
-  border: none;
-  background: #f0f0f0;
-
-  margin: 0;
-  padding: 0 16px;
-
-  @media screen and (min-width: ${larger2000}) {
-    height: 80px;
-  }
-
-  input {
-    //input in antd has a wrapper(we set color for it)
-    //input field has another default bg color(white),so we need to inherit wapper's color.
-    background: inherit;
-    //we need input first,next icon(prefix for input)
-    order: -1;
-    border-radius: inherit;
-
-    &::placeholder {
-      font-family: Inter;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 1.5rem;
-
-      color: #2d3436;
-    }
-  }
-`;
-
 export const ItemForm: React.FC<{ buttonText: string }> = ({ buttonText, children }) => {
   return (
     <StyledForm
@@ -95,7 +61,7 @@ export const ItemForm: React.FC<{ buttonText: string }> = ({ buttonText, childre
         name="username"
         rules={[{ required: false, message: 'Please input your username!' }]}
       >
-        <StyledInput placeholder="Type your e-mail" prefix={<MailOutlined style={inputPrefixStyles} />} />
+        <InputElement placeholder="Type your e-mail" prefix={<MailOutlined style={inputPrefixStyles} />} />
       </StyledFormItem>
 
       <StyledFormItem
@@ -103,7 +69,7 @@ export const ItemForm: React.FC<{ buttonText: string }> = ({ buttonText, childre
         name="password"
         rules={[{ required: false, message: 'Please input your password!' }]}
       >
-        <StyledInput placeholder="Type your password" prefix={<LockOutlined style={inputPrefixStyles} />} />
+        <InputElement placeholder="Type your password" prefix={<LockOutlined style={inputPrefixStyles} />} />
       </StyledFormItem>
 
       {children}
