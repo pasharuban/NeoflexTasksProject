@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import logo from '../../assets/img/sidebar-logo.svg';
+import logo from '../../assets/MainPage/icons/sidebar-logo.svg';
 
 import breakPoints from '../../breakPoints/breakPoints';
 
