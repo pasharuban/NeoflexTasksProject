@@ -2,10 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Input } from 'antd';
+import { Form } from 'antd';
+
+import { InputFieldTypes } from '../../types/inputFieldTypes';
 
 import breakPoints from '../../breakPoints/breakPoints';
 
 const { larger2000 } = breakPoints;
+
+// customizing antd FormItem styles
+const StyledFormItem = styled(Form.Item)`
+  width: 100%;
+`;
 
 const InputElement = styled(Input)`
   height: 48px;
@@ -39,4 +47,12 @@ const InputElement = styled(Input)`
   }
 `;
 
-export default InputElement;
+const InputField: React.FC<InputFieldTypes> = ({ label, name, rules, placeholder, prefix }) => {
+  return (
+    <StyledFormItem label={label} name={name} rules={rules}>
+      <InputElement placeholder={placeholder} prefix={prefix} />
+    </StyledFormItem>
+  );
+};
+
+export default InputField;

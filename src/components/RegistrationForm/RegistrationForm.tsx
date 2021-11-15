@@ -46,7 +46,9 @@ const RegistrationForm: React.FC<{ updateRegistrationForm?: () => void }> = ({ u
       >
         <InputElement placeholder="Type your password" prefix={<LockOutlined style={inputPrefixStyles} />} />
       </FormItemElement>
-      <ButtonElement text="Sign Up" typeOfButton="filled" width="100%" marginTop="40px" />
+      <ButtonElement typeOfButton="filled" width="100%" marginTop="40px">
+        Sign Up
+      </ButtonElement>
     </ItemForm>
   );
 };

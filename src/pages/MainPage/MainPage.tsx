@@ -107,9 +107,7 @@ const FormContainer = styled.div`
 `;
 
 export const MainPage: React.FC<MainPageTypes> = ({ openRegForm }) => {
-  let Form = <LoginForm />;
-
-  if (openRegForm) Form = <RegistrationForm />;
+  const Form = openRegForm ? RegistrationForm : LoginForm;
 
   return (
     <MainPageContainer>
@@ -120,7 +118,9 @@ export const MainPage: React.FC<MainPageTypes> = ({ openRegForm }) => {
         <LogoAndFormSectionContainer>
           <LogoFormWrapper>
             <MainPageLogo src={mainPageLogo} alt="company logo" />
-            <FormContainer>{Form}</FormContainer>
+            <FormContainer>
+              <Form />
+            </FormContainer>
           </LogoFormWrapper>
         </LogoAndFormSectionContainer>
       </BeforeSidebarContainer>

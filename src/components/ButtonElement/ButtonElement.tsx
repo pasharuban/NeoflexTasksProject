@@ -7,7 +7,7 @@ import breakPoints from '../../breakPoints/breakPoints';
 
 const { larger2000 } = breakPoints;
 
-export const Button = styled.button<ButtonElementTypes>`
+export const ButtonElement = styled.button<ButtonElementTypes>`
   height: 47px;
   border-radius: 50px;
 
@@ -71,7 +71,7 @@ export const Button = styled.button<ButtonElementTypes>`
   }
 `;
 
-export const ButtonElement: React.FC<ButtonElementTypes> = ({
+/* export const ButtonElement: React.FC<ButtonElementTypes> = ({
   text,
   typeOfButton,
   marginBottom,
@@ -90,4 +90,4 @@ export const ButtonElement: React.FC<ButtonElementTypes> = ({
       {text}
     </Button>
   );
-};
+}; */

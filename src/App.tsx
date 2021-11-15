@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { TasksTablePage } from './pages/TasksTablePage/TasksTablePage';
+/* import { TasksTablePage } from './pages/TasksTablePage/TasksTablePage'; */
 
-/* import { ConnectedMainPage } from './pages/MainPage/MainPage'; */
+import { ConnectedMainPage } from './pages/MainPage/MainPage';
 
 function App() {
-  return <TasksTablePage />;
+  return <ConnectedMainPage />;
 }
 
 export default App;

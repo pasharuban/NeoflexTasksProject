@@ -76,7 +76,9 @@ const LoginForm: React.FC = () => {
         </StyledFormItem>
       </FormItemElement>
 
-      <ButtonElement text="Login" marginBottom="16px" typeOfButton="filled" width="100%" />
+      <ButtonElement marginBottom="16px" typeOfButton="filled" width="100%">
+        Login
+      </ButtonElement>
 
       <RequestRegistration />
     </ItemForm>
