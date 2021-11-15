@@ -24,10 +24,12 @@ const FooterContainer = styled.div`
   width: 100%;
 `;
 
-export const Footer: React.FC = () => {
+const Footer: React.FC = () => {
   return (
     <FooterContainer>
       <Logo src={logo} alt="company logo" />
     </FooterContainer>
   );
 };
+
+export default Footer;

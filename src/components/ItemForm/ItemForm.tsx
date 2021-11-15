@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import { Form } from 'antd';
 
 // customizing antd Form styles
@@ -32,7 +33,7 @@ const StyledForm = styled(Form)`
   }
 `;
 
-export const ItemForm: React.FC = ({ children }) => {
+const ItemForm: React.FC = ({ children }) => {
   return (
     <StyledForm
       className="item-form"
@@ -45,3 +46,5 @@ export const ItemForm: React.FC = ({ children }) => {
     </StyledForm>
   );
 };
+
+export default ItemForm;

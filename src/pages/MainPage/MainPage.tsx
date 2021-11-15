@@ -4,16 +4,16 @@ import { css } from 'styled-components';
 
 import { connect } from 'react-redux';
 
-import { Illustration } from './components/Illustration';
-import { Footer } from '../../components/Footer/Footer';
+import { State } from '../../types/stateTypes';
+import { MainPageTypes } from '../../types/mainPageTypes';
+
+import Illustration from './components/Illustration';
+import Footer from '../../components/Footer/Footer';
 import LoginForm from '../../components/LoginForm/LoginForm';
+
 import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
 
-import { State } from '../../types/stateTypes';
-
 import mainPageLogo from '../../assets/MainPage/icons/main-page-logo.svg';
-
-import { MainPageTypes } from '../../types/mainPageTypes';
 
 import breakPoints from '../../breakPoints/breakPoints';
 

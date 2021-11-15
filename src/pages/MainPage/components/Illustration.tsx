@@ -7,6 +7,8 @@ const IllustrationImage = styled.img`
   width: 90%;
 `;
 
-export const Illustration: React.FC = () => {
+const Illustration: React.FC = () => {
   return <IllustrationImage src={image} alt="create your task" />;
 };
+
+export default Illustration;

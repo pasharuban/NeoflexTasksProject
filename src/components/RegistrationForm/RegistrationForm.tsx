@@ -5,11 +5,11 @@ import { connect } from 'react-redux';
 
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
 
-import FormItemElement from '../FormItemElement/FormItemElement';
-import InputElement from '../InputElement/InputElement';
+import ItemForm from '../ItemForm/ItemForm';
 
-import { ItemForm } from '../ItemForm/ItemForm';
-import { ButtonElement } from '../ButtonElement/ButtonElement';
+import InputField from '../InputField/InputField';
+
+import ButtonElement from '../ButtonElement/ButtonElement';
 
 import closeFormLogo from '../../assets/MainPage/icons/close-form-icon_32.png';
 
@@ -31,21 +31,23 @@ const RegistrationForm: React.FC<{ updateRegistrationForm?: () => void }> = ({ u
   return (
     <ItemForm>
       <CloseFormLogo onClick={updateRegistrationForm} src={closeFormLogo} alt="close" />
-      <FormItemElement
+
+      <InputField
         label="E-mail"
         name="username"
         rules={[{ required: false, message: 'Please input your username!' }]}
-      >
-        <InputElement placeholder="Type your e-mail" prefix={<MailOutlined style={inputPrefixStyles} />} />
-      </FormItemElement>
+        placeholder="Type your e-mail"
+        prefix={<MailOutlined style={inputPrefixStyles} />}
+      />
 
-      <FormItemElement
+      <InputField
         label="Password"
         name="password"
         rules={[{ required: false, message: 'Please input your password!' }]}
-      >
-        <InputElement placeholder="Type your password" prefix={<LockOutlined style={inputPrefixStyles} />} />
-      </FormItemElement>
+        placeholder="Type your password"
+        prefix={<LockOutlined style={inputPrefixStyles} />}
+      />
+
       <ButtonElement typeOfButton="filled" width="100%" marginTop="40px">
         Sign Up
       </ButtonElement>
