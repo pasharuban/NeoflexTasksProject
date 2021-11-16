@@ -11,8 +11,8 @@ const Title = styled.p`
   color: #000000;
 `;
 
-const NewClaimTitle: React.FC = () => {
-  return <Title>Creating new claim</Title>;
+const ClaimTitle: React.FC<{ title: string }> = ({ title }) => {
+  return <Title>{title}</Title>;
 };
 
-export default NewClaimTitle;
+export default ClaimTitle;

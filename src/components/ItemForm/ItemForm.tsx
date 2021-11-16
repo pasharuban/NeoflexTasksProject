@@ -6,7 +6,6 @@ import { Form } from 'antd';
 // customizing antd Form styles
 const StyledForm = styled(Form)`
   width: 100%;
-  min-width: 466px;
 
   display: flex;
   flex-direction: column;

@@ -5,7 +5,7 @@ const Title = styled.p`
   font-family: Inter;
   font-style: normal;
   font-weight: bold;
-  font-size: 36px;
+  font-size: 3em;
   line-height: 44px;
 
   color: #000000;

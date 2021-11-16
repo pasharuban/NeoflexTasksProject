@@ -37,7 +37,7 @@ const RegistrationForm: React.FC<{ updateRegistrationForm?: () => void }> = ({ u
         name="username"
         rules={[{ required: false, message: 'Please input your username!' }]}
         placeholder="Type your e-mail"
-        prefix={<MailOutlined style={inputPrefixStyles} />}
+        suffix={<MailOutlined style={inputPrefixStyles} />}
       />
 
       <InputField
@@ -45,10 +45,10 @@ const RegistrationForm: React.FC<{ updateRegistrationForm?: () => void }> = ({ u
         name="password"
         rules={[{ required: false, message: 'Please input your password!' }]}
         placeholder="Type your password"
-        prefix={<LockOutlined style={inputPrefixStyles} />}
+        suffix={<LockOutlined style={inputPrefixStyles} />}
       />
 
-      <ButtonElement typeOfButton="filled" width="100%" marginTop="40px">
+      <ButtonElement typeOfButton="filledGreen" width="100%" marginTop="40px">
         Sign Up
       </ButtonElement>
     </ItemForm>

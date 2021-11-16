@@ -99,10 +99,15 @@ const MainPageLogo = styled.img`
 `;
 
 const FormContainer = styled.div`
+  width: 100%;
+  max-width: 466px;
+
   flex: 1 0 auto;
 
+  border: 2px solid red;
+
   @media screen and (min-width: ${larger2000}) {
-    width: 80%;
+    max-width: 80%;
   }
 `;
 

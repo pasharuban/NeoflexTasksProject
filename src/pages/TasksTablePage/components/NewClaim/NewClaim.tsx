@@ -1,14 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import NewClaimTitle from './NewClaimTitle';
+import NewClaimForm from './NewClaimForm';
+import ClaimTitle from '../ClaimTitle/ClaimTitle';
 
 const Container = styled.div``;
 
 const NewClaim: React.FC = () => {
   return (
     <Container>
-      <NewClaimTitle />
+      <ClaimTitle title="Creating new claim" />
+      <NewClaimForm />
     </Container>
   );
 };

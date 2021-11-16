@@ -1,4 +1,5 @@
 export type State = {
   updateRegistrationForm: boolean;
-  userName: 'Ivan Ivanov';
+  openCreateNewClaimForm: boolean;
+  userName: string;
 };

@@ -2,6 +2,7 @@ export type InputFieldTypes = {
   label?: string;
   name?: string;
   rules?: any;
-  prefix?: React.ReactNode;
+  suffix?: React.ReactNode;
   placeholder: string;
+  disabled?: boolean;
 };

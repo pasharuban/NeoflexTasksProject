@@ -1,22 +1,42 @@
 import React from 'react';
 import styled from 'styled-components';
+import { css } from 'styled-components';
 
-import { Input } from 'antd';
-import { Form } from 'antd';
+import { Input, Form } from 'antd';
 
 import { InputFieldTypes } from '../../types/inputFieldTypes';
 
 import breakPoints from '../../breakPoints/breakPoints';
 
 const { larger2000 } = breakPoints;
+const placeholderStyles = css`
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.5rem;
+
+  color: #2d3436;
+`;
 
 // customizing antd FormItem styles
 const StyledFormItem = styled(Form.Item)`
   width: 100%;
+
+  input {
+    &:disabled {
+      &::placeholder {
+        color: #adadad;
+      }
+    }
+    &::placeholder {
+      ${placeholderStyles};
+    }
+  }
 `;
 
 const InputElement = styled(Input)`
   height: 48px;
+  width: 100%;
   border-radius: 16px;
   border: none;
   background: #f0f0f0;
@@ -28,29 +48,16 @@ const InputElement = styled(Input)`
     height: 80px;
   }
 
-  input {
-    //input in antd has a wrapper(we set color for it)
-    //input field has another default bg color(white),so we need to inherit wapper's color.
+  & input {
     background: inherit;
-    //we need input first,next icon(prefix for input)
-    order: -1;
     border-radius: inherit;
-
-    &::placeholder {
-      font-family: Inter;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 1.5rem;
-
-      color: #2d3436;
-    }
   }
 `;
 
-const InputField: React.FC<InputFieldTypes> = ({ label, name, rules, placeholder, prefix }) => {
+const InputField: React.FC<InputFieldTypes> = ({ label, name, rules, placeholder, suffix, disabled }) => {
   return (
     <StyledFormItem label={label} name={name} rules={rules}>
-      <InputElement placeholder={placeholder} prefix={prefix} />
+      <InputElement placeholder={placeholder} suffix={suffix} disabled={disabled} />
     </StyledFormItem>
   );
 };

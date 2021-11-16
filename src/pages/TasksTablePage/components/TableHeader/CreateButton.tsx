@@ -1,6 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
+// for typing dispatch
+import { ThunkDispatch } from 'redux-thunk';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { actionOpenCreateNewClaimForm } from '../../../../redux/actions';
+import { State } from '../../../../types/stateTypes';
+import { Action } from '../../../../redux/reducer';
+
 import iconPlus from '../../../../assets/TasksTablePage/icons/icon-plus.svg';
 
 const CreateBtn = styled.button`
@@ -38,13 +48,21 @@ const ButtonIcon = styled.img`
   padding: 0;
 `;
 
-const CreateButton: React.FC = () => {
+const CreateButton: React.FC<{ openCreateNewClaimForm?: () => void }> = ({ openCreateNewClaimForm }) => {
   return (
-    <CreateBtn>
+    <CreateBtn onClick={openCreateNewClaimForm}>
       <ButtonIcon src={iconPlus} alt="alt" />
       Create claim
     </CreateBtn>
   );
 };
 
-export default CreateButton;
+const mapDispatchToProps = (dispatch: ThunkDispatch<State, never, Action>) => {
+  const dispatchOpenCreateNewClaimForm = bindActionCreators(actionOpenCreateNewClaimForm, dispatch);
+
+  return {
+    openCreateNewClaimForm: dispatchOpenCreateNewClaimForm,
+  };
+};
+
+export default connect(null, mapDispatchToProps)(CreateButton);

@@ -1,12 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { connect } from 'react-redux';
+
 import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
+
+import { State } from '../../types/stateTypes';
+
 import TasksTable from './components/TasksTable';
 import TableHeader from './components/TableHeader/TableHeader';
 
-import NewClaimTitle from './components/NewClaim/NewClaimTitle';
+import IncomingClaim from './components/IncomingClaim/IncomingClaim';
+
+import { TasksTablePageTypes } from '../../types/tasksTablePageTypes';
 
 const TasksTablePageContainer = styled.div`
   width: 100%;
@@ -28,18 +35,33 @@ const Container = styled(HeaderAndTableWrapper)`
   margin-top: 58px;
 `;
 
-export const TasksTablePage: React.FC = () => {
+const TasksTablePage: React.FC<TasksTablePageTypes> = ({ openCreateNewClaimForm }) => {
+  const TableElement: React.FC = () => {
+    return (
+      <>
+        <TableHeader />
+        <TasksTable />
+      </>
+    );
+  };
+
+  const Element = openCreateNewClaimForm ? IncomingClaim : TableElement;
+
   return (
     <TasksTablePageContainer>
       <Navbar />
       <HeaderAndTableWrapper>
         <Header />
         <Container>
-          <NewClaimTitle />
-          <TableHeader />
-          <TasksTable />
+          <Element />
         </Container>
       </HeaderAndTableWrapper>
     </TasksTablePageContainer>
   );
 };
+
+const mapStateToProps = (state: State) => {
+  return { openCreateNewClaimForm: state.openCreateNewClaimForm };
+};
+
+export default connect(mapStateToProps, null)(TasksTablePage);
