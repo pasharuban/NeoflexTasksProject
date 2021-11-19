@@ -3,9 +3,7 @@ import styled from 'styled-components';
 
 import { ButtonElementTypes } from '../../types/buttonElementTypes';
 
-import breakPoints from '../../breakPoints/breakPoints';
-
-const { larger2000 } = breakPoints;
+import { minWidth } from '../../mediaQueries/mediaQueries';
 
 const ButtonElement = styled.button<ButtonElementTypes>`
   display: flex;
@@ -114,7 +112,7 @@ const ButtonElement = styled.button<ButtonElementTypes>`
     return '1px solid #E5E5E5;';
   }};
 
-  @media screen and (min-width: ${larger2000}) {
+  ${minWidth.largeScreen} {
     height: 80px;
   }
 `;

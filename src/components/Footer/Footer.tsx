@@ -3,14 +3,12 @@ import styled from 'styled-components';
 
 import logo from '../../assets/MainPage/icons/sidebar-logo.svg';
 
-import breakPoints from '../../breakPoints/breakPoints';
-
-const { larger2000 } = breakPoints;
+import { minWidth } from '../../mediaQueries/mediaQueries';
 
 const Logo = styled.img`
   margin: 16px 30px;
 
-  @media screen and (min-width: ${larger2000}) {
+  ${minWidth.largeScreen} {
     width: 3.5%;
   }
 `;

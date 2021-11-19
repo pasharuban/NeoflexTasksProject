@@ -11,7 +11,7 @@ import { State } from '../../types/stateTypes';
 import TasksTable from './components/TasksTable';
 import TableHeader from './components/TableHeader/TableHeader';
 
-import IncomingClaim from './components/IncomingClaim/IncomingClaim';
+import NewClaim from './components/NewClaim/NewClaim';
 
 import { TasksTablePageTypes } from '../../types/tasksTablePageTypes';
 
@@ -45,7 +45,7 @@ const TasksTablePage: React.FC<TasksTablePageTypes> = ({ openCreateNewClaimForm 
     );
   };
 
-  const Element = openCreateNewClaimForm ? IncomingClaim : TableElement;
+  const Element = openCreateNewClaimForm ? NewClaim : TableElement;
 
   return (
     <TasksTablePageContainer>

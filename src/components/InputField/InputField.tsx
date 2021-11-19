@@ -6,9 +6,8 @@ import { Input, Form } from 'antd';
 
 import { InputFieldTypes } from '../../types/inputFieldTypes';
 
-import breakPoints from '../../breakPoints/breakPoints';
+import { minWidth } from '../../mediaQueries/mediaQueries';
 
-const { larger2000 } = breakPoints;
 const placeholderStyles = css`
   font-family: Inter;
   font-style: normal;
@@ -22,6 +21,9 @@ const placeholderStyles = css`
 const StyledFormItem = styled(Form.Item)`
   width: 100%;
 
+  &:last-child {
+    margin-bottom: 0;
+  }
   input {
     &:disabled {
       &::placeholder {
@@ -41,10 +43,9 @@ const InputElement = styled(Input)`
   border: none;
   background: #f0f0f0;
 
-  margin: 0;
   padding: 0 16px;
 
-  @media screen and (min-width: ${larger2000}) {
+  ${minWidth.largeScreen} {
     height: 80px;
   }
 

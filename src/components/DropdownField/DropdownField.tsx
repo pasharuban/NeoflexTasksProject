@@ -4,11 +4,9 @@ import styled from 'styled-components';
 import { Form, Select } from 'antd';
 
 import { DropdownFieldTypes } from '../../types/dropdownFieldTypes';
-import breakPoints from '../../breakPoints/breakPoints';
+import { minWidth } from '../../mediaQueries/mediaQueries';
 
 const { Option } = Select;
-
-const { larger2000 } = breakPoints;
 
 const StyledFormItem = styled(Form.Item)<{ isDisabled?: boolean }>`
   width: 100%;
@@ -54,8 +52,7 @@ const StyledSelect = styled(Select)`
   background: #f0f0f0;
 
   margin: 0;
-
-  @media screen and (min-width: ${larger2000}) {
+  ${minWidth.largeScreen} {
     height: 80px;
   }
 `;

@@ -15,9 +15,7 @@ import RegistrationForm from '../../components/RegistrationForm/RegistrationForm
 
 import mainPageLogo from '../../assets/MainPage/icons/main-page-logo.svg';
 
-import breakPoints from '../../breakPoints/breakPoints';
-
-const { smaller1100, larger2000 } = breakPoints;
+import { minWidth, maxWidth } from '../../mediaQueries/mediaQueries';
 
 const alignCenterCenter = css`
   display: flex;
@@ -40,7 +38,7 @@ const IllustrationSection = styled.div`
 
   ${alignCenterCenter}
 
-  @media screen and (min-width: ${larger2000}) {
+  ${minWidth.largeScreen} {
     padding: 1%;
   }
 `;
@@ -49,10 +47,11 @@ const IllustrationSection = styled.div`
 const LogoAndFormSectionContainer = styled(IllustrationSection)`
   background: white;
 
-  @media screen and (min-width: ${larger2000}) {
+  ${minWidth.largeScreen} {
     padding: 4% 2%;
   }
-  @media screen and (max-width: ${smaller1100}) {
+
+  ${maxWidth.tablet} {
     min-height: 100vh;
   }
 `;
@@ -64,7 +63,7 @@ const MainPageContainer = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media screen and (max-width: ${smaller1100}) {
+  ${maxWidth.tablet} {
     height: 100%;
   }
 `;
@@ -78,7 +77,7 @@ const BeforeSidebarContainer = styled.div`
 
   flex-grow: 5;
 
-  @media screen and (max-width: ${smaller1100}) {
+  ${maxWidth.tablet} {
     flex-wrap: wrap;
   }
 `;
@@ -93,7 +92,7 @@ const LogoFormWrapper = styled.div`
 const MainPageLogo = styled.img`
   margin-bottom: 119px;
 
-  @media screen and (min-width: ${larger2000}) {
+  ${minWidth.largeScreen} {
     width: 15%;
   }
 `;
@@ -104,9 +103,7 @@ const FormContainer = styled.div`
 
   flex: 1 0 auto;
 
-  border: 2px solid red;
-
-  @media screen and (min-width: ${larger2000}) {
+  ${minWidth.largeScreen} {
     max-width: 80%;
   }
 `;

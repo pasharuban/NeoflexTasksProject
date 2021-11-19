@@ -6,6 +6,9 @@ import InputField from '../../InputField/InputField';
 import IconSearch from './IconSearch';
 
 const Container = styled.div`
+  display: flex;
+  align-items: center;
+
   width: 100%;
   max-width: 585px;
 `;
