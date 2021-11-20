@@ -4,20 +4,18 @@ import { css } from 'styled-components';
 
 import { connect } from 'react-redux';
 
-import { Illustration } from './components/Illustration';
-import { Footer } from '../../components/Footer/Footer';
-import LoginForm from '../../components/LoginForm/LoginForm';
-import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
-
 import { State } from '../../types/stateTypes';
+import { MainPageTypes } from '../../types/mainPageTypes';
+
+import Illustration from './components/Illustration';
+import Footer from '../../components/Footer/Footer';
+import LoginForm from '../../components/LoginForm/LoginForm';
+
+import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
 
 import mainPageLogo from '../../assets/MainPage/icons/main-page-logo.svg';
 
-import { MainPageTypes } from '../../types/mainPageTypes';
-
-import breakPoints from '../../breakPoints/breakPoints';
-
-const { smaller1100, larger2000 } = breakPoints;
+import { minWidth, maxWidth } from '../../mediaQueries/mediaQueries';
 
 const alignCenterCenter = css`
   display: flex;
@@ -40,7 +38,7 @@ const IllustrationSection = styled.div`
 
   ${alignCenterCenter}
 
-  @media screen and (min-width: ${larger2000}) {
+  ${minWidth.largeScreen} {
     padding: 1%;
   }
 `;
@@ -49,10 +47,11 @@ const IllustrationSection = styled.div`
 const LogoAndFormSectionContainer = styled(IllustrationSection)`
   background: white;
 
-  @media screen and (min-width: ${larger2000}) {
+  ${minWidth.largeScreen} {
     padding: 4% 2%;
   }
-  @media screen and (max-width: ${smaller1100}) {
+
+  ${maxWidth.tablet} {
     min-height: 100vh;
   }
 `;
@@ -64,7 +63,7 @@ const MainPageContainer = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media screen and (max-width: ${smaller1100}) {
+  ${maxWidth.tablet} {
     height: 100%;
   }
 `;
@@ -78,7 +77,7 @@ const BeforeSidebarContainer = styled.div`
 
   flex-grow: 5;
 
-  @media screen and (max-width: ${smaller1100}) {
+  ${maxWidth.tablet} {
     flex-wrap: wrap;
   }
 `;
@@ -93,23 +92,24 @@ const LogoFormWrapper = styled.div`
 const MainPageLogo = styled.img`
   margin-bottom: 119px;
 
-  @media screen and (min-width: ${larger2000}) {
+  ${minWidth.largeScreen} {
     width: 15%;
   }
 `;
 
 const FormContainer = styled.div`
+  width: 100%;
+  max-width: 466px;
+
   flex: 1 0 auto;
 
-  @media screen and (min-width: ${larger2000}) {
-    width: 80%;
+  ${minWidth.largeScreen} {
+    max-width: 80%;
   }
 `;
 
 export const MainPage: React.FC<MainPageTypes> = ({ openRegForm }) => {
-  let Form = <LoginForm />;
-
-  if (openRegForm) Form = <RegistrationForm />;
+  const Form = openRegForm ? RegistrationForm : LoginForm;
 
   return (
     <MainPageContainer>
@@ -120,7 +120,9 @@ export const MainPage: React.FC<MainPageTypes> = ({ openRegForm }) => {
         <LogoAndFormSectionContainer>
           <LogoFormWrapper>
             <MainPageLogo src={mainPageLogo} alt="company logo" />
-            <FormContainer>{Form}</FormContainer>
+            <FormContainer>
+              <Form />
+            </FormContainer>
           </LogoFormWrapper>
         </LogoAndFormSectionContainer>
       </BeforeSidebarContainer>

@@ -5,6 +5,11 @@ import styled from 'styled-components';
 
 import Data from '../../../redux/Data';
 
+const paginationStyles = {
+  borderColor: '#7db59a',
+  color: 'black',
+};
+
 const columns = [
   {
     title: 'Title',
@@ -34,11 +39,34 @@ const columns = [
 ];
 
 const StyledTable = styled(Table)`
-  width: 93.96%;
+  width: 100%;
 
   align-self: center;
 
-  margin-top: 100px;
+  margin-top: 50px;
+
+  .ant-pagination-item {
+    color: ${paginationStyles.color};
+    & a {
+      color: inherit;
+    }
+
+    &:hover {
+      border-color: ${paginationStyles.borderColor};
+      color: inherit;
+    }
+  }
+
+  .ant-pagination-item-active {
+    border-color: ${paginationStyles.borderColor};
+  }
+
+  .ant-pagination-item-link {
+    &:hover {
+      border-color: ${paginationStyles.borderColor};
+      color: ${paginationStyles.color};
+    }
+  }
 `;
 
 const TasksTable: React.FC = () => {

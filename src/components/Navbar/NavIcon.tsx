@@ -17,7 +17,17 @@ const Container = styled.div`
     margin-bottom: 0;
   }
 
+  @keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
   &:hover {
+    cursor: pointer;
     &::before {
       content: '';
       display: block;
@@ -30,6 +40,8 @@ const Container = styled.div`
       width: 5px;
       height: 40px;
       background-color: #ffffff;
+
+      animation: fadein 1s;
     }
   }
 `;

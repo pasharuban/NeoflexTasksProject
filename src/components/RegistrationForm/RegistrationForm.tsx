@@ -3,16 +3,20 @@ import styled from 'styled-components';
 
 import { connect } from 'react-redux';
 
-import { ItemForm } from '../ItemForm/ItemForm';
+import { MailOutlined, LockOutlined } from '@ant-design/icons';
+
+import ItemForm from '../ItemForm/ItemForm';
+
+import InputField from '../InputField/InputField';
+
+import ButtonElement from '../ButtonElement/ButtonElement';
 
 import closeFormLogo from '../../assets/MainPage/icons/close-form-icon_32.png';
 
 import { mapDispatchToProps } from '../RequestRegistration/RequestRegistration';
 
-const RegistrationFormContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+// styles for prefix(icon) inside input
+const inputPrefixStyles = { color: '#ADADAD', fontSize: '20px' };
 
 const CloseFormLogo = styled.img`
   align-self: flex-end;
@@ -25,12 +29,29 @@ const CloseFormLogo = styled.img`
 
 const RegistrationForm: React.FC<{ updateRegistrationForm?: () => void }> = ({ updateRegistrationForm }) => {
   return (
-    <>
-      <RegistrationFormContainer>
-        <CloseFormLogo onClick={updateRegistrationForm} src={closeFormLogo} alt="close" />
-        <ItemForm buttonText="Sign Up" />
-      </RegistrationFormContainer>
-    </>
+    <ItemForm>
+      <CloseFormLogo onClick={updateRegistrationForm} src={closeFormLogo} alt="close" />
+
+      <InputField
+        label="E-mail"
+        name="username"
+        rules={[{ required: false, message: 'Please input your username!' }]}
+        placeholder="Type your e-mail"
+        suffix={<MailOutlined style={inputPrefixStyles} />}
+      />
+
+      <InputField
+        label="Password"
+        name="password"
+        rules={[{ required: false, message: 'Please input your password!' }]}
+        placeholder="Type your password"
+        suffix={<LockOutlined style={inputPrefixStyles} />}
+      />
+
+      <ButtonElement typeOfButton="filledGreen" width="100%" marginTop="40px">
+        Sign Up
+      </ButtonElement>
+    </ItemForm>
   );
 };
 
