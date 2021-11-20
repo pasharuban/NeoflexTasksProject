@@ -1,9 +1,11 @@
 import React from 'react';
 import { Table } from 'antd';
 
+import { connect } from 'react-redux';
+
 import styled from 'styled-components';
 
-import Data from '../../../redux/Data';
+import { State } from '../../../types/stateTypes';
 
 const paginationStyles = {
   borderColor: '#7db59a',
@@ -18,7 +20,7 @@ const columns = [
   },
   {
     title: 'Created',
-    dataIndex: 'created',
+    dataIndex: 'createdAt',
     key: 'created',
   },
   {
@@ -28,13 +30,14 @@ const columns = [
   },
   {
     title: 'Status',
-    dataIndex: 'status',
+    dataIndex: 'status.name',
     key: 'status',
   },
   {
     title: 'Actions',
     dataIndex: 'actions',
     key: 'actions',
+    render: () => <a>browse</a>,
   },
 ];
 
@@ -69,8 +72,12 @@ const StyledTable = styled(Table)`
   }
 `;
 
-const TasksTable: React.FC = () => {
-  return <StyledTable dataSource={Data} columns={columns} />;
+const TasksTable: React.FC<{ claims?: any[] }> = ({ claims }) => {
+  return <StyledTable dataSource={claims} columns={columns} />;
 };
 
-export default TasksTable;
+const mapStateToProps = (state: State) => {
+  return { claims: state.claims };
+};
+
+export default connect(mapStateToProps, null)(TasksTable);
