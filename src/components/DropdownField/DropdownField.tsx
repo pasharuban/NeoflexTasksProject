@@ -58,11 +58,17 @@ const StyledSelect = styled(Select)`
 `;
 
 const DropdownField: React.FC<DropdownFieldTypes> = ({ label, name, rules, placeholder, allowClear, disabled }) => {
+  const capitalizeFirstLetter = (option: string) => {
+    return option.charAt(0).toUpperCase() + option.slice(1);
+  };
+
   return (
     <StyledFormItem label={label} name={name} rules={rules} isDisabled={!!disabled}>
       <StyledSelect placeholder={placeholder} allowClear={allowClear} disabled={disabled}>
-        <Option value="type1">type1</Option>
-        <Option value="type2">type2</Option>
+        <Option value="hardware">{capitalizeFirstLetter('hardware')}</Option>
+        <Option value="software">{capitalizeFirstLetter('software')}</Option>
+        <Option value="troubleshooting">{capitalizeFirstLetter('troubleshooting')}</Option>
+        <Option value="networking">{capitalizeFirstLetter('networking')}</Option>
       </StyledSelect>
     </StyledFormItem>
   );
