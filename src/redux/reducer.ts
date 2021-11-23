@@ -3,7 +3,10 @@ import { State } from '../types/stateTypes';
 export enum Actions {
   UPDATE_REGISTRATION_FORM = 'UPDATE_REGISTRATION_FORM',
   OPEN_CREATE_NEW_CLAIM_FORM = 'OPEN_CREATE_NEW_CLAIM_FORM',
+  OPEN_INCOMING_CLAIM_FORM = 'OPEN_INCOMING_CLAIM_FORM',
+  CLOSE_INCOMING_CLAIM_FORM = 'CLOSE_INCOMING_CLAIM_FORM',
   CREATE_NEW_CLAIM = 'CREATE_NEW_CLAIM',
+  CHANGE_STATUS_OF_INCOMING_CLAIM = 'CHANGE_STATUS_OF_INCOMING_CLAIM',
 }
 
 export interface Action {
@@ -14,7 +17,9 @@ export interface Action {
 const initialState: State = {
   updateRegistrationForm: false,
   openCreateNewClaimForm: false,
+  openIncomingClaimForm: false,
   userName: 'Ivan Ivanov',
+  currentTableElement: {},
   claims: [
     {
       _id: '61952b6626b99e54076a71b4',
@@ -62,9 +67,9 @@ const initialState: State = {
       _id: '61952b6626b99e54076626b666',
       title: 'Figma smart web system for to build',
       description: 'some description',
-      type: 'software',
+      type: 'Software',
       status: {
-        name: 'in progress',
+        name: 'In progress',
         slug: 'in progress',
       },
       user: '61951d4451c9c5c03333fa49',
@@ -81,7 +86,26 @@ const reducer = (state = initialState, action: Action): State => {
       return { ...state, updateRegistrationForm: !state.updateRegistrationForm };
     case Actions.OPEN_CREATE_NEW_CLAIM_FORM:
       return { ...state, openCreateNewClaimForm: !state.openCreateNewClaimForm };
-    case Actions.CREATE_NEW_CLAIM:
+    case Actions.OPEN_INCOMING_CLAIM_FORM:
+      return { ...state, openIncomingClaimForm: !state.openIncomingClaimForm, currentTableElement: action.payload };
+    case Actions.CLOSE_INCOMING_CLAIM_FORM:
+      return { ...state, openIncomingClaimForm: !state.openIncomingClaimForm, currentTableElement: {} };
+    case Actions.CHANGE_STATUS_OF_INCOMING_CLAIM:
+      const newStatus = {
+        name: action.payload,
+        slug: action.payload,
+      };
+
+      state.currentTableElement.status = newStatus;
+
+      const Claims = state.claims;
+      Claims.forEach((claim) => {
+        if (claim._id === state.currentTableElement._id) claim.status = state.currentTableElement.status;
+      });
+
+      return { ...state, claims: Claims };
+
+    case Actions.CREATE_NEW_CLAIM: 
       const newClaims = state.claims;
       newClaims.push(action.payload);
       return { ...state, claims: newClaims };
@@ -91,3 +115,7 @@ const reducer = (state = initialState, action: Action): State => {
 };
 
 export default reducer;
+
+
+// переделать FormButtons (IncomingClaimForm)
+// reducer 

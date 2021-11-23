@@ -34,7 +34,7 @@ const ButtonElement = styled.button<ButtonElementTypes>`
 
     color: ${(props) => {
       const { typeOfButton } = props;
-      if (typeOfButton === 'notFilled') return '#7DB59A';
+      if (typeOfButton === 'notFilled') return '#c9e6d8';
     }};
 
     border: ${(props) => {

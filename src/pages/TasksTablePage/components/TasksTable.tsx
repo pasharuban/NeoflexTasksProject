@@ -7,6 +7,9 @@ import styled from 'styled-components';
 
 import { State } from '../../../types/stateTypes';
 
+import TableCellBaseFontSize from './TableCellBaseFontSize';
+import ActionCell from './ActionCell';
+
 const paginationStyles = {
   borderColor: '#7db59a',
   color: 'black',
@@ -22,11 +25,7 @@ function convertDateToEurope(dateString: string) {
   return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
 }
 
-const TableCellFontSize = styled.p`
-  font-size: 1.3rem;
-`;
-
-const CellStatusContainer = styled.div<{ status: string }>`
+const CellStatusField = styled.div<{ status: string }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,7 +36,7 @@ const CellStatusContainer = styled.div<{ status: string }>`
 
   background: ${(props) => {
     const { status } = props;
-    switch (status) {
+    switch (status.toLowerCase()) {
       case 'declined':
         return '#E84393';
       case 'new':
@@ -65,7 +64,7 @@ const CellStatusText = styled.p`
   color: #ffffff;
 `;
 
-const CellTypeText = styled(TableCellFontSize)<{ type: string }>`
+const CellTypeText = styled(TableCellBaseFontSize)<{ type: string }>`
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -96,28 +95,18 @@ const CellTypeText = styled(TableCellFontSize)<{ type: string }>`
   }
 `;
 
-const CellActionText = styled(TableCellFontSize)`
-  font-style: normal;
-  font-weight: normal;
-  line-height: 20px;
-
-  text-decoration-line: underline;
-
-  color: #148bff;
-`;
-
 const columns = [
   {
     title: 'Title',
     dataIndex: 'title',
     key: '_id',
-    render: (text: string) => <TableCellFontSize>{text}</TableCellFontSize>,
+    render: (text: string) => <TableCellBaseFontSize>{text}</TableCellBaseFontSize>,
   },
   {
     title: 'Created',
     dataIndex: 'createdAt',
     key: '_id',
-    render: (text: string) => <TableCellFontSize>{convertDateToEurope(text)}</TableCellFontSize>,
+    render: (text: string) => <TableCellBaseFontSize>{convertDateToEurope(text)}</TableCellBaseFontSize>,
   },
   {
     title: 'Type',
@@ -133,16 +122,16 @@ const columns = [
     key: '_id',
     render: (text: string) => {
       return (
-        <CellStatusContainer status={text}>
+        <CellStatusField status={text}>
           <CellStatusText>{text}</CellStatusText>
-        </CellStatusContainer>
+        </CellStatusField>
       );
     },
   },
   {
     title: 'Actions',
     key: '_id',
-    render: () => <CellActionText>{capitalizeFirstLetter('browse')}</CellActionText>,
+    render: (index: Record<string, any>) => <ActionCell index={index} />,
   },
 ];
 
@@ -178,7 +167,7 @@ const StyledTable = styled(Table)`
 `;
 
 const TasksTable: React.FC<{ claims?: any[] }> = ({ claims }) => {
-  return <StyledTable dataSource={claims} columns={columns} />;
+  return <StyledTable rowKey="_id" dataSource={claims} columns={columns} />;
 };
 
 const mapStateToProps = (state: State) => {
