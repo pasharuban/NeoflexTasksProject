@@ -3,6 +3,6 @@ export type InputFieldTypes = {
   name?: string;
   rules?: any;
   suffix?: React.ReactNode;
-  placeholder: string;
+  placeholder?: string;
   disabled?: boolean;
 };

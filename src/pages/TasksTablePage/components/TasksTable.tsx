@@ -10,20 +10,14 @@ import { State } from '../../../types/stateTypes';
 import TableCellBaseFontSize from './TableCellBaseFontSize';
 import ActionCell from './ActionCell';
 
+import { capitalizeFirstLetter } from '../../../utils/HelperFunctions/helperFunctions';
+import { tableTypeBeforeElementBackgroundColor } from '../../../utils/Colors/tableTypeElement';
+import { getEuropeFormatDate } from '../../../utils/HelperFunctions/helperFunctions';
+
 const paginationStyles = {
   borderColor: '#7db59a',
   color: 'black',
 };
-
-const capitalizeFirstLetter = (str: string) => {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-};
-
-function convertDateToEurope(dateString: string) {
-  const date = new Date(dateString);
-
-  return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
-}
 
 const CellStatusField = styled.div<{ status: string }>`
   display: flex;
@@ -77,63 +71,9 @@ const CellTypeText = styled(TableCellBaseFontSize)<{ type: string }>`
     border-radius: 50%;
     margin-right: 16px;
 
-    background-color: ${(props) => {
-      const { type } = props;
-      switch (type.toLowerCase()) {
-        case 'hardware':
-          return '#7DB59A';
-        case 'software':
-          return '#FF7675';
-        case 'networking':
-          return '#FDCB6E';
-        case 'troubleshooting':
-          return '#6C5CE7';
-        default:
-          return 'black';
-      }
-    }};
+    background-color: ${(props) => tableTypeBeforeElementBackgroundColor(props.type)};
   }
 `;
-
-const columns = [
-  {
-    title: 'Title',
-    dataIndex: 'title',
-    key: '_id',
-    render: (text: string) => <TableCellBaseFontSize>{text}</TableCellBaseFontSize>,
-  },
-  {
-    title: 'Created',
-    dataIndex: 'createdAt',
-    key: '_id',
-    render: (text: string) => <TableCellBaseFontSize>{convertDateToEurope(text)}</TableCellBaseFontSize>,
-  },
-  {
-    title: 'Type',
-    dataIndex: 'type',
-    key: '_id',
-    render: (text: string) => {
-      return <CellTypeText type={text}>{capitalizeFirstLetter(text)}</CellTypeText>;
-    },
-  },
-  {
-    title: 'Status',
-    dataIndex: ['status', 'slug'],
-    key: '_id',
-    render: (text: string) => {
-      return (
-        <CellStatusField status={text}>
-          <CellStatusText>{text}</CellStatusText>
-        </CellStatusField>
-      );
-    },
-  },
-  {
-    title: 'Actions',
-    key: '_id',
-    render: (index: Record<string, any>) => <ActionCell index={index} />,
-  },
-];
 
 const StyledTable = styled(Table)`
   width: 100%;
@@ -165,6 +105,46 @@ const StyledTable = styled(Table)`
     }
   }
 `;
+
+const columns = [
+  {
+    title: 'Title',
+    dataIndex: 'title',
+    key: '_id',
+    render: (text: string) => <TableCellBaseFontSize>{text}</TableCellBaseFontSize>,
+  },
+  {
+    title: 'Created',
+    dataIndex: 'createdAt',
+    key: '_id',
+    render: (text: string) => <TableCellBaseFontSize>{getEuropeFormatDate(new Date(text))}</TableCellBaseFontSize>,
+  },
+  {
+    title: 'Type',
+    dataIndex: 'type',
+    key: '_id',
+    render: (text: string) => {
+      return <CellTypeText type={text}>{capitalizeFirstLetter(text)}</CellTypeText>;
+    },
+  },
+  {
+    title: 'Status',
+    dataIndex: ['status', 'slug'],
+    key: '_id',
+    render: (text: string) => {
+      return (
+        <CellStatusField status={text}>
+          <CellStatusText>{text}</CellStatusText>
+        </CellStatusField>
+      );
+    },
+  },
+  {
+    title: 'Actions',
+    key: '_id',
+    render: (index: Record<string, any>) => <ActionCell index={index} />,
+  },
+];
 
 const TasksTable: React.FC<{ claims?: any[] }> = ({ claims }) => {
   return <StyledTable rowKey="_id" dataSource={claims} columns={columns} />;

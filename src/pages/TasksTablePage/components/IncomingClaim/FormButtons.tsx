@@ -36,20 +36,31 @@ const FormButtons: React.FC<IncomingClaimFormButtonsTypes> = ({
   closeIncomingClaimForm,
   changeStatusOfIncomingClaims,
 }) => {
-  const onChangeStatus = (e: any) => {
-    if (e.target.value === 'Decline') e.target.value = `${e.target.value}d`;
-    changeStatusOfIncomingClaims(e.target.value);
-  };
-
   return (
     <Container>
       <FormButton onClick={closeIncomingClaimForm} typeOfButton="notFilled" width="82px" type="button">
         Cancel
       </FormButton>
-      <FormButton onClick={onChangeStatus} typeOfButton="filledGreen" width="82px" value="Done">
+      <FormButton
+        onClick={() => {
+          changeStatusOfIncomingClaims('Done');
+        }}
+        typeOfButton="filledGreen"
+        width="82px"
+        value="Done"
+        type="button"
+      >
         Done
       </FormButton>
-      <FormButton onClick={onChangeStatus} typeOfButton="filledPink" width="82px" value="Decline">
+      <FormButton
+        onClick={() => {
+          changeStatusOfIncomingClaims('Declined');
+        }}
+        typeOfButton="filledPink"
+        width="82px"
+        value="Decline"
+        type="button"
+      >
         Decline
       </FormButton>
     </Container>

@@ -67,7 +67,7 @@ const initialState: State = {
       _id: '61952b6626b99e54076626b666',
       title: 'Figma smart web system for to build',
       description: 'some description',
-      type: 'Software',
+      type: 'troubleshooting',
       status: {
         name: 'In progress',
         slug: 'in progress',
@@ -91,31 +91,26 @@ const reducer = (state = initialState, action: Action): State => {
     case Actions.CLOSE_INCOMING_CLAIM_FORM:
       return { ...state, openIncomingClaimForm: !state.openIncomingClaimForm, currentTableElement: {} };
     case Actions.CHANGE_STATUS_OF_INCOMING_CLAIM:
-      const newStatus = {
-        name: action.payload,
-        slug: action.payload,
+      return {
+        ...state,
+        claims: state.claims.map((claim) => {
+          if (claim._id === state.currentTableElement._id) {
+            claim.status = { name: action.payload, slug: action.payload };
+          }
+
+          return claim;
+        }),
       };
 
-      state.currentTableElement.status = newStatus;
-
-      const Claims = state.claims;
-      Claims.forEach((claim) => {
-        if (claim._id === state.currentTableElement._id) claim.status = state.currentTableElement.status;
-      });
-
-      return { ...state, claims: Claims };
-
-    case Actions.CREATE_NEW_CLAIM: 
-      const newClaims = state.claims;
-      newClaims.push(action.payload);
-      return { ...state, claims: newClaims };
+    case Actions.CREATE_NEW_CLAIM:
+      return {
+        ...state,
+        claims: [...state.claims, action.payload],
+        openCreateNewClaimForm: !state.openCreateNewClaimForm,
+      };
     default:
       return state;
   }
 };
 
 export default reducer;
-
-
-// переделать FormButtons (IncomingClaimForm)
-// reducer 

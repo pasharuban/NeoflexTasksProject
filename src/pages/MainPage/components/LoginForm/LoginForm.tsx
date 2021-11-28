@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { MailOutlined } from '@ant-design/icons';
+import { MailOutlined, LockOutlined } from '@ant-design/icons';
 
-import ItemForm from '../ItemForm/ItemForm';
+import ItemForm from '../../../../components/ItemForm/ItemForm';
 
-import CheckboxField from '../CheckboxField/CheckboxField';
-import InputField from '../InputField/InputField';
+import CheckboxField from '../../../../components/CheckboxField/CheckboxField';
+import InputField from '../../../../components/InputField/InputField';
 
-import ButtonElement from '../ButtonElement/ButtonElement';
+import ButtonElement from '../../../../components/ButtonElement/ButtonElement';
 
 import RequestRegistration from '../RequestRegistration/RequestRegistration';
 
@@ -30,7 +30,7 @@ const LoginForm: React.FC = () => {
         name="password"
         rules={[{ required: false, message: 'Please input your password!' }]}
         placeholder="Type your password"
-        
+        suffix={<LockOutlined style={inputSuffixStyles} />}
       />
 
       <CheckboxField

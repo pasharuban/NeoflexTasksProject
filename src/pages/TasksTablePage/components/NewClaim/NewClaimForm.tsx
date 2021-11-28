@@ -18,6 +18,8 @@ import InputField from '../../../../components/InputField/InputField';
 import FormButtons from './FormButtons';
 import DropdownField from '../../../../components/DropdownField/DropdownField';
 
+const generateUnicId = () => new Date().getTime();
+
 const Container = styled.div`
   width: 100%;
   max-width: 589px;
@@ -25,23 +27,20 @@ const Container = styled.div`
   margin-top: 48px;
 `;
 
-const getSubmitFormDate = (date: Date): string => {
-  return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
-};
-
 const NewClaimForm: React.FC<{ createNewClaim: (values: Record<string, any>) => void }> = ({ createNewClaim }) => {
   const [form] = Form.useForm();
   const onFinish = (values: Record<string, any>) => {
-    form.resetFields();
     const newClaim = {
       ...values,
-      createdAt: getSubmitFormDate(new Date()),
+      _id: generateUnicId(),
+      createdAt: new Date(),
       status: {
         name: 'New',
         slug: 'new',
       },
     };
     createNewClaim(newClaim);
+    form.resetFields();
   };
 
   return (

@@ -29,7 +29,6 @@ const StyledForm = styled(Form)`
     color: #adadad;
 
     &::before {
-      content: '';
       display: none !important;
     }
   }
@@ -39,14 +38,14 @@ const StyledForm = styled(Form)`
   }
 `;
 
-const ItemForm: React.FC<ItemFormTypes> = ({ children, onFinish, form }) => {
+const ItemForm: React.FC<ItemFormTypes> = ({ children, onFinish, form, initialValues }) => {
   return (
     <StyledForm
       form={form}
       className="item-form"
       name="basic"
       labelCol={{ span: 24 }}
-      initialValues={{ remember: true }}
+      initialValues={initialValues}
       autoComplete="off"
       onFinish={(values) => onFinish(values)}
     >

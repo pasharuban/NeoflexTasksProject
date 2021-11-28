@@ -9,9 +9,9 @@ import { MainPageTypes } from '../../types/mainPageTypes';
 
 import Illustration from './components/Illustration';
 import Footer from '../../components/Footer/Footer';
-import LoginForm from '../../components/LoginForm/LoginForm';
+import LoginForm from './components/LoginForm/LoginForm';
 
-import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
+import RegistrationForm from './components/RegistrationForm/RegistrationForm';
 
 import mainPageLogo from '../../assets/MainPage/icons/main-page-logo.svg';
 
@@ -108,7 +108,7 @@ const FormContainer = styled.div`
   }
 `;
 
-export const MainPage: React.FC<MainPageTypes> = ({ openRegForm }) => {
+const MainPage: React.FC<MainPageTypes> = ({ openRegForm }) => {
   const Form = openRegForm ? RegistrationForm : LoginForm;
 
   return (
@@ -135,4 +135,4 @@ const mapStateToProps = (state: State) => {
   return { openRegForm: state.updateRegistrationForm };
 };
 
-export const ConnectedMainPage = connect(mapStateToProps, null)(MainPage);
+export default connect(mapStateToProps, null)(MainPage);
