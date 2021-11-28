@@ -1,42 +1,79 @@
 import React from 'react';
 import { Table } from 'antd';
 
+import { connect } from 'react-redux';
+
 import styled from 'styled-components';
 
-import Data from '../../../redux/Data';
+import { State } from '../../../types/stateTypes';
+
+import TableCellBaseFontSize from './TableCellBaseFontSize';
+import ActionCell from './ActionCell';
+
+import { capitalizeFirstLetter } from '../../../utils/HelperFunctions/helperFunctions';
+import { tableTypeBeforeElementBackgroundColor } from '../../../utils/Colors/tableTypeElement';
+import { getEuropeFormatDate } from '../../../utils/HelperFunctions/helperFunctions';
 
 const paginationStyles = {
   borderColor: '#7db59a',
   color: 'black',
 };
 
-const columns = [
-  {
-    title: 'Title',
-    dataIndex: 'title',
-    key: 'title',
-  },
-  {
-    title: 'Created',
-    dataIndex: 'created',
-    key: 'created',
-  },
-  {
-    title: 'Type',
-    dataIndex: 'type',
-    key: 'type',
-  },
-  {
-    title: 'Status',
-    dataIndex: 'status',
-    key: 'status',
-  },
-  {
-    title: 'Actions',
-    dataIndex: 'actions',
-    key: 'actions',
-  },
-];
+const CellStatusField = styled.div<{ status: string }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 144px;
+  border-radius: 16px;
+  padding: 9px 8px;
+
+  background: ${(props) => {
+    const { status } = props;
+    switch (status.toLowerCase()) {
+      case 'declined':
+        return '#E84393';
+      case 'new':
+        return '#6C5CE7';
+      case 'in progress':
+        return '#FDCB6E';
+      case 'done':
+        return '#00B894';
+      default:
+        return 'black';
+    }
+  }};
+`;
+
+const CellStatusText = styled.p`
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 1rem;
+  line-height: 15px;
+
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+
+  color: #ffffff;
+`;
+
+const CellTypeText = styled(TableCellBaseFontSize)<{ type: string }>`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    margin-right: 16px;
+
+    background-color: ${(props) => tableTypeBeforeElementBackgroundColor(props.type)};
+  }
+`;
 
 const StyledTable = styled(Table)`
   width: 100%;
@@ -69,8 +106,52 @@ const StyledTable = styled(Table)`
   }
 `;
 
-const TasksTable: React.FC = () => {
-  return <StyledTable dataSource={Data} columns={columns} />;
+const columns = [
+  {
+    title: 'Title',
+    dataIndex: 'title',
+    key: '_id',
+    render: (text: string) => <TableCellBaseFontSize>{text}</TableCellBaseFontSize>,
+  },
+  {
+    title: 'Created',
+    dataIndex: 'createdAt',
+    key: '_id',
+    render: (text: string) => <TableCellBaseFontSize>{getEuropeFormatDate(new Date(text))}</TableCellBaseFontSize>,
+  },
+  {
+    title: 'Type',
+    dataIndex: 'type',
+    key: '_id',
+    render: (text: string) => {
+      return <CellTypeText type={text}>{capitalizeFirstLetter(text)}</CellTypeText>;
+    },
+  },
+  {
+    title: 'Status',
+    dataIndex: ['status', 'slug'],
+    key: '_id',
+    render: (text: string) => {
+      return (
+        <CellStatusField status={text}>
+          <CellStatusText>{text}</CellStatusText>
+        </CellStatusField>
+      );
+    },
+  },
+  {
+    title: 'Actions',
+    key: '_id',
+    render: (index: Record<string, any>) => <ActionCell index={index} />,
+  },
+];
+
+const TasksTable: React.FC<{ claims?: any[] }> = ({ claims }) => {
+  return <StyledTable rowKey="_id" dataSource={claims} columns={columns} />;
 };
 
-export default TasksTable;
+const mapStateToProps = (state: State) => {
+  return { claims: state.claims };
+};
+
+export default connect(mapStateToProps, null)(TasksTable);

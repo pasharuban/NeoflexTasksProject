@@ -42,6 +42,7 @@ const InputElement = styled(Input)`
   border-radius: 16px;
   border: none;
   background: #f0f0f0;
+  font-size: 1.5rem;
 
   padding: 0 16px;
 

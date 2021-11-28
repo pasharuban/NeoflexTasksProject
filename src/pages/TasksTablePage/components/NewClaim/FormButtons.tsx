@@ -33,7 +33,7 @@ const Container = styled.div`
 const FormButtons: React.FC<{ openCreateNewClaimForm?: () => void }> = ({ openCreateNewClaimForm }) => {
   return (
     <Container>
-      <FormButton onClick={openCreateNewClaimForm} typeOfButton="notFilled" width="82px">
+      <FormButton onClick={openCreateNewClaimForm} typeOfButton="notFilled" width="82px" type="button">
         Cancel
       </FormButton>
       <FormButton typeOfButton="filledGreen" width="82px">

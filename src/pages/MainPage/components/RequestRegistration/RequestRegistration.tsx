@@ -6,11 +6,11 @@ import { ThunkDispatch } from 'redux-thunk';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { actionUpdateRegistrationForm } from '../../redux/actions';
+import { actionUpdateRegistrationForm } from '../../../../redux/actions';
 
-import { State } from '../../types/stateTypes';
+import { State } from '../../../../types/stateTypes';
 
-import { Action } from '../../redux/reducer';
+import { Action } from '../../../../redux/reducer';
 
 const RequestRegistrationContainer = styled.div`
   width: 100%;

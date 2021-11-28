@@ -1,9 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { connect } from 'react-redux';
+
 import ItemForm from '../../../../components/ItemForm/ItemForm';
 import InputField from '../../../../components/InputField/InputField';
 import DropdownField from '../../../../components/DropdownField/DropdownField';
+import FormButtons from './FormButtons';
+
+import { State } from '../../../../types/stateTypes';
+
+import { capitalizeFirstLetter } from '../../../../utils/HelperFunctions/helperFunctions';
 
 const Container = styled.div`
   width: 100%;
@@ -11,26 +18,24 @@ const Container = styled.div`
 
   margin-top: 48px;
 `;
+const IncomingClaimForm: React.FC<Partial<ReturnType<typeof mapStateToProps>>> = ({ tableElement }) => {
+  const initialValues = {
+    remember: true,
+    title: capitalizeFirstLetter(tableElement?.title),
+    description: capitalizeFirstLetter(tableElement?.description),
+    type: capitalizeFirstLetter(tableElement?.type),
+  };
 
-const StyledInputField = styled(InputField)``;
-
-const IncomingClaimForm: React.FC = () => {
   return (
     <Container>
-      <ItemForm>
-        <StyledInputField
-          label="TITLE"
-          name="title"
-          rules={[{ required: false, message: 'Please input title!' }]}
-          placeholder="Figma smart web system for to build"
-          disabled
-        />
+      <ItemForm initialValues={initialValues}>
+        <InputField label="Title" name="title" rules={[{ required: false, message: 'Please input title!' }]} disabled />
 
         <DropdownField
+          type={tableElement?.type}
           label="type"
           name="type"
           rules={[{ required: false, message: 'Please select a type!' }]}
-          placeholder="Hardware"
           allowClear
           disabled
         />
@@ -39,12 +44,18 @@ const IncomingClaimForm: React.FC = () => {
           label="DESCRIPTION"
           name="description"
           rules={[{ required: false, message: 'Please input description!' }]}
-          placeholder="Some claim description here"
           disabled
         />
+        <FormButtons />
       </ItemForm>
     </Container>
   );
 };
 
-export default IncomingClaimForm;
+const mapStateToProps = (state: State) => {
+  return {
+    tableElement: state.currentTableElement,
+  };
+};
+
+export default connect(mapStateToProps, null)(IncomingClaimForm);

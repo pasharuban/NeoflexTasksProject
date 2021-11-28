@@ -5,6 +5,25 @@ import { ButtonElementTypes } from '../../types/buttonElementTypes';
 
 import { minWidth } from '../../mediaQueries/mediaQueries';
 
+import {
+  buttonElementHoverBackground,
+  buttonElementHoverColor,
+  buttonElementHoverBorder,
+  buttonElementActiveBackground,
+  buttonElementActiveFontWeight,
+  buttonElementActiveColor,
+  buttonElementActiveBorder,
+  buttonElementBackground,
+  buttonElementColor,
+  buttonElementBorder,
+} from '../../utils/Colors/buttonElementColors';
+
+import {
+  buttonElementWidth,
+  buttonElementMarginBottom,
+  buttonElementMarginTop,
+} from '../../utils/Markup/buttonElementMarkup';
+
 const ButtonElement = styled.button<ButtonElementTypes>`
   display: flex;
   align-items: center;
@@ -23,24 +42,24 @@ const ButtonElement = styled.button<ButtonElementTypes>`
 
   transition: all 0.5s;
 
+  ${(props) => buttonElementBackground(props.typeOfButton)};
+  ${(props) => buttonElementColor(props.typeOfButton)};
+  ${(props) => buttonElementBorder(props.typeOfButton)};
+
+  width: ${(props) => buttonElementWidth(props.width)};
+  margin-bottom: ${(props) => buttonElementMarginBottom(props.marginBottom)};
+  margin-top: ${(props) => buttonElementMarginTop(props.marginTop)};
+
+  ${minWidth.largeScreen} {
+    height: 80px;
+  }
+
   &:hover {
     cursor: pointer;
 
-    background: ${(props) => {
-      const { typeOfButton } = props;
-      if (typeOfButton === 'filledGreen') return '#4f896c';
-      if (typeOfButton === 'filledPink') return '#B03671';
-    }};
-
-    color: ${(props) => {
-      const { typeOfButton } = props;
-      if (typeOfButton === 'notFilled') return '#7DB59A';
-    }};
-
-    border: ${(props) => {
-      const { typeOfButton } = props;
-      if (typeOfButton === 'notFilled') return '1px solid #7DB59A';
-    }};
+    ${(props) => buttonElementHoverBackground(props.typeOfButton)};
+    ${(props) => buttonElementHoverColor(props.typeOfButton)};
+    ${(props) => buttonElementHoverBorder(props.typeOfButton)};
   }
 
   &:active,
@@ -48,72 +67,10 @@ const ButtonElement = styled.button<ButtonElementTypes>`
     transition: all 0s;
     cursor: pointer;
 
-    background: ${(props) => {
-      const { typeOfButton } = props;
-      if (typeOfButton === 'filledGreen') return '#4F896C';
-      if (typeOfButton === 'filledPink') return '#832552';
-    }};
-    font-weight: ${(props) => {
-      const { typeOfButton } = props;
-      if (typeOfButton === 'filledGreen') return '900';
-    }};
-
-    color: ${(props) => {
-      const { typeOfButton } = props;
-      if (typeOfButton === 'notFilled') return '#4F896C';
-    }};
-
-    border: ${(props) => {
-      const { typeOfButton } = props;
-      if (typeOfButton === 'notFilled') return '2px solid #4F896C';
-    }};
-  }
-
-  width: ${(props) => {
-    const { width } = props;
-    if (width) return width;
-
-    return 'auto';
-  }};
-
-  margin-bottom: ${(props) => {
-    const { marginBottom } = props;
-    if (marginBottom) return marginBottom;
-
-    return 0;
-  }};
-
-  margin-top: ${(props) => {
-    const { marginTop } = props;
-    if (marginTop) return marginTop;
-
-    return 0;
-  }};
-
-  background: ${(props) => {
-    const { typeOfButton } = props;
-    if (typeOfButton === 'filledGreen') return '#7DB59A';
-    if (typeOfButton === 'filledPink') return '#E84393';
-
-    return 'none';
-  }};
-
-  color: ${(props) => {
-    const { typeOfButton } = props;
-    if (typeOfButton === 'filledGreen' || typeOfButton === 'filledPink') return '#FFFFFF;';
-
-    return '#858585';
-  }};
-
-  border: ${(props) => {
-    const { typeOfButton } = props;
-    if (typeOfButton === 'filledGreen' || typeOfButton === 'filledPink') return 'none';
-
-    return '1px solid #E5E5E5;';
-  }};
-
-  ${minWidth.largeScreen} {
-    height: 80px;
+    ${(props) => buttonElementActiveBackground(props.typeOfButton)};
+    ${(props) => buttonElementActiveFontWeight(props.typeOfButton)};
+    ${(props) => buttonElementActiveColor(props.typeOfButton)};
+    ${(props) => buttonElementActiveBorder(props.typeOfButton)};
   }
 `;
 

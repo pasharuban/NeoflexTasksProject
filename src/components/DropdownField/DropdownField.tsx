@@ -6,12 +6,17 @@ import { Form, Select } from 'antd';
 import { DropdownFieldTypes } from '../../types/dropdownFieldTypes';
 import { minWidth } from '../../mediaQueries/mediaQueries';
 
+import { capitalizeFirstLetter } from '../../utils/HelperFunctions/helperFunctions';
+import { tableTypeBeforeElementBackgroundColor } from '../../utils/Colors/tableTypeElement';
+
 const { Option } = Select;
 
-const StyledFormItem = styled(Form.Item)<{ isDisabled?: boolean }>`
+const StyledFormItem = styled(Form.Item)<{ $isDisabled?: boolean; type?: string }>`
   width: 100%;
 
   .ant-select {
+    font-size: 1.5rem;
+
     .ant-select-selector {
       background-color: inherit;
       border-radius: inherit;
@@ -22,6 +27,17 @@ const StyledFormItem = styled(Form.Item)<{ isDisabled?: boolean }>`
       padding: 0 16px;
       display: flex;
       align-items: center;
+
+      &::before {
+        content: ${(props) => (props.type ? `''` : ``)};
+        display: block;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        margin-right: 16px;
+
+        background-color: ${(props) => tableTypeBeforeElementBackgroundColor(props.type)};
+      }
     }
 
     .ant-select-arrow {
@@ -30,17 +46,15 @@ const StyledFormItem = styled(Form.Item)<{ isDisabled?: boolean }>`
     }
 
     .ant-select-selection-placeholder {
+      display: flex;
+      align-items: center;
+
       font-family: Inter;
       font-style: normal;
       font-weight: normal;
       font-size: 1.5rem;
 
-      color: ${(props) => {
-        const { isDisabled } = props;
-        if (isDisabled) return '#ADADAD';
-
-        return '#2d3436';
-      }};
+      color: #2d3436;
     }
   }
 `;
@@ -57,12 +71,22 @@ const StyledSelect = styled(Select)`
   }
 `;
 
-const DropdownField: React.FC<DropdownFieldTypes> = ({ label, name, rules, placeholder, allowClear, disabled }) => {
+const DropdownField: React.FC<DropdownFieldTypes> = ({
+  label,
+  name,
+  rules,
+  placeholder,
+  allowClear,
+  disabled,
+  type,
+}) => {
   return (
-    <StyledFormItem label={label} name={name} rules={rules} isDisabled={!!disabled}>
+    <StyledFormItem label={label} name={name} rules={rules} $isDisabled={!!disabled} type={type}>
       <StyledSelect placeholder={placeholder} allowClear={allowClear} disabled={disabled}>
-        <Option value="type1">type1</Option>
-        <Option value="type2">type2</Option>
+        <Option value="hardware">{capitalizeFirstLetter('hardware')}</Option>
+        <Option value="software">{capitalizeFirstLetter('software')}</Option>
+        <Option value="troubleshooting">{capitalizeFirstLetter('troubleshooting')}</Option>
+        <Option value="networking">{capitalizeFirstLetter('networking')}</Option>
       </StyledSelect>
     </StyledFormItem>
   );

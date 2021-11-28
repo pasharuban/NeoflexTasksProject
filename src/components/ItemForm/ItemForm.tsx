@@ -3,6 +3,8 @@ import styled from 'styled-components';
 
 import { Form } from 'antd';
 
+import { ItemFormTypes } from '../../types/itemFormTypes';
+
 // customizing antd Form styles
 const StyledForm = styled(Form)`
   width: 100%;
@@ -25,6 +27,10 @@ const StyledForm = styled(Form)`
     text-transform: uppercase;
 
     color: #adadad;
+
+    &::before {
+      display: none !important;
+    }
   }
 
   & .ant-form-item:last-of-type {
@@ -32,14 +38,16 @@ const StyledForm = styled(Form)`
   }
 `;
 
-const ItemForm: React.FC = ({ children }) => {
+const ItemForm: React.FC<ItemFormTypes> = ({ children, onFinish, form, initialValues }) => {
   return (
     <StyledForm
+      form={form}
       className="item-form"
       name="basic"
       labelCol={{ span: 24 }}
-      initialValues={{ remember: true }}
+      initialValues={initialValues}
       autoComplete="off"
+      onFinish={(values) => onFinish(values)}
     >
       {children}
     </StyledForm>

@@ -12,6 +12,7 @@ import TasksTable from './components/TasksTable';
 import TableHeader from './components/TableHeader/TableHeader';
 
 import NewClaim from './components/NewClaim/NewClaim';
+import IncomingClaim from './components/IncomingClaim/IncomingClaim';
 
 import { TasksTablePageTypes } from '../../types/tasksTablePageTypes';
 
@@ -35,7 +36,7 @@ const Container = styled(HeaderAndTableWrapper)`
   margin-top: 58px;
 `;
 
-const TasksTablePage: React.FC<TasksTablePageTypes> = ({ openCreateNewClaimForm }) => {
+const TasksTablePage: React.FC<TasksTablePageTypes> = ({ openCreateNewClaimForm, openIncomingClaimForm }) => {
   const TableElement: React.FC = () => {
     return (
       <>
@@ -45,7 +46,11 @@ const TasksTablePage: React.FC<TasksTablePageTypes> = ({ openCreateNewClaimForm 
     );
   };
 
-  const Element = openCreateNewClaimForm ? NewClaim : TableElement;
+  let Element = TableElement;
+
+  if (openCreateNewClaimForm) Element = NewClaim;
+  else if (openIncomingClaimForm) Element = IncomingClaim;
+  else Element = TableElement;
 
   return (
     <TasksTablePageContainer>
@@ -61,7 +66,7 @@ const TasksTablePage: React.FC<TasksTablePageTypes> = ({ openCreateNewClaimForm 
 };
 
 const mapStateToProps = (state: State) => {
-  return { openCreateNewClaimForm: state.openCreateNewClaimForm };
+  return { openCreateNewClaimForm: state.openCreateNewClaimForm, openIncomingClaimForm: state.openIncomingClaimForm };
 };
 
 export default connect(mapStateToProps, null)(TasksTablePage);

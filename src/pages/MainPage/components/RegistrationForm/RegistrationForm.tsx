@@ -5,18 +5,18 @@ import { connect } from 'react-redux';
 
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
 
-import ItemForm from '../ItemForm/ItemForm';
+import ItemForm from '../../../../components/ItemForm/ItemForm';
 
-import InputField from '../InputField/InputField';
+import InputField from '../../../../components/InputField/InputField';
 
-import ButtonElement from '../ButtonElement/ButtonElement';
+import ButtonElement from '../../../../components/ButtonElement/ButtonElement';
 
-import closeFormLogo from '../../assets/MainPage/icons/close-form-icon_32.png';
+import closeFormLogo from '../../../../assets/MainPage/icons/close-form-icon_32.png';
 
 import { mapDispatchToProps } from '../RequestRegistration/RequestRegistration';
 
-// styles for prefix(icon) inside input
-const inputPrefixStyles = { color: '#ADADAD', fontSize: '20px' };
+// styles for suffix(icon) inside input
+const inputSuffixStyles = { color: '#ADADAD', fontSize: '20px' };
 
 const CloseFormLogo = styled.img`
   align-self: flex-end;
@@ -37,7 +37,7 @@ const RegistrationForm: React.FC<{ updateRegistrationForm?: () => void }> = ({ u
         name="username"
         rules={[{ required: false, message: 'Please input your username!' }]}
         placeholder="Type your e-mail"
-        suffix={<MailOutlined style={inputPrefixStyles} />}
+        suffix={<MailOutlined style={inputSuffixStyles} />}
       />
 
       <InputField
@@ -45,7 +45,7 @@ const RegistrationForm: React.FC<{ updateRegistrationForm?: () => void }> = ({ u
         name="password"
         rules={[{ required: false, message: 'Please input your password!' }]}
         placeholder="Type your password"
-        suffix={<LockOutlined style={inputPrefixStyles} />}
+        suffix={<LockOutlined style={inputSuffixStyles} />}
       />
 
       <ButtonElement typeOfButton="filledGreen" width="100%" marginTop="40px">

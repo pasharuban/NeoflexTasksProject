@@ -1,6 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 
+// for typing dispatch
+import { ThunkDispatch } from 'redux-thunk';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { actionCloseIncomingClaimForm, actionChangeStatusOfIncomingClaim } from '../../../../redux/actions';
+
+import { State } from '../../../../types/stateTypes';
+import { Action } from '../../../../redux/reducer';
+
+import { IncomingClaimFormButtonsTypes } from '../../../../types/incomingClaimFormButtonsTypes';
+
 import ButtonElement from '../../../../components/ButtonElement/ButtonElement';
 
 const FormButton = styled(ButtonElement)`
@@ -19,20 +32,52 @@ const Container = styled.div`
   margin-top: 34px;
 `;
 
-const FormButtons: React.FC = () => {
+const FormButtons: React.FC<IncomingClaimFormButtonsTypes> = ({
+  closeIncomingClaimForm,
+  changeStatusOfIncomingClaims,
+}) => {
   return (
     <Container>
-      <FormButton typeOfButton="notFilled" width="82px">
+      <FormButton onClick={closeIncomingClaimForm} typeOfButton="notFilled" width="82px" type="button">
         Cancel
       </FormButton>
-      <FormButton typeOfButton="filledGreen" width="82px">
+      <FormButton
+        onClick={() => {
+          changeStatusOfIncomingClaims('Done');
+        }}
+        typeOfButton="filledGreen"
+        width="82px"
+        value="Done"
+        type="button"
+      >
         Done
       </FormButton>
-      <FormButton typeOfButton="filledPink" width="82px">
+      <FormButton
+        onClick={() => {
+          changeStatusOfIncomingClaims('Declined');
+        }}
+        typeOfButton="filledPink"
+        width="82px"
+        value="Decline"
+        type="button"
+      >
         Decline
       </FormButton>
     </Container>
   );
 };
 
-export default FormButtons;
+const mapDispatchToProps = (dispatch: ThunkDispatch<State, never, Action>) => {
+  const dispatchCloseIncomingClaimForm = bindActionCreators(actionCloseIncomingClaimForm, dispatch);
+  const dispatchChangeStatusOfIncomingClaims = bindActionCreators(actionChangeStatusOfIncomingClaim, dispatch);
+
+  return {
+    closeIncomingClaimForm: dispatchCloseIncomingClaimForm,
+
+    changeStatusOfIncomingClaims: (status: string) => {
+      dispatchChangeStatusOfIncomingClaims(status);
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(FormButtons);
