@@ -19,7 +19,20 @@ const initialState: State = {
   openCreateNewClaimForm: false,
   openIncomingClaimForm: false,
   userName: 'Ivan Ivanov',
-  currentTableElement: {},
+  currentTableElement: {
+    _id: '61952b6626b99e54076626b666',
+    title: 'Figma smart web system for to build',
+    description: 'some description',
+    type: 'troubleshooting',
+    status: {
+      name: 'In progress',
+      slug: 'in progress',
+    },
+    user: '61951d4451c9c5c03333fa49',
+    createdAt: '2021-11-12T16:18:46.981Z',
+    updatedAt: '2021-11-17T16:18:46.981Z',
+    __v: 0,
+  },
   claims: [
     {
       _id: '61952b6626b99e54076a71b4',

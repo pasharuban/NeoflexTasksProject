@@ -1,20 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { connect } from 'react-redux';
-
 import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
 
-import { State } from '../../types/stateTypes';
-
-import TasksTable from './components/TasksTable';
-import TableHeader from './components/TableHeader/TableHeader';
-
-import NewClaim from './components/NewClaim/NewClaim';
-import IncomingClaim from './components/IncomingClaim/IncomingClaim';
-
 import { TasksTablePageTypes } from '../../types/tasksTablePageTypes';
+
+import TasksTablePageSwitch from './TaskTablePageSwitch';
 
 const TasksTablePageContainer = styled.div`
   width: 100%;
@@ -36,37 +28,18 @@ const Container = styled(HeaderAndTableWrapper)`
   margin-top: 58px;
 `;
 
-const TasksTablePage: React.FC<TasksTablePageTypes> = ({ openCreateNewClaimForm, openIncomingClaimForm }) => {
-  const TableElement: React.FC = () => {
-    return (
-      <>
-        <TableHeader />
-        <TasksTable />
-      </>
-    );
-  };
-
-  let Element = TableElement;
-
-  if (openCreateNewClaimForm) Element = NewClaim;
-  else if (openIncomingClaimForm) Element = IncomingClaim;
-  else Element = TableElement;
-
+const TasksTablePage: React.FC<TasksTablePageTypes> = () => {
   return (
     <TasksTablePageContainer>
       <Navbar />
       <HeaderAndTableWrapper>
         <Header />
         <Container>
-          <Element />
+          <TasksTablePageSwitch />
         </Container>
       </HeaderAndTableWrapper>
     </TasksTablePageContainer>
   );
 };
 
-const mapStateToProps = (state: State) => {
-  return { openCreateNewClaimForm: state.openCreateNewClaimForm, openIncomingClaimForm: state.openIncomingClaimForm };
-};
-
-export default connect(mapStateToProps, null)(TasksTablePage);
+export default TasksTablePage;

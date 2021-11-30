@@ -1,18 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-// for typing dispatch
-import { ThunkDispatch } from 'redux-thunk';
+import { useHistory, useRouteMatch } from 'react-router';
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
-import { actionOpenCreateNewClaimForm } from '../../../../redux/actions';
-import { State } from '../../../../types/stateTypes';
-import { Action } from '../../../../redux/reducer';
 import ButtonElement from '../../../../components/ButtonElement/ButtonElement';
 
 import iconPlus from '../../../../assets/TasksTablePage/icons/icon-plus.svg';
+
+import { routes } from '../../../../routes/routes';
 
 const CreateBtn = styled(ButtonElement)`
   display: flex;
@@ -22,21 +17,24 @@ const CreateBtn = styled(ButtonElement)`
 
 const ButtonIcon = styled.img``;
 
-const CreateButton: React.FC<{ openCreateNewClaimForm?: () => void }> = ({ openCreateNewClaimForm }) => {
+const onHandleRedirectToCreateNewClaimForm = (history: Record<string, any>, url: string) => {
+  history.push(`${url}${routes.create}`);
+};
+
+const CreateButton: React.FC = () => {
+  const history = useHistory();
+  const { url } = useRouteMatch();
+
   return (
-    <CreateBtn onClick={openCreateNewClaimForm} typeOfButton="filledGreen" width="174px">
+    <CreateBtn
+      onClick={() => onHandleRedirectToCreateNewClaimForm(history, url)}
+      typeOfButton="filledGreen"
+      width="174px"
+    >
       <ButtonIcon src={iconPlus} alt="alt" />
       Create claim
     </CreateBtn>
   );
 };
 
-const mapDispatchToProps = (dispatch: ThunkDispatch<State, never, Action>) => {
-  const dispatchOpenCreateNewClaimForm = bindActionCreators(actionOpenCreateNewClaimForm, dispatch);
-
-  return {
-    openCreateNewClaimForm: dispatchOpenCreateNewClaimForm,
-  };
-};
-
-export default connect(null, mapDispatchToProps)(CreateButton);
+export default CreateButton;

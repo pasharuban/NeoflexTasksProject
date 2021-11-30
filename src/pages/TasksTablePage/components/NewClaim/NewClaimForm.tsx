@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router';
 
 // for typing dispatch
 import { ThunkDispatch } from 'redux-thunk';
@@ -29,6 +30,8 @@ const Container = styled.div`
 
 const NewClaimForm: React.FC<{ createNewClaim: (values: Record<string, any>) => void }> = ({ createNewClaim }) => {
   const [form] = Form.useForm();
+  const history = useHistory();
+
   const onFinish = (values: Record<string, any>) => {
     const newClaim = {
       ...values,
@@ -41,6 +44,7 @@ const NewClaimForm: React.FC<{ createNewClaim: (values: Record<string, any>) => 
     };
     createNewClaim(newClaim);
     form.resetFields();
+    history.push('/dashboard');
   };
 
   return (

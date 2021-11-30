@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { NavIconTypes } from '../../types/navIconTypes';
+
 const Icon = styled.img``;
 
 const Container = styled.div`
@@ -46,9 +48,9 @@ const Container = styled.div`
   }
 `;
 
-const NavIcon: React.FC<{ src: string; alt: string }> = ({ src, alt }) => {
+const NavIcon: React.FC<NavIconTypes> = ({ src, alt, onClick }) => {
   return (
-    <Container>
+    <Container onClick={onClick}>
       <Icon src={src} alt={alt} />
     </Container>
   );

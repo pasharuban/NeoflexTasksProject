@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+
+import { useHistory, useRouteMatch } from 'react-router';
 // for typing dispatch
 import { ThunkDispatch } from 'redux-thunk';
 
@@ -35,10 +37,14 @@ const CellActionWrapper: React.FC<{
   openIncomingClaimForm: (index: Record<string, any>) => void;
   index: Record<string, any>;
 }> = ({ openIncomingClaimForm, index }) => {
+  const history = useHistory();
+  const { url } = useRouteMatch();
+
   return (
     <CellActionText
       onClick={() => {
         openIncomingClaimForm(index);
+        history.push(`${url}/claim_${index._id}`);
       }}
     >
       {capitalizeFirstLetter('browse')}
