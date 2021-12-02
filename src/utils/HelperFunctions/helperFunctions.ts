@@ -8,6 +8,6 @@ export const getEuropeFormatDate = (date: Date): string => {
   return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
 };
 
-export const onHandleRedirectToDashboard = (history: Record<string, any>) => {
+export const handleRedirectToDashboard = (history: Record<string, any>) => {
   history.push(routes.dashboard);
 };

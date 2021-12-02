@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useHistory } from 'react-router';
 
 import ButtonElement from '../../../../components/ButtonElement/ButtonElement';
-import { onHandleRedirectToDashboard } from '../../../../utils/HelperFunctions/helperFunctions';
+import { handleRedirectToDashboard } from '../../../../utils/HelperFunctions/helperFunctions';
 
 const FormButton = styled(ButtonElement)`
   margin-right: 30px;
@@ -28,7 +28,7 @@ const FormButtons: React.FC = () => {
   return (
     <Container>
       <FormButton
-        onClick={() => onHandleRedirectToDashboard(history)}
+        onClick={() => handleRedirectToDashboard(history)}
         typeOfButton="notFilled"
         width="82px"
         type="button"
