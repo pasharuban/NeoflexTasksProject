@@ -13,7 +13,7 @@ import iconDollarSign from '../../assets/TasksTablePage/icons/icon-dollar-sign.s
 import iconDatabase from '../../assets/TasksTablePage/icons/icon-database.svg';
 import iconNavigation from '../../assets/TasksTablePage/icons/icon-navigation.svg';
 
-import { onHandleRedirectToDashboard } from '../../utils/HelperFunctions/helperFunctions';
+import { handleRedirectToDashboard } from '../../utils/HelperFunctions/helperFunctions';
 
 const IconsContainer = styled.div`
   display: flex;
@@ -31,7 +31,7 @@ const NavigationMenu: React.FC = () => {
     <IconsContainer>
       <NavIcon
         onClick={() => {
-          onHandleRedirectToDashboard(history);
+          handleRedirectToDashboard(history);
         }}
         src={iconHome}
         alt="home"

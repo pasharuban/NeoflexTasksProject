@@ -19,6 +19,8 @@ import InputField from '../../../../components/InputField/InputField';
 import FormButtons from './FormButtons';
 import DropdownField from '../../../../components/DropdownField/DropdownField';
 
+import { handleRedirectToDashboard } from '../../../../utils/HelperFunctions/helperFunctions';
+
 const generateUnicId = () => new Date().getTime();
 
 const Container = styled.div`
@@ -44,7 +46,7 @@ const NewClaimForm: React.FC<{ createNewClaim: (values: Record<string, any>) => 
     };
     createNewClaim(newClaim);
     form.resetFields();
-    history.push('/dashboard');
+    handleRedirectToDashboard(history);
   };
 
   return (

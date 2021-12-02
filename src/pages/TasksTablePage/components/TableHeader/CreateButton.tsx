@@ -13,6 +13,7 @@ const CreateBtn = styled(ButtonElement)`
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  width: 174px;
 `;
 
 const ButtonIcon = styled.img``;
@@ -26,11 +27,7 @@ const CreateButton: React.FC = () => {
   const { url } = useRouteMatch();
 
   return (
-    <CreateBtn
-      onClick={() => onHandleRedirectToCreateNewClaimForm(history, url)}
-      typeOfButton="filledGreen"
-      width="174px"
-    >
+    <CreateBtn onClick={() => onHandleRedirectToCreateNewClaimForm(history, url)} typeOfButton="filledGreen">
       <ButtonIcon src={iconPlus} alt="alt" />
       Create claim
     </CreateBtn>

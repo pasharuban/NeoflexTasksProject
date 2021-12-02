@@ -15,7 +15,7 @@ import { State } from '../../../../types/stateTypes';
 import { Action } from '../../../../redux/reducer';
 
 import { IncomingClaimFormButtonsTypes } from '../../../../types/incomingClaimFormButtonsTypes';
-import { onHandleRedirectToDashboard } from '../../../../utils/HelperFunctions/helperFunctions';
+import { handleRedirectToDashboard } from '../../../../utils/HelperFunctions/helperFunctions';
 
 import ButtonElement from '../../../../components/ButtonElement/ButtonElement';
 
@@ -41,7 +41,7 @@ const FormButtons: React.FC<IncomingClaimFormButtonsTypes> = ({ changeStatusOfIn
   return (
     <Container>
       <FormButton
-        onClick={() => onHandleRedirectToDashboard(history)}
+        onClick={() => handleRedirectToDashboard(history)}
         typeOfButton="notFilled"
         width="82px"
         type="button"

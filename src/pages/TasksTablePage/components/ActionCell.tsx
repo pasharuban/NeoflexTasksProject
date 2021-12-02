@@ -44,7 +44,7 @@ const CellActionWrapper: React.FC<{
     <CellActionText
       onClick={() => {
         openIncomingClaimForm(index);
-        history.push(`${url}/claim_${index._id}`);
+        history.push(`${url}/${index._id}`);
       }}
     >
       {capitalizeFirstLetter('browse')}
