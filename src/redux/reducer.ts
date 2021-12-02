@@ -7,6 +7,7 @@ export enum Actions {
   CLOSE_INCOMING_CLAIM_FORM = 'CLOSE_INCOMING_CLAIM_FORM',
   CREATE_NEW_CLAIM = 'CREATE_NEW_CLAIM',
   CHANGE_STATUS_OF_INCOMING_CLAIM = 'CHANGE_STATUS_OF_INCOMING_CLAIM',
+  UPDATE_CURRENT_TABLE_ELEMENT = 'UPDATE_CURRENT_TABLE_ELEMENT',
 }
 
 export interface Action {
@@ -108,6 +109,8 @@ const reducer = (state = initialState, action: Action): State => {
         claims: [...state.claims, action.payload],
         openCreateNewClaimForm: !state.openCreateNewClaimForm,
       };
+    case Actions.UPDATE_CURRENT_TABLE_ELEMENT:
+      return { ...state, openIncomingClaimForm: true, currentTableElement: action.payload };
     default:
       return state;
   }

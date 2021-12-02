@@ -17,3 +17,8 @@ export const actionCreateNewClaim = (newClaim: Record<string, any>) => ({
   type: Actions.CREATE_NEW_CLAIM,
   payload: newClaim,
 });
+
+export const actionUpdateCurrentTableElement = (currentTableElement: Record<string, any>) => ({
+  type: Actions.UPDATE_CURRENT_TABLE_ELEMENT,
+  payload: currentTableElement,
+});

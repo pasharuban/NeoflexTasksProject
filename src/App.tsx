@@ -1,11 +1,14 @@
 import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-import TasksTablePage from './pages/TasksTablePage/TasksTablePage';
-
-/* import MainPage from './pages/MainPage/MainPage'; */
+import AppSwitch from './AppSwitch';
 
 function App() {
-  return <TasksTablePage />;
+  return (
+    <Router>
+      <AppSwitch />
+    </Router>
+  );
 }
 
 export default App;

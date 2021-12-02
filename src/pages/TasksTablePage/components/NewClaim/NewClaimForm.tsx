@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router';
 
 // for typing dispatch
 import { ThunkDispatch } from 'redux-thunk';
@@ -18,6 +19,8 @@ import InputField from '../../../../components/InputField/InputField';
 import FormButtons from './FormButtons';
 import DropdownField from '../../../../components/DropdownField/DropdownField';
 
+import { handleRedirectToDashboard } from '../../../../utils/HelperFunctions/helperFunctions';
+
 const generateUnicId = () => new Date().getTime();
 
 const Container = styled.div`
@@ -29,6 +32,8 @@ const Container = styled.div`
 
 const NewClaimForm: React.FC<{ createNewClaim: (values: Record<string, any>) => void }> = ({ createNewClaim }) => {
   const [form] = Form.useForm();
+  const history = useHistory();
+
   const onFinish = (values: Record<string, any>) => {
     const newClaim = {
       ...values,
@@ -41,6 +46,7 @@ const NewClaimForm: React.FC<{ createNewClaim: (values: Record<string, any>) => 
     };
     createNewClaim(newClaim);
     form.resetFields();
+    handleRedirectToDashboard(history);
   };
 
   return (
