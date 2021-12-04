@@ -32,8 +32,6 @@ const IllustrationSection = styled.div`
 
   flex-grow: 1;
 
-  padding: 5%;
-
   background: rgba(211, 237, 225, 0.97);
 
   ${alignCenterCenter}
@@ -46,6 +44,8 @@ const IllustrationSection = styled.div`
 // override styles,because it has same,except bg.
 const LogoAndFormSectionContainer = styled(IllustrationSection)`
   background: white;
+
+  padding: 3%;
 
   ${minWidth.largeScreen} {
     padding: 4% 2%;

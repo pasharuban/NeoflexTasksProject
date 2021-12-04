@@ -20,7 +20,6 @@ const inputSuffixStyles = { color: '#ADADAD', fontSize: '20px' };
 
 const CloseFormLogo = styled.img`
   align-self: flex-end;
-  margin-bottom: 30px;
 
   &:hover {
     transform: scale(1.1);
@@ -31,6 +30,12 @@ const RegistrationForm: React.FC<{ updateRegistrationForm?: () => void }> = ({ u
   return (
     <ItemForm>
       <CloseFormLogo onClick={updateRegistrationForm} src={closeFormLogo} alt="close" />
+      <InputField
+        label="Name"
+        name="name"
+        rules={[{ required: false, message: 'Please input your name!' }]}
+        placeholder="Type your name"
+      />
 
       <InputField
         label="E-mail"
