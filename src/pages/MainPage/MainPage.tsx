@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { css } from 'styled-components';
 
+import { useHistory } from 'react-router';
+
 import { connect } from 'react-redux';
 
 import { State } from '../../types/stateTypes';
@@ -10,6 +12,10 @@ import { MainPageTypes } from '../../types/mainPageTypes';
 import Illustration from './components/Illustration';
 import Footer from '../../components/Footer/Footer';
 import LoginForm from './components/LoginForm/LoginForm';
+
+import RegistrationError from '../../components/RegistrationError/RegistrationError';
+
+import { handleRedirectToDashboard } from '../../utils/HelperFunctions/helperFunctions';
 
 import RegistrationForm from './components/RegistrationForm/RegistrationForm';
 
@@ -31,6 +37,8 @@ const IllustrationSection = styled.div`
   min-height: 100%;
 
   flex-grow: 1;
+
+  padding: 1%;
 
   background: rgba(211, 237, 225, 0.97);
 
@@ -108,8 +116,14 @@ const FormContainer = styled.div`
   }
 `;
 
-const MainPage: React.FC<MainPageTypes> = ({ openRegForm }) => {
-  const Form = openRegForm ? RegistrationForm : LoginForm;
+const MainPage: React.FC<MainPageTypes> = ({ openRegForm, userData, registrationError }) => {
+  let FormElement = openRegForm ? RegistrationForm : LoginForm;
+
+  if (registrationError) FormElement = RegistrationError;
+
+  const history = useHistory();
+
+  if (userData) handleRedirectToDashboard(history);
 
   return (
     <MainPageContainer>
@@ -121,7 +135,7 @@ const MainPage: React.FC<MainPageTypes> = ({ openRegForm }) => {
           <LogoFormWrapper>
             <MainPageLogo src={mainPageLogo} alt="company logo" />
             <FormContainer>
-              <Form />
+              <FormElement />
             </FormContainer>
           </LogoFormWrapper>
         </LogoAndFormSectionContainer>
@@ -132,7 +146,11 @@ const MainPage: React.FC<MainPageTypes> = ({ openRegForm }) => {
 };
 
 const mapStateToProps = (state: State) => {
-  return { openRegForm: state.updateRegistrationForm };
+  return {
+    openRegForm: state.updateRegistrationForm,
+    userData: state.userData,
+    registrationError: state.registrationError,
+  };
 };
 
 export default connect(mapStateToProps, null)(MainPage);

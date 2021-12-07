@@ -1,3 +1,5 @@
+import { RegistrationDataTypes } from './registrationDataTypes';
+
 export type State = {
   updateRegistrationForm: boolean;
   openCreateNewClaimForm: boolean;
@@ -5,4 +7,8 @@ export type State = {
   userName: string;
   claims: any[];
   currentTableElement: Record<string, any>;
+  loading: boolean;
+  userData: RegistrationDataTypes | null;
+  registrationError: boolean | null;
+  errorMessage: string;
 };

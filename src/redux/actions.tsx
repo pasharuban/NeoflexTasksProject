@@ -22,3 +22,7 @@ export const actionUpdateCurrentTableElement = (currentTableElement: Record<stri
   type: Actions.UPDATE_CURRENT_TABLE_ELEMENT,
   payload: currentTableElement,
 });
+
+export const closeErrorMessage = () => ({
+  type: Actions.CLOSE_ERROR_MESSAGE,
+});

@@ -56,10 +56,10 @@ const InputElement = styled(Input)`
   }
 `;
 
-const InputField: React.FC<InputFieldTypes> = ({ label, name, rules, placeholder, suffix, disabled }) => {
+const InputField: React.FC<InputFieldTypes> = ({ label, name, rules, placeholder, suffix, disabled, type }) => {
   return (
     <StyledFormItem label={label} name={name} rules={rules}>
-      <InputElement placeholder={placeholder} suffix={suffix} disabled={disabled} />
+      <InputElement placeholder={placeholder} suffix={suffix} disabled={disabled} type={type} />
     </StyledFormItem>
   );
 };

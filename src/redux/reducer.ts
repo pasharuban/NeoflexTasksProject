@@ -1,4 +1,5 @@
 import { State } from '../types/stateTypes';
+import { REGISTRATION_SUCCESS, REGISTRATION_FAILURE, REGISTRATION_STARTED } from './actions/types';
 
 export enum Actions {
   UPDATE_REGISTRATION_FORM = 'UPDATE_REGISTRATION_FORM',
@@ -8,6 +9,7 @@ export enum Actions {
   CREATE_NEW_CLAIM = 'CREATE_NEW_CLAIM',
   CHANGE_STATUS_OF_INCOMING_CLAIM = 'CHANGE_STATUS_OF_INCOMING_CLAIM',
   UPDATE_CURRENT_TABLE_ELEMENT = 'UPDATE_CURRENT_TABLE_ELEMENT',
+  CLOSE_ERROR_MESSAGE = 'CLOSE_ERROR_MESSAGE',
 }
 
 export interface Action {
@@ -79,6 +81,10 @@ const initialState: State = {
       __v: 0,
     },
   ],
+  loading: false,
+  userData: null,
+  registrationError: false,
+  errorMessage: 'No ERROR!',
 };
 
 const reducer = (state = initialState, action: Action): State => {
@@ -111,6 +117,32 @@ const reducer = (state = initialState, action: Action): State => {
       };
     case Actions.UPDATE_CURRENT_TABLE_ELEMENT:
       return { ...state, openIncomingClaimForm: true, currentTableElement: action.payload };
+    case REGISTRATION_STARTED:
+      return {
+        ...state,
+        loading: true,
+      };
+    case REGISTRATION_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        registrationError: null,
+        userData: action.payload,
+        userName: action.payload.fullName,
+      };
+    case REGISTRATION_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        registrationError: true,
+        errorMessage: action.payload,
+      };
+    case Actions.CLOSE_ERROR_MESSAGE:
+      console.log('rtigerred!');
+      return {
+        ...state,
+        registrationError: false,
+      };
     default:
       return state;
   }
