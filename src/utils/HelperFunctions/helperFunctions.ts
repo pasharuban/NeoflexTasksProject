@@ -11,3 +11,7 @@ export const getEuropeFormatDate = (date: Date): string => {
 export const handleRedirectToDashboard = (history: Record<string, any>) => {
   history.push(routes.dashboard);
 };
+
+export const redirectToMainPage = (history: Record<string, any>) => {
+  history.push(routes.main);
+};

@@ -1,5 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router';
+import swal from 'sweetalert';
+
+import { redirectToMainPage } from '../../utils/HelperFunctions/helperFunctions';
 
 import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
@@ -29,6 +33,15 @@ const Container = styled(HeaderAndTableWrapper)`
 `;
 
 const TasksTablePage: React.FC<TasksTablePageTypes> = () => {
+  const history = useHistory();
+
+  console.log(localStorage.getItem('currentUser'));
+
+  if (!localStorage.getItem('currentUser')) {
+    swal('Для доступа к странице нужно авторизоваться!');
+    redirectToMainPage(history);
+  }
+
   return (
     <TasksTablePageContainer>
       <Navbar />

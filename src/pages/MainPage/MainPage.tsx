@@ -116,14 +116,14 @@ const FormContainer = styled.div`
   }
 `;
 
-const MainPage: React.FC<MainPageTypes> = ({ openRegForm, userData, registrationError }) => {
+const MainPage: React.FC<MainPageTypes> = ({ openRegForm, registrationError }) => {
   let FormElement = openRegForm ? RegistrationForm : LoginForm;
 
   if (registrationError) FormElement = RegistrationError;
 
   const history = useHistory();
 
-  if (userData) handleRedirectToDashboard(history);
+  if (localStorage.getItem('currentUser')) handleRedirectToDashboard(history);
 
   return (
     <MainPageContainer>
@@ -148,7 +148,6 @@ const MainPage: React.FC<MainPageTypes> = ({ openRegForm, userData, registration
 const mapStateToProps = (state: State) => {
   return {
     openRegForm: state.updateRegistrationForm,
-    userData: state.userData,
     registrationError: state.registrationError,
   };
 };
