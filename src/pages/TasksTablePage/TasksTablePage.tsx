@@ -35,9 +35,7 @@ const Container = styled(HeaderAndTableWrapper)`
 const TasksTablePage: React.FC<TasksTablePageTypes> = () => {
   const history = useHistory();
 
-  console.log(localStorage.getItem('currentUser'));
-
-  if (!localStorage.getItem('currentUser')) {
+  if (!localStorage.getItem('userToken')) {
     swal('Для доступа к странице нужно авторизоваться!');
     redirectToMainPage(history);
   }

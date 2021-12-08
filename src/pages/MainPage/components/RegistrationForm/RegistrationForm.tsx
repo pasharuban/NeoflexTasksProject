@@ -10,7 +10,7 @@ import { MailOutlined, LockOutlined } from '@ant-design/icons';
 
 import { State } from '../../../../types/stateTypes';
 import { Action } from '../../../../redux/reducer';
-import { registerUser } from '../../../../redux/actions/registrationAction';
+import { registerUser } from '../../../../redux/actions/registerUser';
 
 import { RegistrationDataTypes } from '../../../../types/registrationDataTypes';
 import LoadingSpinner from '../../../../components/LoadingSpinner/LoadingSpinner';

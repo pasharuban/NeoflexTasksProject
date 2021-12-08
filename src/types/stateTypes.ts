@@ -9,6 +9,6 @@ export type State = {
   currentTableElement: Record<string, any>;
   loading: boolean;
   userData: RegistrationDataTypes | null;
-  registrationError: boolean | null;
+  authError: boolean | null;
   errorMessage: string;
 };

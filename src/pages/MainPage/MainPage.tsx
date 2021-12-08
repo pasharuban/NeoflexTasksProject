@@ -13,7 +13,7 @@ import Illustration from './components/Illustration';
 import Footer from '../../components/Footer/Footer';
 import LoginForm from './components/LoginForm/LoginForm';
 
-import RegistrationError from '../../components/RegistrationError/RegistrationError';
+import RegistrationError from '../../components/AuthError/RegistrationError';
 
 import { handleRedirectToDashboard } from '../../utils/HelperFunctions/helperFunctions';
 
@@ -123,7 +123,7 @@ const MainPage: React.FC<MainPageTypes> = ({ openRegForm, registrationError }) =
 
   const history = useHistory();
 
-  if (localStorage.getItem('currentUser')) handleRedirectToDashboard(history);
+  if (localStorage.getItem('userToken')) handleRedirectToDashboard(history);
 
   return (
     <MainPageContainer>

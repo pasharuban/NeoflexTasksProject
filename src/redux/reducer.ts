@@ -1,5 +1,5 @@
 import { State } from '../types/stateTypes';
-import { REGISTRATION_SUCCESS, REGISTRATION_FAILURE, REGISTRATION_STARTED } from './actions/types';
+import { REGISTRATION_SUCCESS, AUTH_FAILURE, AUTH_STARTED } from './actions/types';
 
 export enum Actions {
   UPDATE_REGISTRATION_FORM = 'UPDATE_REGISTRATION_FORM',
@@ -83,7 +83,7 @@ const initialState: State = {
   ],
   loading: false,
   userData: null,
-  registrationError: false,
+  authError: false,
   errorMessage: 'No ERROR!',
 };
 
@@ -117,7 +117,7 @@ const reducer = (state = initialState, action: Action): State => {
       };
     case Actions.UPDATE_CURRENT_TABLE_ELEMENT:
       return { ...state, openIncomingClaimForm: true, currentTableElement: action.payload };
-    case REGISTRATION_STARTED:
+    case AUTH_STARTED:
       return {
         ...state,
         loading: true,
@@ -126,22 +126,22 @@ const reducer = (state = initialState, action: Action): State => {
       return {
         ...state,
         loading: false,
-        registrationError: null,
+        authError: null,
         userData: action.payload,
         userName: action.payload.fullName,
       };
-    case REGISTRATION_FAILURE:
+    case AUTH_FAILURE:
       return {
         ...state,
         loading: false,
-        registrationError: true,
+        authError: true,
         errorMessage: action.payload,
       };
     case Actions.CLOSE_ERROR_MESSAGE:
       console.log('rtigerred!');
       return {
         ...state,
-        registrationError: false,
+        authError: false,
       };
     default:
       return state;
