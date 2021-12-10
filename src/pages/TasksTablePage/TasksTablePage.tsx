@@ -33,13 +33,6 @@ const Container = styled(HeaderAndTableWrapper)`
 `;
 
 const TasksTablePage: React.FC<TasksTablePageTypes> = () => {
-  /* const currentUser = useSelector((state: State) => state.userData);
-
-  if (!localStorage.getItem('userToken') && !currentUser) {
-    swal('Для доступа к странице нужно авторизоваться!');
-    return <Redirect to={routes.main} />;
-  } */
-
   return (
     <TasksTablePageContainer>
       <Navbar />

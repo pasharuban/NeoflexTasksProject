@@ -1,11 +1,14 @@
 import { FormInstance } from 'antd';
+import { Dispatch } from 'react';
+
+import { AuthFailureType, AuthStartedType, RegistrationSuccessType } from './actionsTypes';
 
 import { REGISTRATION_SUCCESS } from './types';
 import { actionAuthStarted, actionAuthFailure } from './actionsAuthStatus';
 import { RegistrationDataTypes } from '../../types/registrationDataTypes';
 import { postRegistrationUserData } from '../../utils/api';
 
-const actionRegistrationSuccess = (data: any) => ({
+const actionRegistrationSuccess = (data: RegistrationDataTypes): RegistrationSuccessType => ({
   type: REGISTRATION_SUCCESS,
   payload: {
     ...data,
@@ -13,7 +16,7 @@ const actionRegistrationSuccess = (data: any) => ({
 });
 
 export const actionRegisterUser = (data: RegistrationDataTypes, form: FormInstance) => {
-  return (dispatch: any) => {
+  return (dispatch: Dispatch<AuthFailureType | AuthStartedType | RegistrationSuccessType>) => {
     dispatch(actionAuthStarted());
 
     postRegistrationUserData(data)

@@ -10,7 +10,7 @@ const PrivateRoute: React.FC<{
   component: React.ReactType;
   jwtToken: string | null;
   currentUser: RegistrationDataTypes | LoginDataTypes | null;
-  [x: string]: any;
+  [x: string]: unknown;
 }> = ({ component: Component, jwtToken, currentUser, ...rest }) => (
   <Route
     {...rest}

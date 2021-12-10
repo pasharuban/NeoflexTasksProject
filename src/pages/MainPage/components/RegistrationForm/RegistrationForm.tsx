@@ -6,7 +6,7 @@ import { ThunkDispatch } from 'redux-thunk';
 import { FormInstance } from 'antd';
 
 import { Form } from 'antd';
-import { MailOutlined, LockOutlined } from '@ant-design/icons';
+import { MailOutlined, LockOutlined, UserOutlined } from '@ant-design/icons';
 
 import { State } from '../../../../types/stateTypes';
 import { Action } from '../../../../redux/reducer';
@@ -18,7 +18,7 @@ import AuthError from '../../../../components/AuthError/AuthError';
 import { RegistrationDataTypes } from '../../../../types/registrationDataTypes';
 import LoadingSpinner from '../../../../components/LoadingSpinner/LoadingSpinner';
 
-import { actionUpdateRegistrationForm } from '../../../../redux/actions';
+import { actionUpdateRegistrationForm } from '../../../../redux/actionCreators';
 
 import ItemForm from '../../../../components/ItemForm/ItemForm';
 
@@ -62,6 +62,7 @@ const RegistrationForm: React.FC<{
         rules={[{ required: true, message: 'Please input your name!' }]}
         placeholder="Type your name"
         type="text"
+        suffix={<UserOutlined style={inputSuffixStyles} />}
       />
       <InputField
         label="E-mail"

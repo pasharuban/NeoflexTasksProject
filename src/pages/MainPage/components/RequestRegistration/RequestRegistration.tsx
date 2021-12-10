@@ -6,7 +6,7 @@ import { ThunkDispatch } from 'redux-thunk';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { actionUpdateRegistrationForm } from '../../../../redux/actions';
+import { actionUpdateRegistrationForm } from '../../../../redux/actionCreators';
 
 import { State } from '../../../../types/stateTypes';
 

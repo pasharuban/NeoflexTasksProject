@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { RouteComponentProps } from 'react-router-dom';
 
 import { useHistory, useRouteMatch } from 'react-router';
 
@@ -18,7 +19,7 @@ const CreateBtn = styled(ButtonElement)`
 
 const ButtonIcon = styled.img``;
 
-const onHandleRedirectToCreateNewClaimForm = (history: Record<string, any>, url: string) => {
+const onHandleRedirectToCreateNewClaimForm = (history: RouteComponentProps['history'], url: string) => {
   history.push(`${url}${routes.create}`);
 };
 

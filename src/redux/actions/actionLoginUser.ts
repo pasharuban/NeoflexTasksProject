@@ -1,12 +1,16 @@
 import { FormInstance } from 'antd';
+import { Dispatch } from 'react';
+
 import { api } from '../../utils/api';
+
+import { AuthFailureType, AuthStartedType, LoginSuccessType } from './actionsTypes';
 
 import { LOGIN_SUCCESS } from './types';
 import { actionAuthStarted, actionAuthFailure } from './actionsAuthStatus';
 import { LoginDataTypes } from '../../types/loginDataTypes';
 import { postLoginUserData } from '../../utils/api';
 
-const loginSuccess = (data: any) => ({
+const loginSuccess = (data: LoginDataTypes): LoginSuccessType => ({
   type: LOGIN_SUCCESS,
   payload: {
     ...data,
@@ -14,7 +18,7 @@ const loginSuccess = (data: any) => ({
 });
 
 export const actionLoginUser = (data: LoginDataTypes, form: FormInstance) => {
-  return (dispatch: any) => {
+  return (dispatch: Dispatch<AuthFailureType | AuthStartedType | LoginSuccessType>) => {
     dispatch(actionAuthStarted());
     const { email, password } = data;
 

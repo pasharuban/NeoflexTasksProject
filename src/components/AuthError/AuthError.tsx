@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import { closeErrorMessage } from '../../redux/actions';
+import { closeErrorMessage } from '../../redux/actionCreators';
 
 import { State } from '../../types/stateTypes';
 

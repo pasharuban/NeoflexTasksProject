@@ -14,7 +14,7 @@ import { State } from '../../../../types/stateTypes';
 
 import { capitalizeFirstLetter } from '../../../../utils/HelperFunctions/helperFunctions';
 
-import { actionUpdateCurrentTableElement } from '../../../../redux/actions';
+import { actionUpdateCurrentTableElement } from '../../../../redux/actionCreators';
 
 const Container = styled.div`
   width: 100%;
@@ -28,7 +28,7 @@ const selectTableElement = (id: string, state: State) => state.claims.find((clai
 const selectAndSetTableElement = (
   id: string,
   state: State,
-  updateCurrentTableElement: (currentTableElement: Record<string, any>) => void,
+  updateCurrentTableElement: (currentTableElement: Record<string, unknown>) => void,
 ) => {
   const tableElement = selectTableElement(id, state);
   if (tableElement) {
@@ -47,7 +47,7 @@ const selectAndSetTableElement = (
 const IncomingClaimForm: React.FC = () => {
   const dispatch = useDispatch();
   const updateCurrentTableElement = useCallback(
-    (currentTableElement: Record<string, any>) => dispatch(actionUpdateCurrentTableElement(currentTableElement)),
+    (currentTableElement: Record<string, unknown>) => dispatch(actionUpdateCurrentTableElement(currentTableElement)),
     [dispatch],
   );
 

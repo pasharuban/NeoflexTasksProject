@@ -142,7 +142,7 @@ const columns = [
   {
     title: 'Actions',
     key: '_id',
-    render: (index: Record<string, any>) => <ActionCell index={index} />,
+    render: (index: Record<string, unknown>) => <ActionCell index={index} />,
   },
 ];
 

@@ -23,6 +23,7 @@ const AppSwitch: React.FC = () => {
         path={routes.main}
         render={() => {
           if (localStorage.getItem('userToken') || currentUser) return <Redirect to={routes.dashboard} />;
+          
           return <MainPage />;
         }}
       />

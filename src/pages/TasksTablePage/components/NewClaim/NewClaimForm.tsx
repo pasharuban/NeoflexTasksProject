@@ -9,7 +9,7 @@ import { Form } from 'antd';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { actionCreateNewClaim } from '../../../../redux/actions';
+import { actionCreateNewClaim } from '../../../../redux/actionCreators';
 
 import { State } from '../../../../types/stateTypes';
 import { Action } from '../../../../redux/reducer';
@@ -30,11 +30,11 @@ const Container = styled.div`
   margin-top: 48px;
 `;
 
-const NewClaimForm: React.FC<{ createNewClaim: (values: Record<string, any>) => void }> = ({ createNewClaim }) => {
+const NewClaimForm: React.FC<{ createNewClaim: (values: Record<string, unknown>) => void }> = ({ createNewClaim }) => {
   const [form] = Form.useForm();
   const history = useHistory();
 
-  const onFinish = (values: Record<string, any>) => {
+  const onFinish = (values: Record<string, unknown>) => {
     const newClaim = {
       ...values,
       _id: generateUnicId(),
@@ -84,7 +84,7 @@ export const mapDispatchToProps = (dispatch: ThunkDispatch<State, never, Action>
   const dispatchCreateNewClaim = bindActionCreators(actionCreateNewClaim, dispatch);
 
   return {
-    createNewClaim: (newClaim: Record<string, any>) => {
+    createNewClaim: (newClaim: Record<string, unknown>) => {
       dispatchCreateNewClaim(newClaim);
     },
   };

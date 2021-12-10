@@ -1,29 +1,19 @@
-import { State } from '../types/stateTypes';
+import { ActionTypeTypes } from '../../types/actionTypeTypes';
 import {
-  REGISTRATION_SUCCESS,
-  AUTH_FAILURE,
-  AUTH_STARTED,
-  LOGIN_SUCCESS,
-  CLOSE_ERROR_MESSAGE,
-  UPDATE_REGISTRATION_FORM,
-  OPEN_CREATE_NEW_CLAIM_FORM,
-  CREATE_NEW_CLAIM,
   OPEN_INCOMING_CLAIM_FORM,
   CLOSE_INCOMING_CLAIM_FORM,
   CHANGE_STATUS_OF_INCOMING_CLAIM,
   UPDATE_CURRENT_TABLE_ELEMENT,
-} from './actions/types';
+} from '../actions/types';
 
-export interface Action {
-  type: string;
-  payload?: any;
+interface InitialStateTypes {
+  openIncomingClaimForm: boolean;
+  currentTableElement: Record<string, any>;
+  claims: any[];
 }
 
-const initialState: State = {
-  updateRegistrationForm: false,
-  openCreateNewClaimForm: false,
+const initialState: InitialStateTypes = {
   openIncomingClaimForm: false,
-  userName: 'Ivan Ivanov',
   currentTableElement: {},
   claims: [
     {
@@ -83,18 +73,10 @@ const initialState: State = {
       __v: 0,
     },
   ],
-  loading: false,
-  userData: null,
-  authError: false,
-  errorMessage: 'No ERROR!',
 };
 
-const reducer = (state = initialState, action: Action): State => {
+const incomingClaimFormReducer = (state = initialState, action: ActionTypeTypes): InitialStateTypes => {
   switch (action.type) {
-    case UPDATE_REGISTRATION_FORM:
-      return { ...state, updateRegistrationForm: !state.updateRegistrationForm };
-    case OPEN_CREATE_NEW_CLAIM_FORM:
-      return { ...state, openCreateNewClaimForm: !state.openCreateNewClaimForm };
     case OPEN_INCOMING_CLAIM_FORM:
       return { ...state, openIncomingClaimForm: !state.openIncomingClaimForm, currentTableElement: action.payload };
     case CLOSE_INCOMING_CLAIM_FORM:
@@ -111,50 +93,12 @@ const reducer = (state = initialState, action: Action): State => {
         }),
       };
 
-    case CREATE_NEW_CLAIM:
-      return {
-        ...state,
-        claims: [...state.claims, action.payload],
-        openCreateNewClaimForm: !state.openCreateNewClaimForm,
-      };
     case UPDATE_CURRENT_TABLE_ELEMENT:
       return { ...state, openIncomingClaimForm: true, currentTableElement: action.payload };
-    case AUTH_STARTED:
-      return {
-        ...state,
-        loading: true,
-      };
-    case REGISTRATION_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        authError: null,
-        userData: action.payload,
-        userName: action.payload.fullName,
-      };
-    case LOGIN_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        authError: null,
-        userData: action.payload,
-        userName: action.payload.fullName,
-      };
-    case AUTH_FAILURE:
-      return {
-        ...state,
-        loading: false,
-        authError: true,
-        errorMessage: action.payload,
-      };
-    case CLOSE_ERROR_MESSAGE:
-      return {
-        ...state,
-        authError: false,
-      };
+
     default:
       return state;
   }
 };
 
-export default reducer;
+export default incomingClaimFormReducer;

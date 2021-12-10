@@ -8,7 +8,7 @@ import { ThunkDispatch } from 'redux-thunk';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { actionOpenIncomingClaimForm } from '../../../redux/actions';
+import { actionOpenIncomingClaimForm } from '../../../redux/actionCreators';
 
 import { State } from '../../../types/stateTypes';
 import { Action } from '../../../redux/reducer';
@@ -34,8 +34,8 @@ const CellActionText = styled(TableCellBaseFontSize)`
 `;
 
 const CellActionWrapper: React.FC<{
-  openIncomingClaimForm: (index: Record<string, any>) => void;
-  index: Record<string, any>;
+  openIncomingClaimForm: (index: Record<string, unknown>) => void;
+  index: Record<string, unknown>;
 }> = ({ openIncomingClaimForm, index }) => {
   const history = useHistory();
   const { url } = useRouteMatch();
@@ -56,7 +56,7 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<State, never, Action>) => {
   const dispatchOpenIncomingClaimForm = bindActionCreators(actionOpenIncomingClaimForm, dispatch);
 
   return {
-    openIncomingClaimForm: (index: Record<string, any>) => {
+    openIncomingClaimForm: (index: Record<string, unknown>) => {
       dispatchOpenIncomingClaimForm(index);
     },
   };

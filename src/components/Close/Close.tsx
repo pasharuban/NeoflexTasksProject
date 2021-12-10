@@ -12,7 +12,7 @@ const CloseFormLogo = styled.img`
   }
 `;
 
-const Close: React.FC<{ onClick?: () => any }> = ({ onClick }) => {
+const Close: React.FC<{ onClick?: () => void }> = ({ onClick }) => {
   return <CloseFormLogo onClick={onClick} src={iconCross} alt="close" />;
 };
 

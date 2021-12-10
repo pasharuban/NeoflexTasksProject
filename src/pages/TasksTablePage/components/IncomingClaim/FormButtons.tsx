@@ -9,7 +9,7 @@ import { ThunkDispatch } from 'redux-thunk';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { actionChangeStatusOfIncomingClaim } from '../../../../redux/actions';
+import { actionChangeStatusOfIncomingClaim } from '../../../../redux/actionCreators';
 
 import { State } from '../../../../types/stateTypes';
 import { Action } from '../../../../redux/reducer';
