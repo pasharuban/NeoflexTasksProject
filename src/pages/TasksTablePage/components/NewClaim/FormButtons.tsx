@@ -20,6 +20,8 @@ const Container = styled.div`
   align-items: center;
 
   margin-top: 34px;
+
+  align-self: flex-start;
 `;
 
 const FormButtons: React.FC = () => {

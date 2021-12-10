@@ -23,15 +23,6 @@ const Container = styled.div`
   margin-top: 48px;
 `;
 
-/*
-|| {
-    noData: true,
-    title: 'NO DATA',
-    description: 'NO DATA',
-    type: 'NO DATA',
-  };
-*/
-
 const selectTableElement = (id: string, state: State) => state.claims.find((claim) => claim._id === id);
 
 const selectAndSetTableElement = (

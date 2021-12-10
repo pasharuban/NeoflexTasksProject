@@ -2,8 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { css } from 'styled-components';
 
-import { useHistory } from 'react-router';
-
 import { connect } from 'react-redux';
 
 import { State } from '../../types/stateTypes';
@@ -12,10 +10,6 @@ import { MainPageTypes } from '../../types/mainPageTypes';
 import Illustration from './components/Illustration';
 import Footer from '../../components/Footer/Footer';
 import LoginForm from './components/LoginForm/LoginForm';
-
-import RegistrationError from '../../components/AuthError/RegistrationError';
-
-import { handleRedirectToDashboard } from '../../utils/HelperFunctions/helperFunctions';
 
 import RegistrationForm from './components/RegistrationForm/RegistrationForm';
 
@@ -53,7 +47,7 @@ const IllustrationSection = styled.div`
 const LogoAndFormSectionContainer = styled(IllustrationSection)`
   background: white;
 
-  padding: 3%;
+  padding: 2%;
 
   ${minWidth.largeScreen} {
     padding: 4% 2%;
@@ -116,14 +110,8 @@ const FormContainer = styled.div`
   }
 `;
 
-const MainPage: React.FC<MainPageTypes> = ({ openRegForm, registrationError }) => {
-  let FormElement = openRegForm ? RegistrationForm : LoginForm;
-
-  if (registrationError) FormElement = RegistrationError;
-
-  const history = useHistory();
-
-  if (localStorage.getItem('userToken')) handleRedirectToDashboard(history);
+const MainPage: React.FC<MainPageTypes> = ({ openRegForm }) => {
+  const FormElement = openRegForm ? RegistrationForm : LoginForm;
 
   return (
     <MainPageContainer>
@@ -148,7 +136,6 @@ const MainPage: React.FC<MainPageTypes> = ({ openRegForm, registrationError }) =
 const mapStateToProps = (state: State) => {
   return {
     openRegForm: state.updateRegistrationForm,
-    registrationError: state.registrationError,
   };
 };
 

@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useHistory } from 'react-router';
-import swal from 'sweetalert';
-
-import { redirectToMainPage } from '../../utils/HelperFunctions/helperFunctions';
-
+// import { Redirect } from 'react-router';
+// import swal from 'sweetalert';
+// import { useSelector } from 'react-redux';
+// import { State } from '../../types/stateTypes';
 import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
+// import { routes } from '../../routes/routes';
 
 import { TasksTablePageTypes } from '../../types/tasksTablePageTypes';
 
@@ -33,12 +33,12 @@ const Container = styled(HeaderAndTableWrapper)`
 `;
 
 const TasksTablePage: React.FC<TasksTablePageTypes> = () => {
-  const history = useHistory();
+  /* const currentUser = useSelector((state: State) => state.userData);
 
-  if (!localStorage.getItem('userToken')) {
+  if (!localStorage.getItem('userToken') && !currentUser) {
     swal('Для доступа к странице нужно авторизоваться!');
-    redirectToMainPage(history);
-  }
+    return <Redirect to={routes.main} />;
+  } */
 
   return (
     <TasksTablePageContainer>

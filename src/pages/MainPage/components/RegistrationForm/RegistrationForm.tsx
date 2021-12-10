@@ -10,7 +10,10 @@ import { MailOutlined, LockOutlined } from '@ant-design/icons';
 
 import { State } from '../../../../types/stateTypes';
 import { Action } from '../../../../redux/reducer';
-import { registerUser } from '../../../../redux/actions/registerUser';
+import { actionRegisterUser } from '../../../../redux/actions/actionRegisterUser';
+import { validatePassword } from '../../../../utils/HelperFunctions/helperFunctions';
+
+import AuthError from '../../../../components/AuthError/AuthError';
 
 import { RegistrationDataTypes } from '../../../../types/registrationDataTypes';
 import LoadingSpinner from '../../../../components/LoadingSpinner/LoadingSpinner';
@@ -28,20 +31,13 @@ import Close from '../../../../components/Close/Close';
 // styles for suffix(icon) inside input
 const inputSuffixStyles = { color: '#ADADAD', fontSize: '20px' };
 
-const validatePassword = (_: string | null, value: string, callback: (arg?: string) => void) => {
-  if (value.length < 5) {
-    callback('less than 5 chars!');
-  } else {
-    callback();
-  }
-};
-
 const RegistrationForm: React.FC<{
   updateRegistrationForm?: () => void;
   registerUser: (data: RegistrationDataTypes, form: FormInstance) => void;
 }> = ({ updateRegistrationForm, registerUser }) => {
   const [form] = Form.useForm();
   const loading = useSelector((state: State) => state.loading);
+  const registrationError = useSelector((state: State) => state.authError);
 
   let formSubmitElement = (
     <ButtonElement typeOfButton="filledGreen" width="100%" marginTop="40px">
@@ -50,6 +46,8 @@ const RegistrationForm: React.FC<{
   );
 
   if (loading) formSubmitElement = <LoadingSpinner />;
+
+  if (registrationError) return <AuthError authTitle="Ошибка Регистрации" />;
 
   const onFinish = (values: RegistrationDataTypes) => {
     registerUser(values, form);
@@ -73,7 +71,7 @@ const RegistrationForm: React.FC<{
             type: 'email',
             message: 'The input is not valid E-mail!',
           },
-          { required: true, message: 'Please input your username!' },
+          { required: true, message: 'Please input your email!' },
         ]}
         placeholder="Type your e-mail"
         suffix={<MailOutlined style={inputSuffixStyles} />}
@@ -98,7 +96,7 @@ const RegistrationForm: React.FC<{
 
 export const mapDispatchToProps = (dispatch: ThunkDispatch<State, never, Action>) => {
   const dispatchUpdateRegistrationForm = bindActionCreators(actionUpdateRegistrationForm, dispatch);
-  const dispatchRegisterUser = bindActionCreators(registerUser, dispatch);
+  const dispatchRegisterUser = bindActionCreators(actionRegisterUser, dispatch);
 
   return {
     updateRegistrationForm: dispatchUpdateRegistrationForm,

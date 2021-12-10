@@ -12,3 +12,7 @@ export const api = axios.create({
 export const postRegistrationUserData = (data: RegistrationDataTypes) => {
   return api.post(`/auth/registration`, data);
 };
+
+export const postLoginUserData = (email: string, password: string) => {
+  return api.post(`/auth/login`, { email, password });
+};

@@ -1,5 +1,5 @@
 import { State } from '../types/stateTypes';
-import { REGISTRATION_SUCCESS, AUTH_FAILURE, AUTH_STARTED } from './actions/types';
+import { REGISTRATION_SUCCESS, AUTH_FAILURE, AUTH_STARTED, LOGIN_SUCCESS } from './actions/types';
 
 export enum Actions {
   UPDATE_REGISTRATION_FORM = 'UPDATE_REGISTRATION_FORM',
@@ -130,6 +130,14 @@ const reducer = (state = initialState, action: Action): State => {
         userData: action.payload,
         userName: action.payload.fullName,
       };
+    case LOGIN_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        authError: null,
+        userData: action.payload,
+        userName: action.payload.fullName,
+      };
     case AUTH_FAILURE:
       return {
         ...state,
@@ -138,7 +146,6 @@ const reducer = (state = initialState, action: Action): State => {
         errorMessage: action.payload,
       };
     case Actions.CLOSE_ERROR_MESSAGE:
-      console.log('rtigerred!');
       return {
         ...state,
         authError: false,

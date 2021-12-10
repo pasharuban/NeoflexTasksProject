@@ -15,3 +15,11 @@ export const handleRedirectToDashboard = (history: Record<string, any>) => {
 export const redirectToMainPage = (history: Record<string, any>) => {
   history.push(routes.main);
 };
+
+export const validatePassword = (_: string | null, value: string, callback: (arg?: string) => void) => {
+  if (value.length < 5) {
+    callback('less than 5 chars!');
+  } else {
+    callback();
+  }
+};
