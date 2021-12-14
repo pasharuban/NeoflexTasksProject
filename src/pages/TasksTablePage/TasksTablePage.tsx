@@ -1,12 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-// import { Redirect } from 'react-router';
-// import swal from 'sweetalert';
-// import { useSelector } from 'react-redux';
-// import { State } from '../../types/stateTypes';
 import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
-// import { routes } from '../../routes/routes';
 
 import { TasksTablePageTypes } from '../../types/tasksTablePageTypes';
 

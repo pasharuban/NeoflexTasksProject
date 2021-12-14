@@ -4,7 +4,6 @@ import { Form, FormInstance } from 'antd';
 
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
 import LoadingSpinner from '../../../../components/LoadingSpinner/LoadingSpinner';
-import { State } from '../../../../types/stateTypes';
 
 import { LoginDataTypes } from '../../../../types/loginDataTypes';
 import { actionLoginUser } from '../../../../redux/actions/actionLoginUser';
@@ -21,6 +20,7 @@ import RequestRegistration from '../RequestRegistration/RequestRegistration';
 import CheckboxField from '../../../../components/CheckboxField/CheckboxField';
 
 import { validatePassword } from '../../../../utils/HelperFunctions/helperFunctions';
+import { getAuthErrorState, getLoadingState } from '../../../../redux/selectors/selectors';
 
 // styles for prefix(icon) inside input
 const inputSuffixStyles = { color: '#ADADAD', fontSize: '20px' };
@@ -28,8 +28,8 @@ const inputSuffixStyles = { color: '#ADADAD', fontSize: '20px' };
 const LoginForm: React.FC = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
-  const loading = useSelector((state: State) => state.loading);
-  const loginError = useSelector((state: State) => state.authError);
+  const loading = useSelector(getLoadingState);
+  const loginError = useSelector(getAuthErrorState);
 
   const loginUser = (data: LoginDataTypes, form: FormInstance) => {
     dispatch(actionLoginUser(data, form));

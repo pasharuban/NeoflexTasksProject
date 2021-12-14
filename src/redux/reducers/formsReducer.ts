@@ -1,20 +1,28 @@
 import { ActionTypeTypes } from '../../types/actionTypeTypes';
 import {
+  UPDATE_REGISTRATION_FORM,
   OPEN_INCOMING_CLAIM_FORM,
   CLOSE_INCOMING_CLAIM_FORM,
-  CHANGE_STATUS_OF_INCOMING_CLAIM,
+  OPEN_CREATE_NEW_CLAIM_FORM,
   UPDATE_CURRENT_TABLE_ELEMENT,
+  CHANGE_STATUS_OF_INCOMING_CLAIM,
+  CREATE_NEW_CLAIM,
 } from '../actions/types';
 
-interface InitialStateTypes {
+type initialStateType = {
+  updateRegistrationForm: boolean;
+  openCreateNewClaimForm: boolean;
   openIncomingClaimForm: boolean;
   currentTableElement: Record<string, any>;
   claims: any[];
-}
+};
 
-const initialState: InitialStateTypes = {
+const initialState: initialStateType = {
+  currentTableElement: { _id: '' },
+  updateRegistrationForm: false,
+  openCreateNewClaimForm: false,
   openIncomingClaimForm: false,
-  currentTableElement: {},
+
   claims: [
     {
       _id: '61952b6626b99e54076a71b4',
@@ -75,12 +83,16 @@ const initialState: InitialStateTypes = {
   ],
 };
 
-const incomingClaimFormReducer = (state = initialState, action: ActionTypeTypes): InitialStateTypes => {
+const formsReducer = (state = initialState, action: ActionTypeTypes): initialStateType => {
   switch (action.type) {
-    case OPEN_INCOMING_CLAIM_FORM:
-      return { ...state, openIncomingClaimForm: !state.openIncomingClaimForm, currentTableElement: action.payload };
-    case CLOSE_INCOMING_CLAIM_FORM:
-      return { ...state, openIncomingClaimForm: !state.openIncomingClaimForm, currentTableElement: {} };
+    case CREATE_NEW_CLAIM:
+      return {
+        ...state,
+        claims: [...state.claims, action.payload],
+      };
+
+    case UPDATE_CURRENT_TABLE_ELEMENT:
+      return { ...state, currentTableElement: action.payload };
     case CHANGE_STATUS_OF_INCOMING_CLAIM:
       return {
         ...state,
@@ -92,13 +104,17 @@ const incomingClaimFormReducer = (state = initialState, action: ActionTypeTypes)
           return claim;
         }),
       };
-
-    case UPDATE_CURRENT_TABLE_ELEMENT:
-      return { ...state, openIncomingClaimForm: true, currentTableElement: action.payload };
-
+    case OPEN_CREATE_NEW_CLAIM_FORM:
+      return { ...state, openCreateNewClaimForm: !state.openCreateNewClaimForm };
+    case OPEN_INCOMING_CLAIM_FORM:
+      return { ...state, openIncomingClaimForm: !state.openIncomingClaimForm, currentTableElement: action.payload };
+    case CLOSE_INCOMING_CLAIM_FORM:
+      return { ...state, openIncomingClaimForm: !state.openIncomingClaimForm, currentTableElement: {} };
+    case UPDATE_REGISTRATION_FORM:
+      return { ...state, updateRegistrationForm: !state.updateRegistrationForm };
     default:
       return state;
   }
 };
 
-export default incomingClaimFormReducer;
+export default formsReducer;

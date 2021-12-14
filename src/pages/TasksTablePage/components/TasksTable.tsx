@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import styled from 'styled-components';
 
-import { State } from '../../../types/stateTypes';
+import { RootState } from '../../../redux/rootReducer';
 
 import TableCellBaseFontSize from './TableCellBaseFontSize';
 import ActionCell from './ActionCell';
@@ -150,8 +150,8 @@ const TasksTable: React.FC<{ claims?: any[] }> = ({ claims }) => {
   return <StyledTable rowKey="_id" dataSource={claims} columns={columns} />;
 };
 
-const mapStateToProps = (state: State) => {
-  return { claims: state.claims };
+const mapStateToProps = (state: RootState) => {
+  return { claims: state.forms.claims };
 };
 
 export default connect(mapStateToProps, null)(TasksTable);

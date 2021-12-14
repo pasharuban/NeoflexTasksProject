@@ -26,6 +26,8 @@ import InputField from '../../../../components/InputField/InputField';
 
 import ButtonElement from '../../../../components/ButtonElement/ButtonElement';
 
+import { getAuthErrorState, getLoadingState } from '../../../../redux/selectors/selectors';
+
 import Close from '../../../../components/Close/Close';
 
 // styles for suffix(icon) inside input
@@ -36,8 +38,8 @@ const RegistrationForm: React.FC<{
   registerUser: (data: RegistrationDataTypes, form: FormInstance) => void;
 }> = ({ updateRegistrationForm, registerUser }) => {
   const [form] = Form.useForm();
-  const loading = useSelector((state: State) => state.loading);
-  const registrationError = useSelector((state: State) => state.authError);
+  const loading = useSelector(getLoadingState);
+  const registrationError = useSelector(getAuthErrorState);
 
   let formSubmitElement = (
     <ButtonElement typeOfButton="filledGreen" width="100%" marginTop="40px">
