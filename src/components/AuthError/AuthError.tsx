@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { closeErrorMessage } from '../../redux/actionCreators';
 
-import { State } from '../../types/stateTypes';
+import { getErrorMessage } from '../../redux/selectors/selectors';
 
 import Close from '../Close/Close';
 
@@ -46,7 +46,7 @@ const ErrorMessage = styled.p`
 `;
 
 const AuthError: React.FC<{ authTitle: string }> = ({ authTitle }) => {
-  const errorMessage: string = useSelector((state: State) => state.errorMessage);
+  const errorMessage = useSelector(getErrorMessage);
   const dispatch = useDispatch();
 
   return (

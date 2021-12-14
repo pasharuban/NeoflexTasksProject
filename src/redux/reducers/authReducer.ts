@@ -3,23 +3,23 @@ import { LoginDataTypes } from '../../types/loginDataTypes';
 import { RegistrationDataTypes } from '../../types/registrationDataTypes';
 import { AUTH_STARTED, REGISTRATION_SUCCESS, LOGIN_SUCCESS, AUTH_FAILURE, CLOSE_ERROR_MESSAGE } from '../actions/types';
 
-interface InitialStateTypes {
+type initialStateType = {
+  userName: string;
   loading: boolean;
   userData: RegistrationDataTypes | LoginDataTypes | null;
   authError: boolean | null;
   errorMessage: string;
-  userName: string;
-}
+};
 
-const initialState: InitialStateTypes = {
+const initialState: initialStateType = {
+  userName: 'Ivan Ivanov',
   loading: false,
   userData: null,
   authError: false,
   errorMessage: 'No ERROR!',
-  userName: 'Ivan Ivanov',
 };
 
-const authReducer = (state = initialState, action: ActionTypeTypes): InitialStateTypes => {
+const authReducer = (state = initialState, action: ActionTypeTypes): initialStateType => {
   switch (action.type) {
     case AUTH_STARTED:
       return {

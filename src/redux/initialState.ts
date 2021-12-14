@@ -1,13 +1,11 @@
-import { ActionTypeTypes } from '../../types/actionTypeTypes';
-import { OPEN_CREATE_NEW_CLAIM_FORM, CREATE_NEW_CLAIM } from '../actions/types';
+import { State } from '../types/stateTypes';
 
-interface InitialStateTypes {
-  openCreateNewClaimForm: boolean;
-  claims: any[];
-}
-
-const initialState: InitialStateTypes = {
+const initialState: State = {
+  updateRegistrationForm: false,
   openCreateNewClaimForm: false,
+  openIncomingClaimForm: false,
+  userName: 'Ivan Ivanov',
+  currentTableElement: {},
   claims: [
     {
       _id: '61952b6626b99e54076a71b4',
@@ -66,21 +64,10 @@ const initialState: InitialStateTypes = {
       __v: 0,
     },
   ],
+  loading: false,
+  userData: null,
+  authError: false,
+  errorMessage: 'No ERROR!',
 };
 
-const newClaimFormReducer = (state = initialState, action: ActionTypeTypes): InitialStateTypes => {
-  switch (action.type) {
-    case OPEN_CREATE_NEW_CLAIM_FORM:
-      return { ...state, openCreateNewClaimForm: !state.openCreateNewClaimForm };
-    case CREATE_NEW_CLAIM:
-      return {
-        ...state,
-        claims: [...state.claims, action.payload],
-        openCreateNewClaimForm: !state.openCreateNewClaimForm,
-      };
-    default:
-      return state;
-  }
-};
-
-export default newClaimFormReducer;
+export default initialState;

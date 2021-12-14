@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { connect } from 'react-redux';
 
-import { State } from '../../../types/stateTypes';
+import { RootState } from '../../../redux/rootReducer';
 
 import IconUserAvatar from '../InconUserAvatar';
 
@@ -35,8 +35,8 @@ const CurrentUser: React.FC<{ userName?: string }> = ({ userName }) => {
   );
 };
 
-const mapStateToProps = (state: State) => {
-  return { userName: state.userName };
+const mapStateToProps = (state: RootState) => {
+  return { userName: state.auth.userName };
 };
 
 export default connect(mapStateToProps, null)(CurrentUser);

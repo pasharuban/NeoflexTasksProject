@@ -19,21 +19,21 @@ export const actionRegisterUser = (data: RegistrationDataTypes, form: FormInstan
   return (dispatch: Dispatch<AuthFailureType | AuthStartedType | RegistrationSuccessType>) => {
     dispatch(actionAuthStarted());
 
-    postRegistrationUserData(data)
-      .then((res) => {
-        try {
+    try {
+      postRegistrationUserData(data)
+        .then((res) => {
           if (res.data.message) dispatch(actionAuthFailure(res.data.message));
           else {
             dispatch(actionRegistrationSuccess(res.data));
             localStorage.setItem('userToken', res.data.token);
             form.resetFields();
           }
-        } catch (e) {
-          console.log(e);
-        }
-      })
-      .catch((err) => {
-        dispatch(actionAuthFailure(err.message));
-      });
+        })
+        .catch((err) => {
+          dispatch(actionAuthFailure(err.message));
+        });
+    } catch (e) {
+      console.log(e);
+    }
   };
 };

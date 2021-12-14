@@ -1,15 +1,13 @@
 import { combineReducers } from 'redux';
 
 import authReducer from './reducers/authReducer';
-import incomingClaimFormReducer from './reducers/incomingClaimFormReducer';
-import newClaimFormReducer from './reducers/newClaimFormReducer';
-import registrationFormReducer from './reducers/registrationFormReducer';
+import formsReducer from './reducers/formsReducer';
 
 const rootReducer = combineReducers({
-  authReducer,
-  incomingClaimFormReducer,
-  newClaimFormReducer,
-  registrationFormReducer,
+  auth: authReducer,
+  forms: formsReducer,
 });
+
+export type RootState = ReturnType<typeof rootReducer>;
 
 export default rootReducer;

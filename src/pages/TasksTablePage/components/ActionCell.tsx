@@ -34,8 +34,8 @@ const CellActionText = styled(TableCellBaseFontSize)`
 `;
 
 const CellActionWrapper: React.FC<{
-  openIncomingClaimForm: (index: Record<string, unknown>) => void;
-  index: Record<string, unknown>;
+  openIncomingClaimForm: (index: Record<string, any>) => void;
+  index: Record<string, any>;
 }> = ({ openIncomingClaimForm, index }) => {
   const history = useHistory();
   const { url } = useRouteMatch();

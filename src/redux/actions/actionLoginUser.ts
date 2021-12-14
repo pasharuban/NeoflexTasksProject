@@ -22,9 +22,9 @@ export const actionLoginUser = (data: LoginDataTypes, form: FormInstance) => {
     dispatch(actionAuthStarted());
     const { email, password } = data;
 
-    postLoginUserData(email, password)
-      .then((res) => {
-        try {
+    try {
+      postLoginUserData(email, password)
+        .then((res) => {
           if (res.data.message) dispatch(actionAuthFailure(res.data.message));
           else {
             if (data.rememberMe) localStorage.setItem('userToken', res.data.token);
@@ -33,12 +33,12 @@ export const actionLoginUser = (data: LoginDataTypes, form: FormInstance) => {
             api.defaults.headers.common.Authorization = `Bearer ${res.data.token}`;
             form.resetFields();
           }
-        } catch (e) {
-          console.log(e);
-        }
-      })
-      .catch((err) => {
-        dispatch(actionAuthFailure(err.message));
-      });
+        })
+        .catch((err) => {
+          dispatch(actionAuthFailure(err.message));
+        });
+    } catch (e) {
+      console.log(e);
+    }
   };
 };

@@ -5,12 +5,12 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { useParams } from 'react-router';
 
+import { RootState } from '../../../../redux/rootReducer';
+
 import ItemForm from '../../../../components/ItemForm/ItemForm';
 import InputField from '../../../../components/InputField/InputField';
 import DropdownField from '../../../../components/DropdownField/DropdownField';
 import FormButtons from './FormButtons';
-
-import { State } from '../../../../types/stateTypes';
 
 import { capitalizeFirstLetter } from '../../../../utils/HelperFunctions/helperFunctions';
 
@@ -23,11 +23,11 @@ const Container = styled.div`
   margin-top: 48px;
 `;
 
-const selectTableElement = (id: string, state: State) => state.claims.find((claim) => claim._id === id);
+const selectTableElement = (id: string, state: RootState) => state.forms.claims.find((claim) => claim._id === id);
 
 const selectAndSetTableElement = (
   id: string,
-  state: State,
+  state: RootState,
   updateCurrentTableElement: (currentTableElement: Record<string, unknown>) => void,
 ) => {
   const tableElement = selectTableElement(id, state);
@@ -51,10 +51,10 @@ const IncomingClaimForm: React.FC = () => {
     [dispatch],
   );
 
-  const getTableElement = useSelector((state: State) => {
+  const getTableElement = useSelector((state: RootState) => {
     return (id: string) => {
-      return state.currentTableElement._id
-        ? state.currentTableElement
+      return state.forms.currentTableElement._id
+        ? state.forms.currentTableElement
         : selectAndSetTableElement(id, state, updateCurrentTableElement);
     };
   });

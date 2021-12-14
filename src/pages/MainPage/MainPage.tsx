@@ -1,10 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import { css } from 'styled-components';
+import { useHistory, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { connect } from 'react-redux';
 
-import { State } from '../../types/stateTypes';
+import { routes } from '../../routes/routes';
+import { RootState } from '../../redux/rootReducer';
+import { getCurrentUserData } from '../../redux/selectors/selectors';
+
 import { MainPageTypes } from '../../types/mainPageTypes';
 
 import Illustration from './components/Illustration';
@@ -111,6 +116,15 @@ const FormContainer = styled.div`
 `;
 
 const MainPage: React.FC<MainPageTypes> = ({ openRegForm }) => {
+  const location: Record<string, any> = useLocation();
+  const history = useHistory();
+  const currentUser = useSelector(getCurrentUserData);
+
+  if (localStorage.getItem('userToken') || currentUser) {
+    if (location.state.backpath) history.push(location.state.backpath);
+    else history.push(routes.dashboard);
+  }
+
   const FormElement = openRegForm ? RegistrationForm : LoginForm;
 
   return (
@@ -133,9 +147,9 @@ const MainPage: React.FC<MainPageTypes> = ({ openRegForm }) => {
   );
 };
 
-const mapStateToProps = (state: State) => {
+const mapStateToProps = (state: RootState) => {
   return {
-    openRegForm: state.updateRegistrationForm,
+    openRegForm: state.forms.updateRegistrationForm,
   };
 };
 
