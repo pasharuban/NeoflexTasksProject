@@ -1,10 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import { css } from 'styled-components';
+import { useHistory, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { connect } from 'react-redux';
 
-import { State } from '../../types/stateTypes';
+import { routes } from '../../routes/routes';
+import { RootState } from '../../redux/rootReducer';
+import { getCurrentUserData } from '../../redux/selectors/selectors';
+
 import { MainPageTypes } from '../../types/mainPageTypes';
 
 import Illustration from './components/Illustration';
@@ -32,6 +37,8 @@ const IllustrationSection = styled.div`
 
   flex-grow: 1;
 
+  padding: 1%;
+
   background: rgba(211, 237, 225, 0.97);
 
   ${alignCenterCenter}
@@ -45,7 +52,7 @@ const IllustrationSection = styled.div`
 const LogoAndFormSectionContainer = styled(IllustrationSection)`
   background: white;
 
-  padding: 3%;
+  padding: 2%;
 
   ${minWidth.largeScreen} {
     padding: 4% 2%;
@@ -109,7 +116,16 @@ const FormContainer = styled.div`
 `;
 
 const MainPage: React.FC<MainPageTypes> = ({ openRegForm }) => {
-  const Form = openRegForm ? RegistrationForm : LoginForm;
+  const location: Record<string, any> = useLocation();
+  const history = useHistory();
+  const currentUser = useSelector(getCurrentUserData);
+
+  if (localStorage.getItem('userToken') || currentUser) {
+    if (location.state.backpath) history.push(location.state.backpath);
+    else history.push(routes.dashboard);
+  }
+
+  const FormElement = openRegForm ? RegistrationForm : LoginForm;
 
   return (
     <MainPageContainer>
@@ -121,7 +137,7 @@ const MainPage: React.FC<MainPageTypes> = ({ openRegForm }) => {
           <LogoFormWrapper>
             <MainPageLogo src={mainPageLogo} alt="company logo" />
             <FormContainer>
-              <Form />
+              <FormElement />
             </FormContainer>
           </LogoFormWrapper>
         </LogoAndFormSectionContainer>
@@ -131,8 +147,10 @@ const MainPage: React.FC<MainPageTypes> = ({ openRegForm }) => {
   );
 };
 
-const mapStateToProps = (state: State) => {
-  return { openRegForm: state.updateRegistrationForm };
+const mapStateToProps = (state: RootState) => {
+  return {
+    openRegForm: state.forms.updateRegistrationForm,
+  };
 };
 
 export default connect(mapStateToProps, null)(MainPage);

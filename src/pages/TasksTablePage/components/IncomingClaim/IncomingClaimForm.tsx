@@ -5,16 +5,16 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { useParams } from 'react-router';
 
+import { RootState } from '../../../../redux/rootReducer';
+
 import ItemForm from '../../../../components/ItemForm/ItemForm';
 import InputField from '../../../../components/InputField/InputField';
 import DropdownField from '../../../../components/DropdownField/DropdownField';
 import FormButtons from './FormButtons';
 
-import { State } from '../../../../types/stateTypes';
-
 import { capitalizeFirstLetter } from '../../../../utils/HelperFunctions/helperFunctions';
 
-import { actionUpdateCurrentTableElement } from '../../../../redux/actions';
+import { actionUpdateCurrentTableElement } from '../../../../redux/actionCreators';
 
 const Container = styled.div`
   width: 100%;
@@ -23,21 +23,12 @@ const Container = styled.div`
   margin-top: 48px;
 `;
 
-/*
-|| {
-    noData: true,
-    title: 'NO DATA',
-    description: 'NO DATA',
-    type: 'NO DATA',
-  };
-*/
-
-const selectTableElement = (id: string, state: State) => state.claims.find((claim) => claim._id === id);
+const selectTableElement = (id: string, state: RootState) => state.forms.claims.find((claim) => claim._id === id);
 
 const selectAndSetTableElement = (
   id: string,
-  state: State,
-  updateCurrentTableElement: (currentTableElement: Record<string, any>) => void,
+  state: RootState,
+  updateCurrentTableElement: (currentTableElement: Record<string, unknown>) => void,
 ) => {
   const tableElement = selectTableElement(id, state);
   if (tableElement) {
@@ -56,14 +47,14 @@ const selectAndSetTableElement = (
 const IncomingClaimForm: React.FC = () => {
   const dispatch = useDispatch();
   const updateCurrentTableElement = useCallback(
-    (currentTableElement: Record<string, any>) => dispatch(actionUpdateCurrentTableElement(currentTableElement)),
+    (currentTableElement: Record<string, unknown>) => dispatch(actionUpdateCurrentTableElement(currentTableElement)),
     [dispatch],
   );
 
-  const getTableElement = useSelector((state: State) => {
+  const getTableElement = useSelector((state: RootState) => {
     return (id: string) => {
-      return state.currentTableElement._id
-        ? state.currentTableElement
+      return state.forms.currentTableElement._id
+        ? state.forms.currentTableElement
         : selectAndSetTableElement(id, state, updateCurrentTableElement);
     };
   });

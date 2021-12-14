@@ -5,4 +5,5 @@ export type InputFieldTypes = {
   suffix?: React.ReactNode;
   placeholder?: string;
   disabled?: boolean;
+  type?: string;
 };
