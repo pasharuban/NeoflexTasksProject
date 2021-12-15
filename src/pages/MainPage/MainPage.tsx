@@ -120,8 +120,6 @@ const MainPage: React.FC<MainPageTypes> = ({ openRegForm }) => {
   const history = useHistory();
   const currentUser = useSelector(getCurrentUserData);
 
-  console.log(location.state?.backpath);
-
   if (localStorage.getItem('userToken') || currentUser) {
     if (location.state?.backpath) history.push(location.state?.backpath);
     else history.push(routes.dashboard);
