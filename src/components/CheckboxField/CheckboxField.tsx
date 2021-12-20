@@ -32,7 +32,6 @@ const StyledFormItem = styled(Form.Item)`
   }
 `;
 
-/* name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }} */
 
 const CheckboxField: React.FC<CheckboxFieldTypes> = ({ name, valuePropName, wrapperCol, text }) => {
   return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import { closeErrorMessage } from '../../redux/actionCreators';
+import { closeErrorMessage } from '../../redux/actions/actionCreators';
 
 import { getAuthErrorMessage } from '../../redux/selectors/selectors';
 

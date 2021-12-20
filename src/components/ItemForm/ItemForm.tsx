@@ -38,9 +38,10 @@ const StyledForm = styled(Form)`
   }
 `;
 
-const ItemForm: React.FC<ItemFormTypes> = ({ children, onFinish, form, initialValues }) => {
+const ItemForm: React.FC<ItemFormTypes> = ({ children, onFinish, form, initialValues, fields }) => {
   return (
     <StyledForm
+      fields={fields}
       form={form}
       className="item-form"
       name="basic"

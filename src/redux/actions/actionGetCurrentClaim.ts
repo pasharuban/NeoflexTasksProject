@@ -1,18 +1,18 @@
 import { Dispatch } from 'react';
 import { ActionTypeTypes } from '../../types/actionTypeTypes';
 
-import { getClaims } from '../../utils/api';
+import { getCurrentClaim } from '../../utils/api';
 
-import { actionGetDataStarted, actionGetDataFailure, actionGetClaimsSuccess } from './actionCreators';
+import { actionGetDataStarted, actionGetCurrentClaimSuccess, actionGetDataFailure } from './actionCreators';
 
-const actionGetClaims = () => {
+const actionGetCurrentClaim = (id: string) => {
   return (dispatch: Dispatch<ActionTypeTypes>) => {
     dispatch(actionGetDataStarted());
 
     try {
-      getClaims()
+      getCurrentClaim(id)
         .then((response) => {
-          dispatch(actionGetClaimsSuccess(response.data.claims));
+          dispatch(actionGetCurrentClaimSuccess(response.data));
         })
         .catch((error) => {
           dispatch(actionGetDataFailure(error.toString()));
@@ -23,4 +23,4 @@ const actionGetClaims = () => {
   };
 };
 
-export default actionGetClaims;
+export default actionGetCurrentClaim;

@@ -14,3 +14,5 @@ export const getGetDataErrorMessage = (state: RootState) => state.getData.errorM
 export const getPostDataLoadingState = (state: RootState) => state.postData.loading;
 export const getPostDataErrorState = (state: RootState) => state.postData.postDataError;
 export const getPostDataErrorMessage = (state: RootState) => state.postData.errorMessage;
+
+export const getCurrentClaimState = (state: RootState) => state.getData.currentClaim;

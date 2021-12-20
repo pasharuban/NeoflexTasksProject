@@ -1,4 +1,4 @@
-import { POST_DATA_FAILURE, POST_NEW_CLAIM_SUCCESS, POST_DATA_STARTED } from '../actions/types';
+import { POST_DATA_FAILURE, POST_NEW_CLAIM_SUCCESS, POST_DATA_STARTED } from '../../constants/types';
 import { ActionTypeTypes } from '../../types/actionTypeTypes';
 import { PostNewClaimTypes } from '../../types/postNewClaimTypes';
 

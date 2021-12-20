@@ -1,16 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-// for typing dispatch
-import { ThunkDispatch } from 'redux-thunk';
-
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { actionUpdateRegistrationForm } from '../../../../redux/actionCreators';
-
-import { State } from '../../../../types/stateTypes';
-
-import { Action } from '../../../../redux/reducer';
+import { bindActionCreators, Dispatch } from 'redux';
+import { actionUpdateRegistrationForm } from '../../../../redux/actions/actionCreators';
+import { ActionTypeTypes } from '../../../../types/actionTypeTypes';
 
 const RequestRegistrationContainer = styled.div`
   width: 100%;
@@ -52,7 +46,7 @@ const RequestRegistration: React.FC<{ updateRegistrationForm?: () => void }> = (
   );
 };
 
-export const mapDispatchToProps = (dispatch: ThunkDispatch<State, never, Action>) => {
+export const mapDispatchToProps = (dispatch: Dispatch<ActionTypeTypes>) => {
   const dispatchUpdateRegistrationForm = bindActionCreators(actionUpdateRegistrationForm, dispatch);
 
   return {

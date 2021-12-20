@@ -1,7 +1,7 @@
 import { ActionTypeTypes } from '../../types/actionTypeTypes';
 import { LoginDataTypes } from '../../types/loginDataTypes';
 import { RegistrationDataTypes } from '../../types/registrationDataTypes';
-import { AUTH_STARTED, REGISTRATION_SUCCESS, LOGIN_SUCCESS, AUTH_FAILURE, CLOSE_ERROR_MESSAGE } from '../actions/types';
+import { AUTH_STARTED, REGISTRATION_SUCCESS, LOGIN_SUCCESS, AUTH_FAILURE, CLOSE_ERROR_MESSAGE } from '../../constants/types';
 
 type initialStateType = {
   userName: string;

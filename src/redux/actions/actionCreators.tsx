@@ -3,8 +3,6 @@ import {
   UPDATE_REGISTRATION_FORM,
   OPEN_CREATE_NEW_CLAIM_FORM,
   CREATE_NEW_CLAIM,
-  OPEN_INCOMING_CLAIM_FORM,
-  CLOSE_INCOMING_CLAIM_FORM,
   CHANGE_STATUS_OF_INCOMING_CLAIM,
   UPDATE_CURRENT_TABLE_ELEMENT,
   GET_CLAIMS_SUCCESS,
@@ -13,18 +11,23 @@ import {
   POST_DATA_FAILURE,
   POST_DATA_STARTED,
   POST_NEW_CLAIM_SUCCESS,
-} from './actions/types';
+  GET_CURRENT_CLAIM_SUCCESS,
+} from '../../constants/types';
 
-import { PostNewClaimTypes } from '../types/postNewClaimTypes';
+import { PostNewClaimTypes } from '../../types/postNewClaimTypes';
 
 export const actionUpdateRegistrationForm = () => ({ type: UPDATE_REGISTRATION_FORM });
 export const actionOpenCreateNewClaimForm = () => ({ type: OPEN_CREATE_NEW_CLAIM_FORM });
-export const actionCloseIncomingClaimForm = () => ({ type: CLOSE_INCOMING_CLAIM_FORM });
 export const closeErrorMessage = () => ({ type: CLOSE_ERROR_MESSAGE });
 
 export const actionGetClaimsSuccess = (data: Record<string, any>) => ({ type: GET_CLAIMS_SUCCESS, payload: data });
 export const actionGetDataFailure = (errorMessage: string) => ({ type: GET_DATA_FAILURE, payload: errorMessage });
 export const actionGetDataStarted = () => ({ type: GET_DATA_STARTED });
+
+export const actionGetCurrentClaimSuccess = (data: Record<string, any>) => ({
+  type: GET_CURRENT_CLAIM_SUCCESS,
+  payload: data,
+});
 
 export const actionPostNewClaimSuccess = (data: PostNewClaimTypes) => ({ type: POST_NEW_CLAIM_SUCCESS, payload: data });
 export const actionPostDataFailure = (errorMessage: string) => ({ type: POST_DATA_FAILURE, payload: errorMessage });
@@ -33,10 +36,6 @@ export const actionPostDataStarted = () => ({ type: POST_DATA_STARTED });
 export const actionChangeStatusOfIncomingClaim = (status: string) => ({
   type: CHANGE_STATUS_OF_INCOMING_CLAIM,
   payload: status,
-});
-export const actionOpenIncomingClaimForm = (index: Record<string, unknown>) => ({
-  type: OPEN_INCOMING_CLAIM_FORM,
-  payload: index,
 });
 
 export const actionCreateNewClaim = (newClaim: Record<string, unknown>) => ({

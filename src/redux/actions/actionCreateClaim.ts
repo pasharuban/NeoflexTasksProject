@@ -5,7 +5,7 @@ import { ActionTypeTypes } from '../../types/actionTypeTypes';
 import { PostNewClaimTypes } from '../../types/postNewClaimTypes';
 
 import { postNewClaimData } from '../../utils/api';
-import { actionPostDataFailure, actionPostDataStarted, actionPostNewClaimSuccess } from '../actionCreators';
+import { actionPostDataFailure, actionPostDataStarted, actionPostNewClaimSuccess } from './actionCreators';
 
 export const actionCreateClaim = (data: PostNewClaimTypes, form: FormInstance) => {
   return (dispatch: Dispatch<ActionTypeTypes>) => {

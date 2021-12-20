@@ -2,16 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { useHistory, useRouteMatch } from 'react-router';
-// for typing dispatch
-import { ThunkDispatch } from 'redux-thunk';
-
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
-import { actionOpenIncomingClaimForm } from '../../../redux/actionCreators';
-
-import { State } from '../../../types/stateTypes';
-import { Action } from '../../../redux/reducer';
 
 import TableCellBaseFontSize from './TableCellBaseFontSize';
 
@@ -32,17 +22,14 @@ const CellActionText = styled(TableCellBaseFontSize)`
 `;
 
 const ActionCell: React.FC<{
-  openIncomingClaimForm: (index: Record<string, any>) => void;
   index: Record<string, any>;
-}> = ({ openIncomingClaimForm, index }) => {
+}> = ({ index }) => {
   const history = useHistory();
   const { url } = useRouteMatch();
 
   return (
     <CellActionText
       onClick={() => {
-        console.log(index);
-        openIncomingClaimForm(index);
         history.push(`${url}/${index._id}`);
       }}
     >
@@ -51,14 +38,4 @@ const ActionCell: React.FC<{
   );
 };
 
-const mapDispatchToProps = (dispatch: ThunkDispatch<State, never, Action>) => {
-  const dispatchOpenIncomingClaimForm = bindActionCreators(actionOpenIncomingClaimForm, dispatch);
-
-  return {
-    openIncomingClaimForm: (index: Record<string, unknown>) => {
-      dispatchOpenIncomingClaimForm(index);
-    },
-  };
-};
-
-export default connect(null, mapDispatchToProps)(ActionCell);
+export default ActionCell;

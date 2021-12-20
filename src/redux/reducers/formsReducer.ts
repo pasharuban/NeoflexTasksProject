@@ -1,18 +1,14 @@
 import { ActionTypeTypes } from '../../types/actionTypeTypes';
 import {
   UPDATE_REGISTRATION_FORM,
-  OPEN_INCOMING_CLAIM_FORM,
-  CLOSE_INCOMING_CLAIM_FORM,
   OPEN_CREATE_NEW_CLAIM_FORM,
   UPDATE_CURRENT_TABLE_ELEMENT,
   CHANGE_STATUS_OF_INCOMING_CLAIM,
-  CREATE_NEW_CLAIM,
-} from '../actions/types';
+} from '../../constants/types';
 
 type initialStateType = {
   updateRegistrationForm: boolean;
   openCreateNewClaimForm: boolean;
-  openIncomingClaimForm: boolean;
   currentTableElement: Record<string, any>;
   claims: any[];
 };
@@ -21,7 +17,6 @@ const initialState: initialStateType = {
   currentTableElement: { _id: '' },
   updateRegistrationForm: false,
   openCreateNewClaimForm: false,
-  openIncomingClaimForm: false,
 
   claims: [
     {
@@ -85,12 +80,6 @@ const initialState: initialStateType = {
 
 const formsReducer = (state = initialState, action: ActionTypeTypes): initialStateType => {
   switch (action.type) {
-    case CREATE_NEW_CLAIM:
-      return {
-        ...state,
-        claims: [...state.claims, action.payload],
-      };
-
     case UPDATE_CURRENT_TABLE_ELEMENT:
       return { ...state, currentTableElement: action.payload };
     case CHANGE_STATUS_OF_INCOMING_CLAIM:
@@ -106,10 +95,6 @@ const formsReducer = (state = initialState, action: ActionTypeTypes): initialSta
       };
     case OPEN_CREATE_NEW_CLAIM_FORM:
       return { ...state, openCreateNewClaimForm: !state.openCreateNewClaimForm };
-    case OPEN_INCOMING_CLAIM_FORM:
-      return { ...state, openIncomingClaimForm: !state.openIncomingClaimForm, currentTableElement: action.payload };
-    case CLOSE_INCOMING_CLAIM_FORM:
-      return { ...state, openIncomingClaimForm: !state.openIncomingClaimForm, currentTableElement: {} };
     case UPDATE_REGISTRATION_FORM:
       return { ...state, updateRegistrationForm: !state.updateRegistrationForm };
     default:

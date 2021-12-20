@@ -3,18 +3,6 @@ import styled from 'styled-components';
 
 import { useHistory } from 'react-router';
 
-// for typing dispatch
-import { ThunkDispatch } from 'redux-thunk';
-
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
-import { actionChangeStatusOfIncomingClaim } from '../../../../redux/actionCreators';
-
-import { State } from '../../../../types/stateTypes';
-import { Action } from '../../../../redux/reducer';
-
-import { IncomingClaimFormButtonsTypes } from '../../../../types/incomingClaimFormButtonsTypes';
 import { handleRedirectToDashboard } from '../../../../utils/HelperFunctions/helperFunctions';
 
 import ButtonElement from '../../../../components/ButtonElement/ButtonElement';
@@ -37,7 +25,7 @@ const Container = styled.div`
   align-self: flex-start;
 `;
 
-const FormButtons: React.FC<IncomingClaimFormButtonsTypes> = ({ changeStatusOfIncomingClaims }) => {
+const FormButtons: React.FC = () => {
   const history = useHistory();
 
   return (
@@ -50,40 +38,14 @@ const FormButtons: React.FC<IncomingClaimFormButtonsTypes> = ({ changeStatusOfIn
       >
         Cancel
       </FormButton>
-      <FormButton
-        onClick={() => {
-          changeStatusOfIncomingClaims('Done');
-        }}
-        typeOfButton="filledGreen"
-        width="82px"
-        value="Done"
-        type="button"
-      >
+      <FormButton typeOfButton="filledGreen" width="82px" value="Done" type="button">
         Done
       </FormButton>
-      <FormButton
-        onClick={() => {
-          changeStatusOfIncomingClaims('Declined');
-        }}
-        typeOfButton="filledPink"
-        width="82px"
-        value="Decline"
-        type="button"
-      >
+      <FormButton typeOfButton="filledPink" width="82px" value="Decline" type="button">
         Decline
       </FormButton>
     </Container>
   );
 };
 
-const mapDispatchToProps = (dispatch: ThunkDispatch<State, never, Action>) => {
-  const dispatchChangeStatusOfIncomingClaims = bindActionCreators(actionChangeStatusOfIncomingClaim, dispatch);
-
-  return {
-    changeStatusOfIncomingClaims: (status: string) => {
-      dispatchChangeStatusOfIncomingClaims(status);
-    },
-  };
-};
-
-export default connect(null, mapDispatchToProps)(FormButtons);
+export default FormButtons;
