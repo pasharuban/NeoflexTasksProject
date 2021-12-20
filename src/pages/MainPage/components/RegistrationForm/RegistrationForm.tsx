@@ -26,7 +26,7 @@ import InputField from '../../../../components/InputField/InputField';
 
 import ButtonElement from '../../../../components/ButtonElement/ButtonElement';
 
-import { getAuthErrorState, getLoadingState } from '../../../../redux/selectors/selectors';
+import { getAuthErrorState, getAuthLoadingState } from '../../../../redux/selectors/selectors';
 
 import Close from '../../../../components/Close/Close';
 
@@ -38,7 +38,7 @@ const RegistrationForm: React.FC<{
   registerUser: (data: RegistrationDataTypes, form: FormInstance) => void;
 }> = ({ updateRegistrationForm, registerUser }) => {
   const [form] = Form.useForm();
-  const loading = useSelector(getLoadingState);
+  const loading = useSelector(getAuthLoadingState);
   const registrationError = useSelector(getAuthErrorState);
 
   let formSubmitElement = (

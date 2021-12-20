@@ -2,26 +2,20 @@ import React from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router';
 
-// for typing dispatch
-import { ThunkDispatch } from 'redux-thunk';
+import { useDispatch } from 'react-redux';
 
 import { Form } from 'antd';
-
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { actionCreateNewClaim } from '../../../../redux/actionCreators';
-
-import { State } from '../../../../types/stateTypes';
-import { Action } from '../../../../redux/reducer';
 
 import ItemForm from '../../../../components/ItemForm/ItemForm';
 import InputField from '../../../../components/InputField/InputField';
 import FormButtons from './FormButtons';
 import DropdownField from '../../../../components/DropdownField/DropdownField';
 
+import { actionCreateClaim } from '../../../../redux/actions/actionCreateClaim';
+
 import { handleRedirectToDashboard } from '../../../../utils/HelperFunctions/helperFunctions';
 
-const generateUnicId = () => new Date().getTime();
+// const generateUnicId = () => new Date().getTime();
 
 const Container = styled.div`
   width: 100%;
@@ -30,22 +24,21 @@ const Container = styled.div`
   margin-top: 48px;
 `;
 
-const NewClaimForm: React.FC<{ createNewClaim: (values: Record<string, unknown>) => void }> = ({ createNewClaim }) => {
+const NewClaimForm: React.FC = () => {
   const [form] = Form.useForm();
   const history = useHistory();
+  const dispatch = useDispatch();
 
-  const onFinish = (values: Record<string, unknown>) => {
+  const onFinish = async (values: { title: string; description: string; type: string }) => {
+    const { title, description, type } = values;
     const newClaim = {
-      ...values,
-      _id: generateUnicId(),
-      createdAt: new Date(),
-      status: {
-        name: 'New',
-        slug: 'new',
-      },
+      title,
+      description,
+      type,
+      status: 'new',
     };
-    createNewClaim(newClaim);
-    form.resetFields();
+
+    await dispatch(actionCreateClaim(newClaim, form));
     handleRedirectToDashboard(history);
   };
 
@@ -80,14 +73,4 @@ const NewClaimForm: React.FC<{ createNewClaim: (values: Record<string, unknown>)
   );
 };
 
-export const mapDispatchToProps = (dispatch: ThunkDispatch<State, never, Action>) => {
-  const dispatchCreateNewClaim = bindActionCreators(actionCreateNewClaim, dispatch);
-
-  return {
-    createNewClaim: (newClaim: Record<string, unknown>) => {
-      dispatchCreateNewClaim(newClaim);
-    },
-  };
-};
-
-export default connect(null, mapDispatchToProps)(NewClaimForm);
+export default NewClaimForm;

@@ -1,14 +1,15 @@
 import { FormInstance } from 'antd';
 import { Dispatch } from 'react';
-
-import { AuthFailureType, AuthStartedType, RegistrationSuccessType } from './actionsTypes';
+import { ActionTypeTypes } from '../../types/actionTypeTypes';
 
 import { REGISTRATION_SUCCESS } from './types';
 import { actionAuthStarted, actionAuthFailure } from './actionsAuthStatus';
 import { RegistrationDataTypes } from '../../types/registrationDataTypes';
 import { postRegistrationUserData } from '../../utils/api';
 
-const actionRegistrationSuccess = (data: RegistrationDataTypes): RegistrationSuccessType => ({
+import { api } from '../../utils/api';
+
+const actionRegistrationSuccess = (data: RegistrationDataTypes) => ({
   type: REGISTRATION_SUCCESS,
   payload: {
     ...data,
@@ -16,7 +17,7 @@ const actionRegistrationSuccess = (data: RegistrationDataTypes): RegistrationSuc
 });
 
 export const actionRegisterUser = (data: RegistrationDataTypes, form: FormInstance) => {
-  return (dispatch: Dispatch<AuthFailureType | AuthStartedType | RegistrationSuccessType>) => {
+  return (dispatch: Dispatch<ActionTypeTypes>) => {
     dispatch(actionAuthStarted());
 
     try {
@@ -24,16 +25,19 @@ export const actionRegisterUser = (data: RegistrationDataTypes, form: FormInstan
         .then((res) => {
           if (res.data.message) dispatch(actionAuthFailure(res.data.message));
           else {
-            dispatch(actionRegistrationSuccess(res.data));
             localStorage.setItem('userToken', res.data.token);
+            (api.defaults.headers as any).Authorization = `Bearer ${res.data.token}`;
+
+            dispatch(actionRegistrationSuccess(res.data));
+
             form.resetFields();
           }
         })
-        .catch((err) => {
-          dispatch(actionAuthFailure(err.message));
+        .catch((error) => {
+          dispatch(actionAuthFailure(error.message));
         });
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.log(error);
     }
   };
 };

@@ -15,9 +15,7 @@ import { Action } from '../../../redux/reducer';
 
 import TableCellBaseFontSize from './TableCellBaseFontSize';
 
-const capitalizeFirstLetter = (str: string) => {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-};
+import { capitalizeFirstLetter } from '../../../utils/HelperFunctions/helperFunctions';
 
 const CellActionText = styled(TableCellBaseFontSize)`
   font-style: normal;
@@ -33,7 +31,7 @@ const CellActionText = styled(TableCellBaseFontSize)`
   }
 `;
 
-const CellActionWrapper: React.FC<{
+const ActionCell: React.FC<{
   openIncomingClaimForm: (index: Record<string, any>) => void;
   index: Record<string, any>;
 }> = ({ openIncomingClaimForm, index }) => {
@@ -43,6 +41,7 @@ const CellActionWrapper: React.FC<{
   return (
     <CellActionText
       onClick={() => {
+        console.log(index);
         openIncomingClaimForm(index);
         history.push(`${url}/${index._id}`);
       }}
@@ -62,4 +61,4 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<State, never, Action>) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(CellActionWrapper);
+export default connect(null, mapDispatchToProps)(ActionCell);

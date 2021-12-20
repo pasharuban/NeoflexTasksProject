@@ -83,10 +83,10 @@ const DropdownField: React.FC<DropdownFieldTypes> = ({
   return (
     <StyledFormItem label={label} name={name} rules={rules} $isDisabled={!!disabled} type={type}>
       <StyledSelect placeholder={placeholder} allowClear={allowClear} disabled={disabled}>
-        <Option value="hardware">{capitalizeFirstLetter('hardware')}</Option>
-        <Option value="software">{capitalizeFirstLetter('software')}</Option>
-        <Option value="troubleshooting">{capitalizeFirstLetter('troubleshooting')}</Option>
-        <Option value="networking">{capitalizeFirstLetter('networking')}</Option>
+        <Option value="hard">{capitalizeFirstLetter('hardware')}</Option>
+        <Option value="soft">{capitalizeFirstLetter('software')}</Option>
+        <Option value="troublesh">{capitalizeFirstLetter('troubleshooting')}</Option>
+        <Option value="net">{capitalizeFirstLetter('networking')}</Option>
       </StyledSelect>
     </StyledFormItem>
   );

@@ -1,10 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { useSelector } from 'react-redux';
+
 import { useHistory } from 'react-router';
 
 import ButtonElement from '../../../../components/ButtonElement/ButtonElement';
 import { handleRedirectToDashboard } from '../../../../utils/HelperFunctions/helperFunctions';
+
+import LoadingSpinner from '../../../../components/LoadingSpinner/LoadingSpinner';
+
+import {
+  getPostDataErrorMessage,
+  getPostDataLoadingState,
+  getPostDataErrorState,
+} from '../../../../redux/selectors/selectors';
 
 const FormButton = styled(ButtonElement)`
   margin-right: 30px;
@@ -26,6 +36,22 @@ const Container = styled.div`
 
 const FormButtons: React.FC = () => {
   const history = useHistory();
+
+  const loading = useSelector(getPostDataLoadingState);
+  const error = useSelector(getPostDataErrorState);
+  const errorMessage = useSelector(getPostDataErrorMessage);
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
+
+  if (error) {
+    return (
+      <Container>
+        <h2 style={{ color: 'red' }}>{errorMessage}</h2>
+      </Container>
+    );
+  }
 
   return (
     <Container>

@@ -23,7 +23,7 @@ const Container = styled.div`
   margin-top: 48px;
 `;
 
-const selectTableElement = (id: string, state: RootState) => state.forms.claims.find((claim) => claim._id === id);
+const selectTableElement = (id: string, state: RootState) => state.getData.tableData.find((claim) => claim._id === id);
 
 const selectAndSetTableElement = (
   id: string,
@@ -63,11 +63,13 @@ const IncomingClaimForm: React.FC = () => {
 
   const tableElement = getTableElement(id);
 
+  console.log(`tableElement:${JSON.stringify(tableElement)}`);
+
   const initialValues = {
     remember: true,
     title: capitalizeFirstLetter(tableElement.title),
     description: capitalizeFirstLetter(tableElement.description),
-    type: capitalizeFirstLetter(tableElement.type),
+    type: capitalizeFirstLetter(tableElement.type.name),
   };
 
   return (
@@ -76,7 +78,7 @@ const IncomingClaimForm: React.FC = () => {
         <InputField label="Title" name="title" rules={[{ required: false, message: 'Please input title!' }]} disabled />
 
         <DropdownField
-          type={tableElement?.type}
+          type={tableElement?.type.name}
           label="type"
           name="type"
           rules={[{ required: false, message: 'Please select a type!' }]}

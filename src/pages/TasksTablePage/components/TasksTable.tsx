@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Table } from 'antd';
+import { useSelector } from 'react-redux';
 
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 
 import styled from 'styled-components';
 
 import { RootState } from '../../../redux/rootReducer';
+
+import actionGetClaims from '../../../redux/actions/actionGetClaims';
+
+import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
+
+import {
+  getDashboardData,
+  getGetDataErrorMessage,
+  getGetDataErrorState,
+  getGetDataLoadingState,
+} from '../../../redux/selectors/selectors';
 
 import TableCellBaseFontSize from './TableCellBaseFontSize';
 import ActionCell from './ActionCell';
@@ -106,6 +118,13 @@ const StyledTable = styled(Table)`
   }
 `;
 
+const SpinnerWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 19px;
+`;
+
 const columns = [
   {
     title: 'Title',
@@ -121,7 +140,7 @@ const columns = [
   },
   {
     title: 'Type',
-    dataIndex: 'type',
+    dataIndex: ['type', 'name'],
     key: '_id',
     render: (text: string) => {
       return <CellTypeText type={text}>{capitalizeFirstLetter(text)}</CellTypeText>;
@@ -146,8 +165,40 @@ const columns = [
   },
 ];
 
-const TasksTable: React.FC<{ claims?: any[] }> = ({ claims }) => {
-  return <StyledTable rowKey="_id" dataSource={claims} columns={columns} />;
+const TasksTable: React.FC = () => {
+  const dispatch = useDispatch();
+  const tableData = useSelector(getDashboardData);
+  const loading = useSelector(getGetDataLoadingState);
+  const error = useSelector(getGetDataErrorState);
+  const errorMessage = useSelector(getGetDataErrorMessage);
+
+  let locale = {};
+
+  if (error) {
+    locale = {
+      emptyText: <h2 style={{ color: 'red', fontFamily: 'Inter' }}>{errorMessage}</h2>,
+    };
+  }
+
+  if (loading) {
+    locale = {
+      emptyText: (
+        <SpinnerWrapper>
+          <LoadingSpinner />
+        </SpinnerWrapper>
+      ),
+    };
+  }
+
+  const getTableData = () => {
+    dispatch(actionGetClaims());
+  };
+
+  useEffect(() => {
+    getTableData();
+  }, []);
+
+  return <StyledTable locale={locale} rowKey="_id" dataSource={tableData} columns={columns} />;
 };
 
 const mapStateToProps = (state: RootState) => {
