@@ -1,7 +1,14 @@
 import { ActionTypeTypes } from '../../types/actionTypeTypes';
 import { LoginDataTypes } from '../../types/loginDataTypes';
 import { RegistrationDataTypes } from '../../types/registrationDataTypes';
-import { AUTH_STARTED, REGISTRATION_SUCCESS, LOGIN_SUCCESS, AUTH_FAILURE, CLOSE_ERROR_MESSAGE } from '../../constants/types';
+import {
+  AUTH_STARTED,
+  REGISTRATION_SUCCESS,
+  LOGIN_SUCCESS,
+  AUTH_FAILURE,
+  CLOSE_ERROR_MESSAGE,
+  LOGOUT,
+} from '../../constants/types';
 
 type initialStateType = {
   userName: string;
@@ -54,6 +61,8 @@ const authReducer = (state = initialState, action: ActionTypeTypes): initialStat
         ...state,
         authError: false,
       };
+    case LOGOUT:
+      return { ...state, userData: null };
     default:
       return state;
   }

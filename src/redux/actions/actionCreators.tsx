@@ -16,6 +16,7 @@ import {
   UPDATE_CURRENT_CLAIM_STARTED,
   UPDATE_CURRENT_CLAIM_SUCCESS,
   CLOSE_CURRENT_CLAIM,
+  LOGOUT,
 } from '../../constants/types';
 
 import { PostNewClaimTypes } from '../../types/postNewClaimTypes';
@@ -67,3 +68,5 @@ export const actionUpdateCurrentClaimFailure = (errorMessage: string) => ({
 });
 
 export const actionCloseCurrentClaim = () => ({ type: CLOSE_CURRENT_CLAIM });
+
+export const actionLogout = () => ({ type: LOGOUT });
