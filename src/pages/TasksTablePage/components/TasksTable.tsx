@@ -1,12 +1,8 @@
 import React, { useEffect } from 'react';
 import { Table } from 'antd';
-import { useSelector } from 'react-redux';
-
-import { connect, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import styled from 'styled-components';
-
-import { RootState } from '../../../redux/rootReducer';
 
 import actionGetClaims from '../../../redux/actions/actionGetClaims';
 
@@ -190,19 +186,11 @@ const TasksTable: React.FC = () => {
     };
   }
 
-  const getTableData = () => {
-    dispatch(actionGetClaims());
-  };
-
   useEffect(() => {
-    getTableData();
+    dispatch(actionGetClaims());
   }, []);
 
   return <StyledTable locale={locale} rowKey="_id" dataSource={tableData} columns={columns} />;
 };
 
-const mapStateToProps = (state: RootState) => {
-  return { claims: state.forms.claims };
-};
-
-export default connect(mapStateToProps, null)(TasksTable);
+export default TasksTable;

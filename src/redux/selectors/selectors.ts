@@ -20,3 +20,5 @@ export const getCurrentClaimState = (state: RootState) => state.getData.currentC
 export const getUpdateClaimError = (state: RootState) => state.getData.updateClaimError;
 export const getUpdateClaimLoading = (state: RootState) => state.getData.updateClaimLoading;
 export const getUpdateClaimErrorMessage = (state: RootState) => state.getData.updateClaimErrorMessage;
+
+export const getUpdateRegistrationForm = (state: RootState) => state.auth.updateRegistrationForm;

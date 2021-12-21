@@ -4,13 +4,8 @@ import { css } from 'styled-components';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import { connect } from 'react-redux';
-
 import { routes } from '../../routes/routes';
-import { RootState } from '../../redux/rootReducer';
 import { getCurrentUserData } from '../../redux/selectors/selectors';
-
-import { MainPageTypes } from '../../types/mainPageTypes';
 
 import Illustration from './components/Illustration';
 import Footer from '../../components/Footer/Footer';
@@ -21,6 +16,8 @@ import RegistrationForm from './components/RegistrationForm/RegistrationForm';
 import mainPageLogo from '../../assets/MainPage/icons/main-page-logo.svg';
 
 import { minWidth, maxWidth } from '../../mediaQueries/mediaQueries';
+
+import { getUpdateRegistrationForm } from '../../redux/selectors/selectors';
 
 const alignCenterCenter = css`
   display: flex;
@@ -115,17 +112,18 @@ const FormContainer = styled.div`
   }
 `;
 
-const MainPage: React.FC<MainPageTypes> = ({ openRegForm }) => {
+const MainPage: React.FC = () => {
   const location: Record<string, any> = useLocation();
   const history = useHistory();
   const currentUser = useSelector(getCurrentUserData);
+  const updateRegistrationForm = useSelector(getUpdateRegistrationForm);
 
   if (localStorage.getItem('userToken') || currentUser) {
     if (location.state?.backpath) history.push(location.state?.backpath);
     else history.push(routes.dashboard);
   }
 
-  const FormElement = openRegForm ? RegistrationForm : LoginForm;
+  const FormElement = updateRegistrationForm ? RegistrationForm : LoginForm;
 
   return (
     <MainPageContainer>
@@ -147,10 +145,4 @@ const MainPage: React.FC<MainPageTypes> = ({ openRegForm }) => {
   );
 };
 
-const mapStateToProps = (state: RootState) => {
-  return {
-    openRegForm: state.forms.updateRegistrationForm,
-  };
-};
-
-export default connect(mapStateToProps, null)(MainPage);
+export default MainPage;

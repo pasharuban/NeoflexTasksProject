@@ -8,6 +8,7 @@ import {
   AUTH_FAILURE,
   CLOSE_ERROR_MESSAGE,
   LOGOUT,
+  UPDATE_REGISTRATION_FORM,
 } from '../../constants/types';
 
 type initialStateType = {
@@ -16,6 +17,7 @@ type initialStateType = {
   userData: RegistrationDataTypes | LoginDataTypes | null;
   authError: boolean | null;
   errorMessage: string;
+  updateRegistrationForm: boolean;
 };
 
 const initialState: initialStateType = {
@@ -24,6 +26,7 @@ const initialState: initialStateType = {
   userData: null,
   authError: false,
   errorMessage: 'No ERROR!',
+  updateRegistrationForm: false,
 };
 
 const authReducer = (state = initialState, action: ActionTypeTypes): initialStateType => {
@@ -63,6 +66,8 @@ const authReducer = (state = initialState, action: ActionTypeTypes): initialStat
       };
     case LOGOUT:
       return { ...state, userData: null };
+    case UPDATE_REGISTRATION_FORM:
+      return { ...state, updateRegistrationForm: !state.updateRegistrationForm };
     default:
       return state;
   }
