@@ -12,6 +12,10 @@ import {
   POST_DATA_STARTED,
   POST_NEW_CLAIM_SUCCESS,
   GET_CURRENT_CLAIM_SUCCESS,
+  UPDATE_CURRENT_CLAIM_FAILURE,
+  UPDATE_CURRENT_CLAIM_STARTED,
+  UPDATE_CURRENT_CLAIM_SUCCESS,
+  CLOSE_CURRENT_CLAIM,
 } from '../../constants/types';
 
 import { PostNewClaimTypes } from '../../types/postNewClaimTypes';
@@ -47,3 +51,19 @@ export const actionUpdateCurrentTableElement = (currentTableElement: Record<stri
   type: UPDATE_CURRENT_TABLE_ELEMENT,
   payload: currentTableElement,
 });
+
+export const actionUpdateCurrentClaimSuccess = (data: Record<string, any>) => ({
+  type: UPDATE_CURRENT_CLAIM_SUCCESS,
+  payload: data,
+});
+
+export const actionUpdateCurrentClaimStarted = () => ({
+  type: UPDATE_CURRENT_CLAIM_STARTED,
+});
+
+export const actionUpdateCurrentClaimFailure = (errorMessage: string) => ({
+  type: UPDATE_CURRENT_CLAIM_FAILURE,
+  payload: errorMessage,
+});
+
+export const actionCloseCurrentClaim = () => ({ type: CLOSE_CURRENT_CLAIM });

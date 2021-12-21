@@ -34,6 +34,10 @@ const Container = styled.div`
   align-self: flex-start;
 `;
 
+const ErrorMessage = styled.h2`
+  color: 'red';
+`;
+
 const FormButtons: React.FC = () => {
   const history = useHistory();
 
@@ -42,13 +46,17 @@ const FormButtons: React.FC = () => {
   const errorMessage = useSelector(getPostDataErrorMessage);
 
   if (loading) {
-    return <LoadingSpinner />;
+    return (
+      <Container>
+        <LoadingSpinner />
+      </Container>
+    );
   }
 
   if (error) {
     return (
       <Container>
-        <h2 style={{ color: 'red' }}>{errorMessage}</h2>
+        <ErrorMessage>{errorMessage}</ErrorMessage>
       </Container>
     );
   }

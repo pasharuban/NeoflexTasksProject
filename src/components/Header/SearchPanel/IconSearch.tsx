@@ -3,7 +3,11 @@ import styled from 'styled-components';
 
 import iconSearch from '../../../assets/TasksTablePage/icons/search.svg';
 
-const Icon = styled.img``;
+const Icon = styled.img`
+  &:hover {
+    cursor: pointer;
+  }
+`;
 
 const IconSearch: React.FC = () => {
   return <Icon src={iconSearch} alt="bell" />;

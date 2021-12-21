@@ -3,6 +3,10 @@ import {
   GET_CLAIMS_SUCCESS,
   GET_DATA_STARTED,
   GET_CURRENT_CLAIM_SUCCESS,
+  CLOSE_CURRENT_CLAIM,
+  UPDATE_CURRENT_CLAIM_SUCCESS,
+  UPDATE_CURRENT_CLAIM_STARTED,
+  UPDATE_CURRENT_CLAIM_FAILURE,
 } from '../../constants/types';
 import { ActionTypeTypes } from '../../types/actionTypeTypes';
 import { CurrentClaimTypes } from '../../types/currentClaimTypes';
@@ -12,7 +16,12 @@ type initialStateType = {
   tableData: any[];
   getDataError: boolean;
   errorMessage: string;
-  currentClaim: CurrentClaimTypes | undefined;
+  currentClaim: CurrentClaimTypes;
+  updatedCurrentClaim: CurrentClaimTypes;
+
+  updateClaimLoading: boolean;
+  updateClaimError: boolean;
+  updateClaimErrorMessage: string;
 };
 
 const initialState: initialStateType = {
@@ -20,7 +29,11 @@ const initialState: initialStateType = {
   tableData: [],
   getDataError: false,
   errorMessage: 'No ERROR!',
-  currentClaim: undefined,
+  currentClaim: { noData: 'NO DATA' },
+  updatedCurrentClaim: {},
+  updateClaimLoading: false,
+  updateClaimError: false,
+  updateClaimErrorMessage: 'No ERROR!',
 };
 
 const getDataReducer = (state = initialState, action: ActionTypeTypes): initialStateType => {
@@ -33,6 +46,14 @@ const getDataReducer = (state = initialState, action: ActionTypeTypes): initialS
       return { ...state, loading: false, getDataError: false, tableData: action.payload };
     case GET_CURRENT_CLAIM_SUCCESS:
       return { ...state, loading: false, getDataError: false, currentClaim: action.payload };
+    case CLOSE_CURRENT_CLAIM:
+      return { ...state, currentClaim: { noData: 'NO DATA' } };
+    case UPDATE_CURRENT_CLAIM_SUCCESS:
+      return { ...state, updateClaimLoading: false, updateClaimError: false, updatedCurrentClaim: action.payload };
+    case UPDATE_CURRENT_CLAIM_FAILURE:
+      return { ...state, updateClaimLoading: false, updateClaimError: true, updateClaimErrorMessage: action.payload };
+    case UPDATE_CURRENT_CLAIM_STARTED:
+      return { ...state, updateClaimLoading: true, updateClaimError: false };
     default:
       return state;
   }

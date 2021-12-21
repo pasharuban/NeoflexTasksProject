@@ -51,6 +51,8 @@ const IncomingClaimForm: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
   const currentClaim = useSelector(getCurrentClaimState);
+  const { title, description, type } = currentClaim;
+
   const loading = useSelector(getGetDataLoadingState);
   const error = useSelector(getGetDataErrorState);
   const errorMessage = useSelector(getGetDataErrorMessage);
@@ -59,7 +61,7 @@ const IncomingClaimForm: React.FC = () => {
     dispatch(actionGetCurrentClaim(id));
   }, []);
 
-  if (loading || !currentClaim) {
+  if ((loading || currentClaim.noData) && !error) {
     return (
       <SpinnerContainer>
         <LoadingSpinner />
@@ -72,15 +74,15 @@ const IncomingClaimForm: React.FC = () => {
   const fields = [
     {
       name: ['title'],
-      value: currentClaim?.title,
+      value: title,
     },
     {
       name: ['type'],
-      value: currentClaim?.type?.name,
+      value: type?.name,
     },
     {
       name: ['description'],
-      value: currentClaim?.description,
+      value: description,
     },
   ];
 
@@ -90,7 +92,7 @@ const IncomingClaimForm: React.FC = () => {
         <InputField label="Title" name="title" rules={[{ required: false, message: 'Please input title!' }]} disabled />
 
         <DropdownField
-          type={currentClaim?.type?.name}
+          type={type?.name}
           label="type"
           name="type"
           rules={[{ required: false, message: 'Please select a type!' }]}
