@@ -23,6 +23,7 @@ export const actionRegisterUser = (data: RegistrationDataTypes, form: FormInstan
     try {
       postRegistrationUserData(data)
         .then((res) => {
+          console.log(res.data.message);
           if (res.data.message) {
             dispatch(actionAuthFailure(res.data.message));
           } else {
@@ -35,7 +36,7 @@ export const actionRegisterUser = (data: RegistrationDataTypes, form: FormInstan
           }
         })
         .catch((error) => {
-          dispatch(actionAuthFailure(error.message));
+          dispatch(actionAuthFailure(error.response.data.message));
         });
     } catch (error) {
       console.log(error);

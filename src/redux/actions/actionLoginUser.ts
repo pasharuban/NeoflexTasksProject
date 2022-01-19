@@ -33,7 +33,7 @@ export const actionLoginUser = (data: LoginDataTypes, form: FormInstance) => {
           }
         })
         .catch((error) => {
-          dispatch(actionAuthFailure(error.message));
+          dispatch(actionAuthFailure(error.response.data.message));
         });
     } catch (error) {
       console.log(error);
