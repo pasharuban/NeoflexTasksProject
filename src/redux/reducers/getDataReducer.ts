@@ -50,7 +50,7 @@ const getDataReducer = (state = initialState, action: ActionTypeTypes): initialS
         loading: false,
         getDataError: false,
         tableData: action.payload.data,
-        totalClaims: action.payload.titalItems,
+        totalClaims: action.payload.totalItems,
       };
     case GET_CURRENT_CLAIM_SUCCESS:
       return {

@@ -5,15 +5,15 @@ import { getClaims } from '../../utils/api';
 
 import { actionGetDataStarted, actionGetDataFailure, actionGetClaimsSuccess } from './actionCreators';
 
-const actionGetClaims = () => {
+const actionGetClaims = (requestUrl = '') => {
   return (dispatch: Dispatch<ActionTypeTypes>) => {
     dispatch(actionGetDataStarted());
 
     try {
-      getClaims()
+      getClaims(requestUrl)
         .then((response) => {
           const { claims, totalItems } = response.data;
-  
+
           dispatch(actionGetClaimsSuccess(claims, totalItems));
         })
         .catch((error) => {

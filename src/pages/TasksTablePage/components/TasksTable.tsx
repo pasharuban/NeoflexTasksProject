@@ -170,6 +170,15 @@ const TasksTable: React.FC = () => {
 
   let locale = {};
 
+  const triggerPagination = (pagination: Record<string, any>) => {
+    if (pagination.current) {
+      const offset = pagination.current * pageSize - pageSize;
+
+      const requestUrl = `?offset=${offset}&limit=${pageSize}`;
+      dispatch(actionGetClaims(requestUrl));
+    }
+  };
+
   if (error) {
     locale = {
       emptyText: <span style={{ color: 'red', fontFamily: 'Inter' }}>{errorMessage}</span>,
@@ -177,7 +186,7 @@ const TasksTable: React.FC = () => {
   }
 
   useEffect(() => {
-    dispatch(actionGetClaims());
+    dispatch(actionGetClaims(`?offset=0&limit=${pageSize}`));
   }, []);
 
   return (
@@ -195,6 +204,10 @@ const TasksTable: React.FC = () => {
         defaultCurrent: 1,
         total: totalItems,
         showSizeChanger: false,
+      }}
+      onChange={(pagination) => {
+        // сделал так,чтобы потом легче было добавить функционал по сорт-е и тд
+        triggerPagination(pagination);
       }}
     />
   );
