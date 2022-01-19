@@ -7,7 +7,7 @@ import {
   UPDATE_CURRENT_CLAIM_SUCCESS,
   UPDATE_CURRENT_CLAIM_STARTED,
   UPDATE_CURRENT_CLAIM_FAILURE,
-} from '../../constants/types';
+} from '../../constants/actionTypes';
 import { ActionTypeTypes } from '../../types/actionTypeTypes';
 import { CurrentClaimTypes } from '../../types/currentClaimTypes';
 

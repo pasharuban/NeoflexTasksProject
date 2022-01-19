@@ -5,16 +5,19 @@ import {
   GET_CLAIMS_SUCCESS,
   GET_DATA_FAILURE,
   GET_DATA_STARTED,
-  POST_DATA_FAILURE,
-  POST_DATA_STARTED,
-  POST_NEW_CLAIM_SUCCESS,
+  BY_POST_DATA_FAILURE,
+  BY_POST_DATA_STARTED,
+  BY_POST_NEW_CLAIM_SUCCESS,
   GET_CURRENT_CLAIM_SUCCESS,
   UPDATE_CURRENT_CLAIM_FAILURE,
   UPDATE_CURRENT_CLAIM_STARTED,
   UPDATE_CURRENT_CLAIM_SUCCESS,
   CLOSE_CURRENT_CLAIM,
   LOGOUT,
-} from '../../constants/types';
+  GET_USER_DATA_SUCCESS,
+  GET_USER_DATA_FAILURE,
+  GET_USER_DATA_STARTED,
+} from '../../constants/actionTypes';
 
 import { PostNewClaimTypes } from '../../types/postNewClaimTypes';
 
@@ -31,9 +34,12 @@ export const actionGetCurrentClaimSuccess = (data: Record<string, any>) => ({
   payload: data,
 });
 
-export const actionPostNewClaimSuccess = (data: PostNewClaimTypes) => ({ type: POST_NEW_CLAIM_SUCCESS, payload: data });
-export const actionPostDataFailure = (errorMessage: string) => ({ type: POST_DATA_FAILURE, payload: errorMessage });
-export const actionPostDataStarted = () => ({ type: POST_DATA_STARTED });
+export const actionPostNewClaimSuccess = (data: PostNewClaimTypes) => ({
+  type: BY_POST_NEW_CLAIM_SUCCESS,
+  payload: data,
+});
+export const actionPostDataFailure = (errorMessage: string) => ({ type: BY_POST_DATA_FAILURE, payload: errorMessage });
+export const actionPostDataStarted = () => ({ type: BY_POST_DATA_STARTED });
 
 export const actionUpdateCurrentClaimSuccess = (data: Record<string, any>) => ({
   type: UPDATE_CURRENT_CLAIM_SUCCESS,
@@ -52,3 +58,17 @@ export const actionUpdateCurrentClaimFailure = (errorMessage: string) => ({
 export const actionCloseCurrentClaim = () => ({ type: CLOSE_CURRENT_CLAIM });
 
 export const actionLogout = () => ({ type: LOGOUT });
+
+export const actionGetUserDataSuccess = (userData: Record<string, any>) => ({
+  type: GET_USER_DATA_SUCCESS,
+  payload: userData,
+});
+
+export const actionGetUserDataFailure = (errorMessage: string) => ({
+  type: GET_USER_DATA_FAILURE,
+  payload: errorMessage,
+});
+
+export const actionGetUserDataStarted = () => ({
+  type: GET_USER_DATA_STARTED,
+});

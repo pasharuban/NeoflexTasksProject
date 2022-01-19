@@ -50,6 +50,15 @@ const FormButtons: React.FC = () => {
   const currentClaim = useSelector(getCurrentClaimState);
   const { title, description, type, _id } = currentClaim;
 
+  const createUpdatedClaim = (status: string) => {
+    return {
+      title,
+      description,
+      type: type?.slug,
+      status,
+    };
+  };
+
   const error = useSelector(getUpdateClaimError);
   const errorMessage = useSelector(getUpdateClaimErrorMessage);
   const loading = useSelector(getUpdateClaimLoading);
@@ -85,13 +94,7 @@ const FormButtons: React.FC = () => {
       </FormButton>
       <FormButton
         onClick={() => {
-          const updatedClaim = {
-            title,
-            description,
-            type: type?.slug,
-            status: 'done',
-          };
-          dispatch(actionUpdateCurrentClaim(updatedClaim, _id));
+          dispatch(actionUpdateCurrentClaim(createUpdatedClaim('done'), _id));
         }}
         typeOfButton="filledGreen"
         width="82px"
@@ -102,13 +105,7 @@ const FormButtons: React.FC = () => {
       </FormButton>
       <FormButton
         onClick={() => {
-          const updatedClaim = {
-            title,
-            description,
-            type: type?.slug,
-            status: 'decl',
-          };
-          dispatch(actionUpdateCurrentClaim(updatedClaim, _id));
+          dispatch(actionUpdateCurrentClaim(createUpdatedClaim('decl'), _id));
         }}
         typeOfButton="filledPink"
         width="82px"

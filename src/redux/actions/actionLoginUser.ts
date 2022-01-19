@@ -2,7 +2,7 @@ import { FormInstance } from 'antd';
 import { Dispatch } from 'react';
 import { ActionTypeTypes } from '../../types/actionTypeTypes';
 
-import { LOGIN_SUCCESS } from '../../constants/types';
+import { LOGIN_SUCCESS } from '../../constants/actionTypes';
 import { actionAuthStarted, actionAuthFailure } from './actionsAuthStatus';
 import { LoginDataTypes } from '../../types/loginDataTypes';
 import { api, postLoginUserData } from '../../utils/api';

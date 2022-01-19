@@ -1,4 +1,4 @@
-import { AUTH_FAILURE, AUTH_STARTED } from '../../constants/types';
+import { AUTH_FAILURE, AUTH_STARTED } from '../../constants/actionTypes';
 
 export const actionAuthStarted = () => ({
   type: AUTH_STARTED,

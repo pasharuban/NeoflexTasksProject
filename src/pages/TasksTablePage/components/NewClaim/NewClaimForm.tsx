@@ -13,10 +13,6 @@ import DropdownField from '../../../../components/DropdownField/DropdownField';
 
 import { actionCreateClaim } from '../../../../redux/actions/actionCreateClaim';
 
-import { handleRedirectToDashboard } from '../../../../utils/HelperFunctions/helperFunctions';
-
-// const generateUnicId = () => new Date().getTime();
-
 const Container = styled.div`
   width: 100%;
   max-width: 589px;
@@ -38,8 +34,7 @@ const NewClaimForm: React.FC = () => {
       status: 'new',
     };
 
-    await dispatch(actionCreateClaim(newClaim, form));
-    handleRedirectToDashboard(history);
+    await dispatch(actionCreateClaim(newClaim, form, history));
   };
 
   return (

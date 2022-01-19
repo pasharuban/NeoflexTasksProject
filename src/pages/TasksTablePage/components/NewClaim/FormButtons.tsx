@@ -35,7 +35,7 @@ const Container = styled.div`
 `;
 
 const ErrorMessage = styled.h2`
-  color: 'red';
+  color: red;
 `;
 
 const FormButtons: React.FC = () => {

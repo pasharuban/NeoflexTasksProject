@@ -51,7 +51,7 @@ const IncomingClaimForm: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
   const currentClaim = useSelector(getCurrentClaimState);
-  const { title, description, type } = currentClaim;
+  const { title, description, type, noData } = currentClaim;
 
   const loading = useSelector(getGetDataLoadingState);
   const error = useSelector(getGetDataErrorState);
@@ -61,7 +61,7 @@ const IncomingClaimForm: React.FC = () => {
     dispatch(actionGetCurrentClaim(id));
   }, []);
 
-  if ((loading || currentClaim.noData) && !error) {
+  if ((loading || noData) && !error) {
     return (
       <SpinnerContainer>
         <LoadingSpinner />

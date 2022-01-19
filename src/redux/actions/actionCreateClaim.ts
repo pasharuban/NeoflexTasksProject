@@ -1,3 +1,5 @@
+import { RouteComponentProps } from 'react-router';
+
 import { FormInstance } from 'antd';
 import { Dispatch } from 'react';
 import { ActionTypeTypes } from '../../types/actionTypeTypes';
@@ -6,8 +8,13 @@ import { PostNewClaimTypes } from '../../types/postNewClaimTypes';
 
 import { postNewClaimData } from '../../utils/api';
 import { actionPostDataFailure, actionPostDataStarted, actionPostNewClaimSuccess } from './actionCreators';
+import { handleRedirectToDashboard } from '../../utils/HelperFunctions/helperFunctions';
 
-export const actionCreateClaim = (data: PostNewClaimTypes, form: FormInstance) => {
+export const actionCreateClaim = (
+  data: PostNewClaimTypes,
+  form: FormInstance,
+  history: RouteComponentProps['history'],
+) => {
   return (dispatch: Dispatch<ActionTypeTypes>) => {
     dispatch(actionPostDataStarted());
 
@@ -16,6 +23,8 @@ export const actionCreateClaim = (data: PostNewClaimTypes, form: FormInstance) =
         .then((res) => {
           dispatch(actionPostNewClaimSuccess(res.data));
           form.resetFields();
+
+          handleRedirectToDashboard(history);
         })
         .catch((error) => {
           dispatch(actionPostDataFailure(error.toString()));

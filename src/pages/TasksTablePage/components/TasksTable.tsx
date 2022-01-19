@@ -2,11 +2,12 @@ import React, { useEffect } from 'react';
 import { Table } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 
+import { Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
+
 import styled from 'styled-components';
 
 import actionGetClaims from '../../../redux/actions/actionGetClaims';
-
-import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
 
 import {
   getDashboardData,
@@ -114,12 +115,7 @@ const StyledTable = styled(Table)`
   }
 `;
 
-const SpinnerWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-top: 19px;
-`;
+const Spinner = <LoadingOutlined style={{ fontSize: 34, color: '#7db59a' }} spin />;
 
 const columns = [
   {
@@ -172,17 +168,7 @@ const TasksTable: React.FC = () => {
 
   if (error) {
     locale = {
-      emptyText: <h2 style={{ color: 'red', fontFamily: 'Inter' }}>{errorMessage}</h2>,
-    };
-  }
-
-  if (loading) {
-    locale = {
-      emptyText: (
-        <SpinnerWrapper>
-          <LoadingSpinner />
-        </SpinnerWrapper>
-      ),
+      emptyText: <span style={{ color: 'red', fontFamily: 'Inter' }}>{errorMessage}</span>,
     };
   }
 
@@ -190,7 +176,18 @@ const TasksTable: React.FC = () => {
     dispatch(actionGetClaims());
   }, []);
 
-  return <StyledTable locale={locale} rowKey="_id" dataSource={tableData} columns={columns} />;
+  return (
+    <StyledTable
+      locale={locale}
+      loading={{
+        indicator: <Spin indicator={Spinner} />,
+        spinning: loading,
+      }}
+      rowKey="_id"
+      dataSource={tableData}
+      columns={columns}
+    />
+  );
 };
 
 export default TasksTable;

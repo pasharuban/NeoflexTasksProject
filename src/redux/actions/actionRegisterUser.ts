@@ -2,7 +2,7 @@ import { FormInstance } from 'antd';
 import { Dispatch } from 'react';
 import { ActionTypeTypes } from '../../types/actionTypeTypes';
 
-import { REGISTRATION_SUCCESS } from '../../constants/types';
+import { REGISTRATION_SUCCESS } from '../../constants/actionTypes';
 import { actionAuthStarted, actionAuthFailure } from './actionsAuthStatus';
 import { RegistrationDataTypes } from '../../types/registrationDataTypes';
 import { postRegistrationUserData } from '../../utils/api';
@@ -23,8 +23,9 @@ export const actionRegisterUser = (data: RegistrationDataTypes, form: FormInstan
     try {
       postRegistrationUserData(data)
         .then((res) => {
-          if (res.data.message) dispatch(actionAuthFailure(res.data.message));
-          else {
+          if (res.data.message) {
+            dispatch(actionAuthFailure(res.data.message));
+          } else {
             localStorage.setItem('userToken', res.data.token);
             (api.defaults.headers as any).Authorization = `Bearer ${res.data.token}`;
 
