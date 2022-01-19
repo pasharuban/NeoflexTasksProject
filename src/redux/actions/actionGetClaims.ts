@@ -12,7 +12,9 @@ const actionGetClaims = () => {
     try {
       getClaims()
         .then((response) => {
-          dispatch(actionGetClaimsSuccess(response.data.claims));
+          const { claims, totalItems } = response.data;
+  
+          dispatch(actionGetClaimsSuccess(claims, totalItems));
         })
         .catch((error) => {
           dispatch(actionGetDataFailure(error.toString()));

@@ -12,7 +12,7 @@ const NavbarContainer = styled.div`
   align-items: center;
   justify-content: flex-start;
   flex-direction: column;
-  
+
   background: linear-gradient(180deg, #d5eee2 0%, #7db59a 43.23%);
 `;
 

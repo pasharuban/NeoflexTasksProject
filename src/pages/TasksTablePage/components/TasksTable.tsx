@@ -7,10 +7,9 @@ import { LoadingOutlined } from '@ant-design/icons';
 
 import styled from 'styled-components';
 
-import actionGetClaims from '../../../redux/actions/actionGetClaims';
-
 import {
   getDashboardData,
+  getDashboardTotalItems,
   getGetDataErrorMessage,
   getGetDataErrorState,
   getGetDataLoadingState,
@@ -22,6 +21,7 @@ import ActionCell from './ActionCell';
 import { capitalizeFirstLetter } from '../../../utils/HelperFunctions/helperFunctions';
 import { tableTypeBeforeElementBackgroundColor } from '../../../utils/Colors/tableTypeElement';
 import { getEuropeFormatDate } from '../../../utils/HelperFunctions/helperFunctions';
+import actionGetClaims from '../../../redux/actions/actionGetClaims';
 
 const paginationStyles = {
   borderColor: '#7db59a',
@@ -160,9 +160,13 @@ const columns = [
 const TasksTable: React.FC = () => {
   const dispatch = useDispatch();
   const tableData = useSelector(getDashboardData);
+  const totalItems = useSelector(getDashboardTotalItems);
+
   const loading = useSelector(getGetDataLoadingState);
   const error = useSelector(getGetDataErrorState);
   const errorMessage = useSelector(getGetDataErrorMessage);
+
+  const pageSize = 5;
 
   let locale = {};
 
@@ -186,6 +190,12 @@ const TasksTable: React.FC = () => {
       rowKey="_id"
       dataSource={tableData}
       columns={columns}
+      pagination={{
+        defaultPageSize: pageSize,
+        defaultCurrent: 1,
+        total: totalItems,
+        showSizeChanger: false,
+      }}
     />
   );
 };
