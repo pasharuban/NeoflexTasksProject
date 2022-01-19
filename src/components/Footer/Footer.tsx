@@ -11,6 +11,10 @@ const Logo = styled.img`
   ${minWidth.largeScreen} {
     width: 3.5%;
   }
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const FooterContainer = styled.div`

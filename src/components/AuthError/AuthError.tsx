@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import { closeErrorMessage } from '../../redux/actionCreators';
+import { closeErrorMessage } from '../../redux/actions/actionCreators';
 
-import { getErrorMessage } from '../../redux/selectors/selectors';
+import { getAuthErrorMessage } from '../../redux/selectors/selectors';
 
 import Close from '../Close/Close';
 
@@ -46,7 +46,7 @@ const ErrorMessage = styled.p`
 `;
 
 const AuthError: React.FC<{ authTitle: string }> = ({ authTitle }) => {
-  const errorMessage = useSelector(getErrorMessage);
+  const errorMessage = useSelector(getAuthErrorMessage);
   const dispatch = useDispatch();
 
   return (

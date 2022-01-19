@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Form, FormInstance } from 'antd';
+import { Form } from 'antd';
 
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
 import LoadingSpinner from '../../../../components/LoadingSpinner/LoadingSpinner';
@@ -20,7 +20,7 @@ import RequestRegistration from '../RequestRegistration/RequestRegistration';
 import CheckboxField from '../../../../components/CheckboxField/CheckboxField';
 
 import { validatePassword } from '../../../../utils/HelperFunctions/helperFunctions';
-import { getAuthErrorState, getLoadingState } from '../../../../redux/selectors/selectors';
+import { getAuthErrorState, getAuthLoadingState } from '../../../../redux/selectors/selectors';
 
 // styles for prefix(icon) inside input
 const inputSuffixStyles = { color: '#ADADAD', fontSize: '20px' };
@@ -28,12 +28,8 @@ const inputSuffixStyles = { color: '#ADADAD', fontSize: '20px' };
 const LoginForm: React.FC = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
-  const loading = useSelector(getLoadingState);
+  const loading = useSelector(getAuthLoadingState);
   const loginError = useSelector(getAuthErrorState);
-
-  const loginUser = (data: LoginDataTypes, form: FormInstance) => {
-    dispatch(actionLoginUser(data, form));
-  };
 
   let formSubmitElement = (
     <ButtonElement marginBottom="16px" typeOfButton="filledGreen" width="100%">
@@ -46,7 +42,7 @@ const LoginForm: React.FC = () => {
   if (loginError) return <AuthError authTitle="Ошибка Входа!" />;
 
   const onFinish = (values: LoginDataTypes) => {
-    loginUser(values, form);
+    dispatch(actionLoginUser(values, form));
   };
 
   return (

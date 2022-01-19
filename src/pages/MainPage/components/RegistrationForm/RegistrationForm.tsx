@@ -1,15 +1,13 @@
 import React from 'react';
 
 import { connect, useSelector } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { ThunkDispatch } from 'redux-thunk';
+import { bindActionCreators, Dispatch } from 'redux';
+
 import { FormInstance } from 'antd';
 
 import { Form } from 'antd';
 import { MailOutlined, LockOutlined, UserOutlined } from '@ant-design/icons';
 
-import { State } from '../../../../types/stateTypes';
-import { Action } from '../../../../redux/reducer';
 import { actionRegisterUser } from '../../../../redux/actions/actionRegisterUser';
 import { validatePassword } from '../../../../utils/HelperFunctions/helperFunctions';
 
@@ -18,7 +16,7 @@ import AuthError from '../../../../components/AuthError/AuthError';
 import { RegistrationDataTypes } from '../../../../types/registrationDataTypes';
 import LoadingSpinner from '../../../../components/LoadingSpinner/LoadingSpinner';
 
-import { actionUpdateRegistrationForm } from '../../../../redux/actionCreators';
+import { actionUpdateRegistrationForm } from '../../../../redux/actions/actionCreators';
 
 import ItemForm from '../../../../components/ItemForm/ItemForm';
 
@@ -26,9 +24,10 @@ import InputField from '../../../../components/InputField/InputField';
 
 import ButtonElement from '../../../../components/ButtonElement/ButtonElement';
 
-import { getAuthErrorState, getLoadingState } from '../../../../redux/selectors/selectors';
+import { getAuthErrorState, getAuthLoadingState } from '../../../../redux/selectors/selectors';
 
 import Close from '../../../../components/Close/Close';
+import { ActionTypeTypes } from '../../../../types/actionTypeTypes';
 
 // styles for suffix(icon) inside input
 const inputSuffixStyles = { color: '#ADADAD', fontSize: '20px' };
@@ -38,7 +37,7 @@ const RegistrationForm: React.FC<{
   registerUser: (data: RegistrationDataTypes, form: FormInstance) => void;
 }> = ({ updateRegistrationForm, registerUser }) => {
   const [form] = Form.useForm();
-  const loading = useSelector(getLoadingState);
+  const loading = useSelector(getAuthLoadingState);
   const registrationError = useSelector(getAuthErrorState);
 
   let formSubmitElement = (
@@ -97,7 +96,7 @@ const RegistrationForm: React.FC<{
   );
 };
 
-export const mapDispatchToProps = (dispatch: ThunkDispatch<State, never, Action>) => {
+export const mapDispatchToProps = (dispatch: Dispatch<ActionTypeTypes>) => {
   const dispatchUpdateRegistrationForm = bindActionCreators(actionUpdateRegistrationForm, dispatch);
   const dispatchRegisterUser = bindActionCreators(actionRegisterUser, dispatch);
 

@@ -17,7 +17,9 @@ const CreateBtn = styled(ButtonElement)`
   width: 174px;
 `;
 
-const ButtonIcon = styled.img``;
+const ButtonIcon = styled.img`
+  width: 40px;
+`;
 
 const onHandleRedirectToCreateNewClaimForm = (history: RouteComponentProps['history'], url: string) => {
   history.push(`${url}${routes.create}`);

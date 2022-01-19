@@ -1,13 +1,10 @@
 import { RouteComponentProps } from 'react-router';
 import { routes } from '../../routes/routes';
 
-export const capitalizeFirstLetter = (str: string) => {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-};
+export const capitalizeFirstLetter = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
 
-export const getEuropeFormatDate = (date: Date): string => {
-  return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
-};
+export const getEuropeFormatDate = (date: Date): string =>
+  `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
 
 export const handleRedirectToDashboard = (history: RouteComponentProps['history']) => {
   history.push(routes.dashboard);

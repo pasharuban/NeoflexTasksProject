@@ -1,16 +1,13 @@
 import { FormInstance } from 'antd';
 import { Dispatch } from 'react';
+import { ActionTypeTypes } from '../../types/actionTypeTypes';
 
-import { api } from '../../utils/api';
-
-import { AuthFailureType, AuthStartedType, LoginSuccessType } from './actionsTypes';
-
-import { LOGIN_SUCCESS } from './types';
+import { LOGIN_SUCCESS } from '../../constants/actionTypes';
 import { actionAuthStarted, actionAuthFailure } from './actionsAuthStatus';
 import { LoginDataTypes } from '../../types/loginDataTypes';
-import { postLoginUserData } from '../../utils/api';
+import { api, postLoginUserData } from '../../utils/api';
 
-const loginSuccess = (data: LoginDataTypes): LoginSuccessType => ({
+const loginSuccess = (data: LoginDataTypes) => ({
   type: LOGIN_SUCCESS,
   payload: {
     ...data,
@@ -18,27 +15,28 @@ const loginSuccess = (data: LoginDataTypes): LoginSuccessType => ({
 });
 
 export const actionLoginUser = (data: LoginDataTypes, form: FormInstance) => {
-  return (dispatch: Dispatch<AuthFailureType | AuthStartedType | LoginSuccessType>) => {
+  return (dispatch: Dispatch<ActionTypeTypes>) => {
     dispatch(actionAuthStarted());
     const { email, password } = data;
 
     try {
-      postLoginUserData(email, password)
+      return postLoginUserData(email, password)
         .then((res) => {
           if (res.data.message) dispatch(actionAuthFailure(res.data.message));
           else {
             if (data.rememberMe) localStorage.setItem('userToken', res.data.token);
 
+            (api.defaults.headers as any).Authorization = `Bearer ${res.data.token}`;
+
             dispatch(loginSuccess(res.data));
-            api.defaults.headers.common.Authorization = `Bearer ${res.data.token}`;
             form.resetFields();
           }
         })
-        .catch((err) => {
-          dispatch(actionAuthFailure(err.message));
+        .catch((error) => {
+          dispatch(actionAuthFailure(error.response.data.message));
         });
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.log(error);
     }
   };
 };

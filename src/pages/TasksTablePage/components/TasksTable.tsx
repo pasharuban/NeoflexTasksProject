@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Table } from 'antd';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { connect } from 'react-redux';
+import { Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 
 import styled from 'styled-components';
 
-import { RootState } from '../../../redux/rootReducer';
+import actionGetClaims from '../../../redux/actions/actionGetClaims';
+
+import {
+  getDashboardData,
+  getGetDataErrorMessage,
+  getGetDataErrorState,
+  getGetDataLoadingState,
+} from '../../../redux/selectors/selectors';
 
 import TableCellBaseFontSize from './TableCellBaseFontSize';
 import ActionCell from './ActionCell';
@@ -106,6 +115,8 @@ const StyledTable = styled(Table)`
   }
 `;
 
+const Spinner = <LoadingOutlined style={{ fontSize: 34, color: '#7db59a' }} spin />;
+
 const columns = [
   {
     title: 'Title',
@@ -121,7 +132,7 @@ const columns = [
   },
   {
     title: 'Type',
-    dataIndex: 'type',
+    dataIndex: ['type', 'name'],
     key: '_id',
     render: (text: string) => {
       return <CellTypeText type={text}>{capitalizeFirstLetter(text)}</CellTypeText>;
@@ -146,12 +157,37 @@ const columns = [
   },
 ];
 
-const TasksTable: React.FC<{ claims?: any[] }> = ({ claims }) => {
-  return <StyledTable rowKey="_id" dataSource={claims} columns={columns} />;
+const TasksTable: React.FC = () => {
+  const dispatch = useDispatch();
+  const tableData = useSelector(getDashboardData);
+  const loading = useSelector(getGetDataLoadingState);
+  const error = useSelector(getGetDataErrorState);
+  const errorMessage = useSelector(getGetDataErrorMessage);
+
+  let locale = {};
+
+  if (error) {
+    locale = {
+      emptyText: <span style={{ color: 'red', fontFamily: 'Inter' }}>{errorMessage}</span>,
+    };
+  }
+
+  useEffect(() => {
+    dispatch(actionGetClaims());
+  }, []);
+
+  return (
+    <StyledTable
+      locale={locale}
+      loading={{
+        indicator: <Spin indicator={Spinner} />,
+        spinning: loading,
+      }}
+      rowKey="_id"
+      dataSource={tableData}
+      columns={columns}
+    />
+  );
 };
 
-const mapStateToProps = (state: RootState) => {
-  return { claims: state.forms.claims };
-};
-
-export default connect(mapStateToProps, null)(TasksTable);
+export default TasksTable;
