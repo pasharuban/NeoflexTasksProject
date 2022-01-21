@@ -6,6 +6,7 @@ export const getAuthErrorMessage = (state: RootState) => state.auth.errorMessage
 export const getCurrentUserData = (state: RootState) => state.auth.userData;
 
 export const getDashboardData = (state: RootState) => state.getData.tableData;
+export const getDashboardTotalItems = (state: RootState) => state.getData.totalClaims;
 
 export const getGetDataLoadingState = (state: RootState) => state.getData.loading;
 export const getGetDataErrorState = (state: RootState) => state.getData.getDataError;

@@ -25,7 +25,10 @@ export const actionUpdateRegistrationForm = () => ({ type: UPDATE_REGISTRATION_F
 export const actionOpenCreateNewClaimForm = () => ({ type: OPEN_CREATE_NEW_CLAIM_FORM });
 export const closeErrorMessage = () => ({ type: CLOSE_ERROR_MESSAGE });
 
-export const actionGetClaimsSuccess = (data: Record<string, any>) => ({ type: GET_CLAIMS_SUCCESS, payload: data });
+export const actionGetClaimsSuccess = (data: Record<string, any>, totalItems: number) => ({
+  type: GET_CLAIMS_SUCCESS,
+  payload: { data, totalItems },
+});
 export const actionGetDataFailure = (errorMessage: string) => ({ type: GET_DATA_FAILURE, payload: errorMessage });
 export const actionGetDataStarted = () => ({ type: GET_DATA_STARTED });
 

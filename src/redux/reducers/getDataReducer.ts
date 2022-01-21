@@ -14,6 +14,7 @@ import { CurrentClaimTypes } from '../../types/currentClaimTypes';
 type initialStateType = {
   loading: boolean;
   tableData: any[];
+  totalClaims: number;
   getDataError: boolean;
   errorMessage: string;
   currentClaim: CurrentClaimTypes;
@@ -28,6 +29,7 @@ const initialState: initialStateType = {
   loading: false,
   tableData: [],
   getDataError: false,
+  totalClaims: 0,
   errorMessage: 'No ERROR!',
   currentClaim: { noData: 'NO DATA' },
   updatedCurrentClaim: {},
@@ -43,9 +45,20 @@ const getDataReducer = (state = initialState, action: ActionTypeTypes): initialS
     case GET_DATA_FAILURE:
       return { ...state, loading: false, getDataError: true, errorMessage: action.payload };
     case GET_CLAIMS_SUCCESS:
-      return { ...state, loading: false, getDataError: false, tableData: action.payload };
+      return {
+        ...state,
+        loading: false,
+        getDataError: false,
+        tableData: action.payload.data,
+        totalClaims: action.payload.totalItems,
+      };
     case GET_CURRENT_CLAIM_SUCCESS:
-      return { ...state, loading: false, getDataError: false, currentClaim: action.payload };
+      return {
+        ...state,
+        loading: false,
+        getDataError: false,
+        currentClaim: action.payload,
+      };
     case CLOSE_CURRENT_CLAIM:
       return { ...state, currentClaim: { noData: 'NO DATA' } };
     case UPDATE_CURRENT_CLAIM_SUCCESS:

@@ -7,10 +7,9 @@ import { LoadingOutlined } from '@ant-design/icons';
 
 import styled from 'styled-components';
 
-import actionGetClaims from '../../../redux/actions/actionGetClaims';
-
 import {
   getDashboardData,
+  getDashboardTotalItems,
   getGetDataErrorMessage,
   getGetDataErrorState,
   getGetDataLoadingState,
@@ -22,6 +21,7 @@ import ActionCell from './ActionCell';
 import { capitalizeFirstLetter } from '../../../utils/HelperFunctions/helperFunctions';
 import { tableTypeBeforeElementBackgroundColor } from '../../../utils/Colors/tableTypeElement';
 import { getEuropeFormatDate } from '../../../utils/HelperFunctions/helperFunctions';
+import actionGetClaims from '../../../redux/actions/actionGetClaims';
 
 const paginationStyles = {
   borderColor: '#7db59a',
@@ -160,11 +160,22 @@ const columns = [
 const TasksTable: React.FC = () => {
   const dispatch = useDispatch();
   const tableData = useSelector(getDashboardData);
+  const totalItems = useSelector(getDashboardTotalItems);
+
   const loading = useSelector(getGetDataLoadingState);
   const error = useSelector(getGetDataErrorState);
   const errorMessage = useSelector(getGetDataErrorMessage);
 
+  const limit = 5;
+
   let locale = {};
+
+  const triggerPagination = (pagination: Record<string, any>) => {
+    if (pagination.current) {
+      const offset = pagination.current * limit - limit;
+      dispatch(actionGetClaims(limit, offset));
+    }
+  };
 
   if (error) {
     locale = {
@@ -173,7 +184,7 @@ const TasksTable: React.FC = () => {
   }
 
   useEffect(() => {
-    dispatch(actionGetClaims());
+    dispatch(actionGetClaims(limit));
   }, []);
 
   return (
@@ -186,6 +197,15 @@ const TasksTable: React.FC = () => {
       rowKey="_id"
       dataSource={tableData}
       columns={columns}
+      pagination={{
+        defaultPageSize: limit,
+        defaultCurrent: 1,
+        total: totalItems,
+        showSizeChanger: false,
+      }}
+      onChange={(pagination, _, __, extra) => {
+        if (extra.action === 'paginate') triggerPagination(pagination);
+      }}
     />
   );
 };
