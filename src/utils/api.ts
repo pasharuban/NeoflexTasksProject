@@ -16,7 +16,7 @@ export const postLoginUserData = (email: string, password: string) => api.post(`
 
 export const postNewClaimData = (data: PostNewClaimTypes) => api.post(`/claim`, data);
 
-export const getClaims = (requestUrl: string) => api.get(`/claim${requestUrl}`);
+export const getClaims = (limit: number, offset: number) => api.get(`/claim`, { params: { offset, limit } });
 
 export const getCurrentClaim = (id: string) => api.get(`/claim/${id}`);
 

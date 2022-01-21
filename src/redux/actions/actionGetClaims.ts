@@ -5,12 +5,12 @@ import { getClaims } from '../../utils/api';
 
 import { actionGetDataStarted, actionGetDataFailure, actionGetClaimsSuccess } from './actionCreators';
 
-const actionGetClaims = (requestUrl = '') => {
+const actionGetClaims = (limit: number, offset = 0) => {
   return (dispatch: Dispatch<ActionTypeTypes>) => {
     dispatch(actionGetDataStarted());
 
     try {
-      getClaims(requestUrl)
+      getClaims(limit, offset)
         .then((response) => {
           const { claims, totalItems } = response.data;
 

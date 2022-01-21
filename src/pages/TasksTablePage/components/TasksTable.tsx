@@ -166,16 +166,14 @@ const TasksTable: React.FC = () => {
   const error = useSelector(getGetDataErrorState);
   const errorMessage = useSelector(getGetDataErrorMessage);
 
-  const pageSize = 5;
+  const limit = 5;
 
   let locale = {};
 
   const triggerPagination = (pagination: Record<string, any>) => {
     if (pagination.current) {
-      const offset = pagination.current * pageSize - pageSize;
-
-      const requestUrl = `?offset=${offset}&limit=${pageSize}`;
-      dispatch(actionGetClaims(requestUrl));
+      const offset = pagination.current * limit - limit;
+      dispatch(actionGetClaims(limit, offset));
     }
   };
 
@@ -186,7 +184,7 @@ const TasksTable: React.FC = () => {
   }
 
   useEffect(() => {
-    dispatch(actionGetClaims(`?offset=0&limit=${pageSize}`));
+    dispatch(actionGetClaims(limit));
   }, []);
 
   return (
@@ -200,14 +198,13 @@ const TasksTable: React.FC = () => {
       dataSource={tableData}
       columns={columns}
       pagination={{
-        defaultPageSize: pageSize,
+        defaultPageSize: limit,
         defaultCurrent: 1,
         total: totalItems,
         showSizeChanger: false,
       }}
-      onChange={(pagination) => {
-        // сделал так,чтобы потом легче было добавить функционал по сорт-е и тд
-        triggerPagination(pagination);
+      onChange={(pagination, _, __, extra) => {
+        if (extra.action === 'paginate') triggerPagination(pagination);
       }}
     />
   );
