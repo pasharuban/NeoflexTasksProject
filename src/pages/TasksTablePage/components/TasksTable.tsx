@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -18,10 +18,11 @@ import {
 import TableCellBaseFontSize from './TableCellBaseFontSize';
 import ActionCell from './ActionCell';
 
-import { capitalizeFirstLetter } from '../../../utils/HelperFunctions/helperFunctions';
+import { capitalizeFirstLetter, isEmpty } from '../../../utils/HelperFunctions/helperFunctions';
 import { tableTypeBeforeElementBackgroundColor } from '../../../utils/Colors/tableTypeElement';
 import { getEuropeFormatDate } from '../../../utils/HelperFunctions/helperFunctions';
 import actionGetClaims from '../../../redux/actions/actionGetClaims';
+import { ClaimTypes } from '../../../types/claimTypes';
 
 const paginationStyles = {
   borderColor: '#7db59a',
@@ -84,12 +85,24 @@ const CellTypeText = styled(TableCellBaseFontSize)<{ type: string }>`
   }
 `;
 
-const StyledTable = styled(Table)`
+const StyledTable = styled(Table)<ClaimTypes>`
   width: 100%;
 
   align-self: center;
 
   margin-top: 50px;
+
+  .ant-table-column-sorters {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .ant-table-column-title,
+  .ant-table-cell {
+    margin-right: 16px;
+    font-size: 18px;
+  }
 
   .ant-pagination-item {
     color: ${paginationStyles.color};
@@ -123,6 +136,7 @@ const columns = [
     dataIndex: 'title',
     key: '_id',
     render: (text: string) => <TableCellBaseFontSize>{text}</TableCellBaseFontSize>,
+    sorter: true,
   },
   {
     title: 'Created',
@@ -137,6 +151,7 @@ const columns = [
     render: (text: string) => {
       return <CellTypeText type={text}>{capitalizeFirstLetter(text)}</CellTypeText>;
     },
+    sorter: true,
   },
   {
     title: 'Status',
@@ -149,6 +164,7 @@ const columns = [
         </CellStatusField>
       );
     },
+    sorter: true,
   },
   {
     title: 'Actions',
@@ -166,15 +182,44 @@ const TasksTable: React.FC = () => {
   const error = useSelector(getGetDataErrorState);
   const errorMessage = useSelector(getGetDataErrorMessage);
 
+  const [current, setCurrent] = useState(1);
+  const [currentOrder, setCurrentOrder] = useState('');
+
   const limit = 5;
 
   let locale = {};
 
-  const triggerPagination = (pagination: Record<string, any>) => {
-    if (pagination.current) {
-      const offset = pagination.current * limit - limit;
-      dispatch(actionGetClaims(limit, offset));
+  const jumpToFirstPage = (limit: number, offset: number, field: string, order: string) => {
+    setCurrent(1);
+    dispatch(actionGetClaims(limit, offset, field, order));
+  };
+
+  const triggerPaginateOrSort = (pagination: Record<string, any>, sorter: Record<string, any>) => {
+    let offset = 0;
+    offset = pagination.current * limit - limit;
+
+    let field = '';
+    let order = '';
+
+    if (!isEmpty(sorter)) {
+      if (Array.isArray(sorter.field)) [field] = sorter.field;
+      else field = sorter.field;
+
+      // при нажатии на иконку сортировки у нас может быть 3 состояния
+      // (asc,desc  и сброс) поэтому отслеживаю order (при сбросе order = undefined)
+      // sorter  возращает нужный order c 'end' (ascend,descend) а нам нужно (desc,asc)
+      if (sorter.order) order = sorter.order.replace('end', '');
+
+      if (pagination.current > 1 && currentOrder !== sorter.order) {
+        jumpToFirstPage(limit, 0, field, order);
+        setCurrentOrder(sorter.order);
+        return 0;
+      }
+
+      setCurrentOrder(sorter.order);
     }
+
+    dispatch(actionGetClaims(limit, offset, field, order));
   };
 
   if (error) {
@@ -200,11 +245,17 @@ const TasksTable: React.FC = () => {
       pagination={{
         defaultPageSize: limit,
         defaultCurrent: 1,
+        current,
         total: totalItems,
         showSizeChanger: false,
+        onChange: (page) => {
+          setCurrent(page);
+        },
       }}
-      onChange={(pagination, _, __, extra) => {
-        if (extra.action === 'paginate') triggerPagination(pagination);
+      onChange={(pagination, _, sorter: Record<string, any>, extra) => {
+        if (extra.action === 'paginate' || extra.action === 'sort') {
+          triggerPaginateOrSort(pagination, sorter);
+        }
       }}
     />
   );
