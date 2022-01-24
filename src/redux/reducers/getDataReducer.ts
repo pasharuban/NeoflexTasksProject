@@ -9,16 +9,16 @@ import {
   UPDATE_CURRENT_CLAIM_FAILURE,
 } from '../../constants/actionTypes';
 import { ActionTypeTypes } from '../../types/actionTypeTypes';
-import { CurrentClaimTypes } from '../../types/currentClaimTypes';
+import { ClaimTypes } from '../../types/claimTypes';
 
 type initialStateType = {
   loading: boolean;
-  tableData: any[];
+  tableData: ClaimTypes[];
   totalClaims: number;
   getDataError: boolean;
   errorMessage: string;
-  currentClaim: CurrentClaimTypes;
-  updatedCurrentClaim: CurrentClaimTypes;
+  currentClaim: ClaimTypes;
+  updatedCurrentClaim: ClaimTypes;
 
   updateClaimLoading: boolean;
   updateClaimError: boolean;
