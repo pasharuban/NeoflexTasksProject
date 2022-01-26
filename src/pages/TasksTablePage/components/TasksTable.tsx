@@ -143,6 +143,7 @@ const columns = [
     dataIndex: 'createdAt',
     key: '_id',
     render: (text: string) => <TableCellBaseFontSize>{getEuropeFormatDate(new Date(text))}</TableCellBaseFontSize>,
+    sorter: true,
   },
   {
     title: 'Type',
