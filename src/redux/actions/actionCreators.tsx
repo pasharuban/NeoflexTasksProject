@@ -20,19 +20,20 @@ import {
 } from '../../constants/actionTypes';
 
 import { PostNewClaimTypes } from '../../types/postNewClaimTypes';
+import { ClaimTypes } from '../../types/claimTypes';
 
 export const actionUpdateRegistrationForm = () => ({ type: UPDATE_REGISTRATION_FORM });
 export const actionOpenCreateNewClaimForm = () => ({ type: OPEN_CREATE_NEW_CLAIM_FORM });
 export const closeErrorMessage = () => ({ type: CLOSE_ERROR_MESSAGE });
 
-export const actionGetClaimsSuccess = (data: Record<string, any>, totalItems: number) => ({
+export const actionGetClaimsSuccess = (data: ClaimTypes[], totalItems: number) => ({
   type: GET_CLAIMS_SUCCESS,
   payload: { data, totalItems },
 });
 export const actionGetDataFailure = (errorMessage: string) => ({ type: GET_DATA_FAILURE, payload: errorMessage });
 export const actionGetDataStarted = () => ({ type: GET_DATA_STARTED });
 
-export const actionGetCurrentClaimSuccess = (data: Record<string, any>) => ({
+export const actionGetCurrentClaimSuccess = (data: ClaimTypes) => ({
   type: GET_CURRENT_CLAIM_SUCCESS,
   payload: data,
 });
@@ -44,7 +45,7 @@ export const actionPostNewClaimSuccess = (data: PostNewClaimTypes) => ({
 export const actionPostDataFailure = (errorMessage: string) => ({ type: BY_POST_DATA_FAILURE, payload: errorMessage });
 export const actionPostDataStarted = () => ({ type: BY_POST_DATA_STARTED });
 
-export const actionUpdateCurrentClaimSuccess = (data: Record<string, any>) => ({
+export const actionUpdateCurrentClaimSuccess = (data: ClaimTypes) => ({
   type: UPDATE_CURRENT_CLAIM_SUCCESS,
   payload: data,
 });

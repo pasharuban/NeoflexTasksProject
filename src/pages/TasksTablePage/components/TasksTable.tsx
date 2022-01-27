@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Table } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
+
+import { Table } from 'antd';
+import { TablePaginationConfig } from 'antd/lib/table';
+import { FilterValue, SorterResult, TableCurrentDataSource } from 'antd/lib/table/interface';
 
 import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
@@ -15,77 +18,18 @@ import {
   getGetDataLoadingState,
 } from '../../../redux/selectors/selectors';
 
-import TableCellBaseFontSize from './TableCellBaseFontSize';
-import ActionCell from './ActionCell';
+import { isEmpty } from '../../../utils/HelperFunctions/helperFunctions';
 
-import { capitalizeFirstLetter, isEmpty } from '../../../utils/HelperFunctions/helperFunctions';
-import { tableTypeBeforeElementBackgroundColor } from '../../../utils/Colors/tableTypeElement';
-import { getEuropeFormatDate } from '../../../utils/HelperFunctions/helperFunctions';
 import actionGetClaims from '../../../redux/actions/actionGetClaims';
-import { ClaimTypes } from '../../../types/claimTypes';
+import columns from '../../../constants/tableColumns';
+import sortOrders from '../../../constants/sortOrders';
 
 const paginationStyles = {
   borderColor: '#7db59a',
   color: 'black',
 };
 
-const CellStatusField = styled.div<{ status: string }>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 144px;
-  border-radius: 16px;
-  padding: 9px 8px;
-
-  background: ${(props) => {
-    const { status } = props;
-    switch (status.toLowerCase()) {
-      case 'declined':
-        return '#E84393';
-      case 'new':
-        return '#6C5CE7';
-      case 'in progress':
-        return '#FDCB6E';
-      case 'done':
-        return '#00B894';
-      default:
-        return 'black';
-    }
-  }};
-`;
-
-const CellStatusText = styled.p`
-  font-family: Inter;
-  font-style: normal;
-  font-weight: 800;
-  font-size: 1rem;
-  line-height: 15px;
-
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-
-  color: #ffffff;
-`;
-
-const CellTypeText = styled(TableCellBaseFontSize)<{ type: string }>`
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-
-  &::before {
-    content: '';
-    display: block;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    margin-right: 16px;
-
-    background-color: ${(props) => tableTypeBeforeElementBackgroundColor(props.type)};
-  }
-`;
-
-const StyledTable = styled(Table)<ClaimTypes>`
+const StyledTable = styled(Table)`
   width: 100%;
 
   align-self: center;
@@ -130,50 +74,6 @@ const StyledTable = styled(Table)<ClaimTypes>`
 
 const Spinner = <LoadingOutlined style={{ fontSize: 34, color: '#7db59a' }} spin />;
 
-const columns = [
-  {
-    title: 'Title',
-    dataIndex: 'title',
-    key: '_id',
-    render: (text: string) => <TableCellBaseFontSize>{text}</TableCellBaseFontSize>,
-    sorter: true,
-  },
-  {
-    title: 'Created',
-    dataIndex: 'createdAt',
-    key: '_id',
-    render: (text: string) => <TableCellBaseFontSize>{getEuropeFormatDate(new Date(text))}</TableCellBaseFontSize>,
-    sorter: true,
-  },
-  {
-    title: 'Type',
-    dataIndex: ['type', 'name'],
-    key: '_id',
-    render: (text: string) => {
-      return <CellTypeText type={text}>{capitalizeFirstLetter(text)}</CellTypeText>;
-    },
-    sorter: true,
-  },
-  {
-    title: 'Status',
-    dataIndex: ['status', 'slug'],
-    key: '_id',
-    render: (text: string) => {
-      return (
-        <CellStatusField status={text}>
-          <CellStatusText>{text}</CellStatusText>
-        </CellStatusField>
-      );
-    },
-    sorter: true,
-  },
-  {
-    title: 'Actions',
-    key: '_id',
-    render: (index: Record<string, unknown>) => <ActionCell index={index} />,
-  },
-];
-
 const TasksTable: React.FC = () => {
   const dispatch = useDispatch();
   const tableData = useSelector(getDashboardData);
@@ -186,6 +86,8 @@ const TasksTable: React.FC = () => {
   const [current, setCurrent] = useState(1);
   const [currentOrder, setCurrentOrder] = useState('');
 
+  type tableDataType = typeof tableData[0];
+
   const limit = 5;
 
   let locale = {};
@@ -196,8 +98,7 @@ const TasksTable: React.FC = () => {
   };
 
   const triggerPaginateOrSort = (pagination: Record<string, any>, sorter: Record<string, any>) => {
-    let offset = 0;
-    offset = pagination.current * limit - limit;
+    const offset = pagination.current * limit - limit;
 
     let field = '';
     let order = '';
@@ -209,7 +110,9 @@ const TasksTable: React.FC = () => {
       // при нажатии на иконку сортировки у нас может быть 3 состояния
       // (asc,desc  и сброс) поэтому отслеживаю order (при сбросе order = undefined)
       // sorter  возращает нужный order c 'end' (ascend,descend) а нам нужно (desc,asc)
-      if (sorter.order) order = sorter.order.replace('end', '');
+      // if (sorter.order) order = sorter.order.replace('end', '');
+
+      order = sortOrders[sorter?.order];
 
       if (pagination.current > 1 && currentOrder !== sorter.order) {
         jumpToFirstPage(limit, 0, field, order);
@@ -221,6 +124,21 @@ const TasksTable: React.FC = () => {
     }
 
     dispatch(actionGetClaims(limit, offset, field, order));
+  };
+
+  const handleTableOnChange = (
+    pagination: TablePaginationConfig,
+    _: Record<string, FilterValue | null>,
+    sorter: SorterResult<tableDataType> | SorterResult<tableDataType>[],
+    extra: TableCurrentDataSource<tableDataType>,
+  ) => {
+    if (extra.action === 'paginate' || extra.action === 'sort') {
+      triggerPaginateOrSort(pagination, sorter);
+    }
+  };
+
+  const handlePaginationOnChange = (page: number) => {
+    setCurrent(page);
   };
 
   if (error) {
@@ -249,15 +167,9 @@ const TasksTable: React.FC = () => {
         current,
         total: totalItems,
         showSizeChanger: false,
-        onChange: (page) => {
-          setCurrent(page);
-        },
+        onChange: handlePaginationOnChange,
       }}
-      onChange={(pagination, _, sorter: Record<string, any>, extra) => {
-        if (extra.action === 'paginate' || extra.action === 'sort') {
-          triggerPaginateOrSort(pagination, sorter);
-        }
-      }}
+      onChange={handleTableOnChange}
     />
   );
 };
