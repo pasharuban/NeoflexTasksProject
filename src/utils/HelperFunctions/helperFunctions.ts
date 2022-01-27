@@ -21,3 +21,9 @@ export const validatePassword = (_: string | null, value: string, callback: (arg
     callback();
   }
 };
+
+export const isEmpty = (obj: Record<string, any>) => {
+  if (Object.keys(obj).length === 0 && obj.constructor === Object) return true;
+
+  return false;
+};

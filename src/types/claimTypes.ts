@@ -1,4 +1,4 @@
-export type CurrentClaimTypes = {
+export type ClaimTypes = {
   createdAt?: Date;
   description?: string;
   status?: Record<string, any>;
