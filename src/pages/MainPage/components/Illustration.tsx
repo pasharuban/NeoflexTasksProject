@@ -4,7 +4,8 @@ import styled from 'styled-components/macro';
 import image from '../../../assets/MainPage/img/illustration-main-page.png';
 
 const IllustrationImage = styled.img`
-  width: 90%;
+  width: 100%;
+  max-width: 699px;
 `;
 
 const Illustration: React.FC = () => {

@@ -3,27 +3,38 @@ import styled from 'styled-components';
 
 import logo from '../../assets/MainPage/icons/sidebar-logo.svg';
 
-import { minWidth } from '../../mediaQueries/mediaQueries';
+import { maxWidth, minWidth } from '../../mediaQueries/mediaQueries';
 
 const Logo = styled.img`
-  margin: 16px 30px;
+  margin-left: 40px;
+  &:hover {
+    cursor: pointer;
+  }
 
   ${minWidth.largeScreen} {
     width: 3.5%;
   }
 
-  &:hover {
-    cursor: pointer;
+  ${maxWidth.tablet} {
+    display: none;
   }
 `;
 
 const FooterContainer = styled.div`
+  height: 91px;
+  width: 100%;
+
+  margin-top: auto;
+
   display: flex;
   align-items: center;
   justify-content: flex-start;
 
   background: #7db59a;
-  width: 100%;
+
+  ${maxWidth.tablet} {
+    height: 64px;
+  }
 `;
 
 const Footer: React.FC = () => {
