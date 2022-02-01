@@ -40,12 +40,17 @@ const StyledTable = styled(Table)`
     display: inline-flex;
     align-items: center;
     justify-content: flex-start;
+
+    .ant-table-column-sorter-inner {
+      width: 7px;
+    }
   }
 
   .ant-table-column-title,
-  .ant-table-cell {
+  .ant-table-thead th {
     margin-right: 16px;
-    font-size: 18px;
+    font-weight: 500;
+    font-size: 1.5rem;
   }
 
   .ant-pagination-item {

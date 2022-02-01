@@ -20,6 +20,7 @@ import { minWidth, maxWidth } from '../../mediaQueries/mediaQueries';
 import { getUpdateRegistrationForm } from '../../redux/selectors/selectors';
 
 import { flexAlignCenterCenter, separatedBlockProperty } from '../../constants/mixins';
+import { hideElementOnTablet } from '../../utils/HelperFunctions/helperFunctions';
 
 const IllustrationSection = styled.div`
   ${flexAlignCenterCenter}
@@ -28,9 +29,7 @@ const IllustrationSection = styled.div`
   background: rgba(211, 237, 225, 0.97);
   padding: 0 30px;
 
-  ${maxWidth.tablet} {
-    display: none;
-  }
+  ${hideElementOnTablet()};
 `;
 
 const LogoAndFormSectionContainer = styled.div`

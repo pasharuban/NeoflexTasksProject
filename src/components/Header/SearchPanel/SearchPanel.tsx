@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { hideElementOnTablet } from '../../../utils/HelperFunctions/helperFunctions';
 
 import InputField from '../../InputField/InputField';
 
@@ -11,12 +12,14 @@ const Container = styled.div`
 
   width: 100%;
   max-width: 585px;
+
+  ${hideElementOnTablet()};
 `;
 
 const SearchPanel: React.FC = () => {
   return (
     <Container>
-      <InputField placeholder="Search" suffix={<IconSearch />} />
+      <InputField paddingLeft="26px" paddingRight="4px" placeholder="Search" suffix={<IconSearch />} />
     </Container>
   );
 };

@@ -6,4 +6,6 @@ export type InputFieldTypes = {
   placeholder?: string;
   disabled?: boolean;
   type?: string;
+  paddingLeft?: string;
+  paddingRight?: string;
 };

@@ -5,15 +5,10 @@ import { useHistory } from 'react-router';
 
 import NavIcon from './NavIcon';
 
-import iconHome from '../../assets/TasksTablePage/icons/icon-home.svg';
-import iconGlobe from '../../assets/TasksTablePage/icons/icon-globe.svg';
-import iconArchive from '../../assets/TasksTablePage/icons/icon-archive.svg';
-import iconPieChart from '../../assets/TasksTablePage/icons/icon-pie-chart.svg';
-import iconDollarSign from '../../assets/TasksTablePage/icons/icon-dollar-sign.svg';
-import iconDatabase from '../../assets/TasksTablePage/icons/icon-database.svg';
-import iconNavigation from '../../assets/TasksTablePage/icons/icon-navigation.svg';
-
 import { handleRedirectToDashboard } from '../../utils/HelperFunctions/helperFunctions';
+import { NavMenuTypes } from '../../types/navMenuTypes';
+
+import navIcons from '../../constants/navIcons';
 
 const IconsContainer = styled.div`
   display: flex;
@@ -24,24 +19,30 @@ const IconsContainer = styled.div`
   width: 100%;
 `;
 
-const NavigationMenu: React.FC = () => {
+const NavigationMenu: React.FC<NavMenuTypes> = ({ horizontalAligment, marginLeft }) => {
   const history = useHistory();
+
+  navIcons[0].onClick = () => {
+    handleRedirectToDashboard(history);
+  };
 
   return (
     <IconsContainer>
-      <NavIcon
-        onClick={() => {
-          handleRedirectToDashboard(history);
-        }}
-        src={iconHome}
-        alt="home"
-      />
-      <NavIcon src={iconGlobe} alt="globe" />
-      <NavIcon src={iconArchive} alt="archive" />
-      <NavIcon src={iconPieChart} alt="pie-chart" />
-      <NavIcon src={iconDollarSign} alt="dollar" />
-      <NavIcon src={iconDatabase} alt="database" />
-      <NavIcon src={iconNavigation} alt="navigation" />
+      {navIcons.map((navIcon) => {
+        const { src, alt, label, onClick } = navIcon;
+
+        return (
+          <NavIcon
+            key={label}
+            src={src}
+            alt={alt}
+            label={label}
+            horizontalAligment={horizontalAligment}
+            marginLeft={marginLeft}
+            onClick={onClick}
+          />
+        );
+      })}
     </IconsContainer>
   );
 };

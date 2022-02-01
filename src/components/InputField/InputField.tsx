@@ -8,11 +8,12 @@ import { InputFieldTypes } from '../../types/inputFieldTypes';
 
 import { minWidth } from '../../mediaQueries/mediaQueries';
 
+import { inputFieldPaddingLeft, inputFieldPaddingRight } from '../../utils/Markup/inputField';
+
 const placeholderStyles = css`
   font-family: Inter;
-  font-style: normal;
-  font-weight: normal;
   font-size: 1.5rem;
+  line-height: 32px;
 
   color: #2d3436;
 `;
@@ -36,7 +37,7 @@ const StyledFormItem = styled(Form.Item)`
   }
 `;
 
-const InputElement = styled(Input)`
+const InputElement = styled(Input)<{ paddingLeft?: string; paddingRight?: string }>`
   height: 48px;
   width: 100%;
   border-radius: 16px;
@@ -44,22 +45,40 @@ const InputElement = styled(Input)`
   background: #f0f0f0;
   font-size: 1.5em;
 
-  padding: 0 16px;
-
-  ${minWidth.largeScreen} {
-    height: 80px;
-  }
+  padding-left: ${(props) => inputFieldPaddingLeft(props.paddingLeft)};
+  padding-right: ${(props) => inputFieldPaddingRight(props.paddingRight)};
 
   & input {
     background: inherit;
     border-radius: inherit;
   }
+
+  ${minWidth.largeScreen} {
+    height: 80px;
+  }
 `;
 
-const InputField: React.FC<InputFieldTypes> = ({ label, name, rules, placeholder, suffix, disabled, type }) => {
+const InputField: React.FC<InputFieldTypes> = ({
+  label,
+  name,
+  rules,
+  placeholder,
+  suffix,
+  disabled,
+  type,
+  paddingLeft,
+  paddingRight,
+}) => {
   return (
     <StyledFormItem label={label} name={name} rules={rules}>
-      <InputElement placeholder={placeholder} suffix={suffix} disabled={disabled} type={type} />
+      <InputElement
+        placeholder={placeholder}
+        suffix={suffix}
+        disabled={disabled}
+        type={type}
+        paddingLeft={paddingLeft}
+        paddingRight={paddingRight}
+      />
     </StyledFormItem>
   );
 };

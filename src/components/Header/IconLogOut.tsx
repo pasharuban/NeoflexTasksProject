@@ -5,17 +5,21 @@ import { useHistory } from 'react-router-dom';
 
 import iconLogOut from '../../assets/TasksTablePage/icons/log-out.svg';
 import { actionLogout } from '../../redux/actions/actionCreators';
-import { redirectToMainPage } from '../../utils/HelperFunctions/helperFunctions';
+import { makeIconWhiteOnTablet, redirectToMainPage } from '../../utils/HelperFunctions/helperFunctions';
 
 import { api } from '../../utils/api';
 
 const Icon = styled.img`
-  margin-right: 35px;
+  display: block;
+  margin-right: 24px;
+  margin-left: 23px;
   width: 40px;
 
   &:hover {
     cursor: pointer;
   }
+
+  ${makeIconWhiteOnTablet()}
 `;
 
 const IconLogOut: React.FC = () => {

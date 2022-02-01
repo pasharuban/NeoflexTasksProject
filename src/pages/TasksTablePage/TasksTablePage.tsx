@@ -19,11 +19,16 @@ const TasksTablePageContainer = styled.div`
 const HeaderAndTableWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   flex: 1 0 auto;
 `;
 const Container = styled(HeaderAndTableWrapper)`
-  width: 94%;
-  align-self: center;
+  padding-left: 56px;
+  padding-right: 58px;
+  width: 100%;
+
+  display: flex;
+
   margin-top: 58px;
 `;
 
