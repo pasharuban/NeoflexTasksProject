@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { maxWidth } from '../../../../../mediaQueries/mediaQueries';
 
 const Title = styled.p`
   margin-left: 8px;
@@ -10,6 +11,10 @@ const Title = styled.p`
   line-height: 44px;
 
   color: #000000;
+
+  ${maxWidth.tablet} {
+    font-size: 2rem;
+  }
 `;
 
 const TableTitle: React.FC<{ title: string }> = ({ title }) => {

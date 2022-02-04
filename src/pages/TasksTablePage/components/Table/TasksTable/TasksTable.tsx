@@ -10,24 +10,26 @@ import { LoadingOutlined } from '@ant-design/icons';
 
 import styled from 'styled-components';
 
+import useWindowDimensions from '../../../../../utils/Hooks/useWindowDimensions';
+
 import {
   getDashboardData,
   getDashboardTotalItems,
   getGetDataErrorMessage,
   getGetDataErrorState,
   getGetDataLoadingState,
-} from '../../../redux/selectors/selectors';
+} from '../../../../../redux/selectors/selectors';
 
-import { isEmpty } from '../../../utils/HelperFunctions/helperFunctions';
+import { hideElementOnTablet, isEmpty } from '../../../../../utils/HelperFunctions/helperFunctions';
 
-import actionGetClaims from '../../../redux/actions/actionGetClaims';
-import columns from '../../../constants/tableColumns';
-import sortOrders from '../../../constants/sortOrders';
+import actionGetClaims from '../../../../../redux/actions/actionGetClaims';
+import columns from '../../../../../constants/tableColumns';
+import sortOrders from '../../../../../constants/sortOrders';
+import TableOnTablet from '../TableOnTablet/TableOnTablet';
 
-const paginationStyles = {
-  borderColor: '#7db59a',
-  color: 'black',
-};
+import { setPaginationStyles } from '../../../../../constants/pagination';
+
+import { maxTabletWidth } from '../../../../../mediaQueries/mediaQueries';
 
 const StyledTable = styled(Table)`
   width: 100%;
@@ -53,28 +55,9 @@ const StyledTable = styled(Table)`
     font-size: 1.5rem;
   }
 
-  .ant-pagination-item {
-    color: ${paginationStyles.color};
-    & a {
-      color: inherit;
-    }
+  ${setPaginationStyles()};
 
-    &:hover {
-      border-color: ${paginationStyles.borderColor};
-      color: inherit;
-    }
-  }
-
-  .ant-pagination-item-active {
-    border-color: ${paginationStyles.borderColor};
-  }
-
-  .ant-pagination-item-link {
-    &:hover {
-      border-color: ${paginationStyles.borderColor};
-      color: ${paginationStyles.color};
-    }
-  }
+  ${hideElementOnTablet()};
 `;
 
 const Spinner = <LoadingOutlined style={{ fontSize: 34, color: '#7db59a' }} spin />;
@@ -88,12 +71,18 @@ const TasksTable: React.FC = () => {
   const error = useSelector(getGetDataErrorState);
   const errorMessage = useSelector(getGetDataErrorMessage);
 
+  const { width: screenWidth } = useWindowDimensions();
+
+  const limit = 5;
+
+  useEffect(() => {
+    dispatch(actionGetClaims(limit));
+  }, []);
+
   const [current, setCurrent] = useState(1);
   const [currentOrder, setCurrentOrder] = useState('');
 
   type tableDataType = typeof tableData[0];
-
-  const limit = 5;
 
   let locale = {};
 
@@ -152,30 +141,32 @@ const TasksTable: React.FC = () => {
     };
   }
 
-  useEffect(() => {
-    dispatch(actionGetClaims(limit));
-  }, []);
+  if (screenWidth <= maxTabletWidth) {
+    return <TableOnTablet tableData={tableData} totalItems={totalItems} limit={limit} />;
+  }
 
   return (
-    <StyledTable
-      locale={locale}
-      loading={{
-        indicator: <Spin indicator={Spinner} />,
-        spinning: loading,
-      }}
-      rowKey="_id"
-      dataSource={tableData}
-      columns={columns}
-      pagination={{
-        defaultPageSize: limit,
-        defaultCurrent: 1,
-        current,
-        total: totalItems,
-        showSizeChanger: false,
-        onChange: handlePaginationOnChange,
-      }}
-      onChange={handleTableOnChange}
-    />
+    <>
+      <StyledTable
+        locale={locale}
+        loading={{
+          indicator: <Spin indicator={Spinner} />,
+          spinning: loading,
+        }}
+        rowKey="_id"
+        dataSource={tableData}
+        columns={columns}
+        pagination={{
+          defaultPageSize: limit,
+          defaultCurrent: 1,
+          current,
+          total: totalItems,
+          showSizeChanger: false,
+          onChange: handlePaginationOnChange,
+        }}
+        onChange={handleTableOnChange}
+      />
+    </>
   );
 };
 

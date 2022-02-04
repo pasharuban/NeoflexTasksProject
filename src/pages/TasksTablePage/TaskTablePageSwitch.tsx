@@ -3,8 +3,8 @@ import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
 import NewClaim from './components/NewClaim/NewClaim';
 import IncomingClaim from './components/IncomingClaim/IncomingClaim';
-import TasksTable from './components/TasksTable';
-import TableHeader from './components/TableHeader/TableHeader';
+import TasksTable from './components/Table/TasksTable/TasksTable';
+import TableHeader from './components/Table/TableHeader/TableHeader';
 
 import { routes } from '../../routes/routes';
 

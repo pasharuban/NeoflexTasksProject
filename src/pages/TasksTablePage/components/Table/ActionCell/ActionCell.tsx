@@ -3,9 +3,9 @@ import styled from 'styled-components';
 
 import { useHistory, useRouteMatch } from 'react-router';
 
-import TableCellBaseFont from './TableCellBaseFont';
+import TableCellBaseFont from '../TableCellBaseFont/TableCellBaseFont';
 
-import { capitalizeFirstLetter } from '../../../utils/HelperFunctions/helperFunctions';
+import { capitalizeFirstLetter } from '../../../../../utils/HelperFunctions/helperFunctions';
 
 const CellActionText = styled(TableCellBaseFont)`
   font-style: normal;

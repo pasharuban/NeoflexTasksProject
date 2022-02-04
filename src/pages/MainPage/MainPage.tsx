@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { routes } from '../../routes/routes';
 import { getCurrentUserData } from '../../redux/selectors/selectors';
 
-import Illustration from './components/Illustration';
+import Illustration from './components/Illustration/Illustration';
 import Footer from '../../components/Footer/Footer';
 import LoginForm from './components/LoginForm/LoginForm';
 

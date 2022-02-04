@@ -1,5 +1,5 @@
 export type ClaimTypes = {
-  createdAt?: Date;
+  createdAt?: string;
   description?: string;
   status?: Record<string, any>;
   title?: string;

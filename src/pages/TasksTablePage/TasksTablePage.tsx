@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Header from '../../components/Header/Header';
 import Navbar from '../../components/Navbar/Navbar';
+import { maxWidth } from '../../mediaQueries/mediaQueries';
 
 import { TasksTablePageTypes } from '../../types/tasksTablePageTypes';
 
@@ -30,6 +31,12 @@ const Container = styled(HeaderAndTableWrapper)`
   display: flex;
 
   margin-top: 58px;
+
+  ${maxWidth.tablet} {
+    padding-left: 15px;
+    padding-right: 16px;
+    align-items: center;
+  }
 `;
 
 const TasksTablePage: React.FC<TasksTablePageTypes> = () => {

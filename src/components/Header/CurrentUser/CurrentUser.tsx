@@ -72,7 +72,7 @@ const CurrentUser: React.FC<{ userName?: string }> = ({ userName }) => {
   if (loading) {
     return (
       <CurrentUserContainer>
-        <LoadingSpinner spinnerClass="smallSpinner" />
+        <LoadingSpinner smallSpinner newColor="white" />
       </CurrentUserContainer>
     );
   }

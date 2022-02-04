@@ -1,5 +1,7 @@
+export const maxTabletWidth = 1100;
+
 export const maxWidth = {
-  tablet: `@media screen and (max-width: 1100px)`,
+  tablet: `@media screen and (max-width: ${maxTabletWidth}px)`,
 };
 
 export const minWidth = {

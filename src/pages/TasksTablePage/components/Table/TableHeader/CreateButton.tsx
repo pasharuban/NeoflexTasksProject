@@ -4,21 +4,32 @@ import { RouteComponentProps } from 'react-router-dom';
 
 import { useHistory, useRouteMatch } from 'react-router';
 
-import ButtonElement from '../../../../components/ButtonElement/ButtonElement';
+import ButtonElement from '../../../../../components/ButtonElement/ButtonElement';
 
-import iconPlus from '../../../../assets/TasksTablePage/icons/icon-plus.svg';
+import iconPlus from '../../../../../assets/TasksTablePage/icons/icon-plus.svg';
 
-import { routes } from '../../../../routes/routes';
+import { routes } from '../../../../../routes/routes';
+import { hideElementOnTablet } from '../../../../../utils/HelperFunctions/helperFunctions';
+
+import { maxWidth } from '../../../../../mediaQueries/mediaQueries';
 
 const CreateBtn = styled(ButtonElement)`
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   width: 174px;
+
+  ${maxWidth.tablet} {
+    width: 48px;
+  }
 `;
 
 const ButtonIcon = styled.img`
   width: 40px;
+`;
+
+const ButtonText = styled.p`
+  ${hideElementOnTablet()}
 `;
 
 const onHandleRedirectToCreateNewClaimForm = (history: RouteComponentProps['history'], url: string) => {
@@ -32,7 +43,7 @@ const CreateButton: React.FC = () => {
   return (
     <CreateBtn onClick={() => onHandleRedirectToCreateNewClaimForm(history, url)} typeOfButton="filledGreen">
       <ButtonIcon src={iconPlus} alt="alt" />
-      Create claim
+      <ButtonText>Create claim</ButtonText>
     </CreateBtn>
   );
 };

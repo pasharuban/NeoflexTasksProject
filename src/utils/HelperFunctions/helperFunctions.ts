@@ -35,6 +35,12 @@ export const hideElementOnTablet = () => {
   }`;
 };
 
+export const showElementOnTablet = () => {
+  return `${maxWidth.tablet} {
+    display: block;
+  }`;
+};
+
 export const makeIconWhiteOnTablet = () => {
   return `${maxWidth.tablet} {
     filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(0%) hue-rotate(300deg) brightness(105%) contrast(101%);
