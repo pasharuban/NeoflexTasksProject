@@ -3,17 +3,24 @@ import styled from 'styled-components';
 
 import { NavIconTypes } from '../../types/navIconTypes';
 
-const Icon = styled.img``;
+import { maxWidth } from '../../mediaQueries/mediaQueries';
 
-const Container = styled.div`
+import { menuHorizontalAligment, iconMarginLeft } from '../../utils/Markup/menu';
+
+const Icon = styled.img<{ marginLeft?: string }>`
+  margin-left: ${(props) => iconMarginLeft(props.marginLeft)};
+`;
+
+const Container = styled.div<{ horizontalAligment?: string }>`
   position: relative;
 
   width: 100%;
 
   display: flex;
-  justify-content: center;
+  justify-content: ${(props) => menuHorizontalAligment(props.horizontalAligment)};
+  align-items: center;
 
-  margin-bottom: 33px;
+  margin-bottom: 24px;
 
   &:last-child {
     margin-bottom: 0;
@@ -48,10 +55,25 @@ const Container = styled.div`
   }
 `;
 
-const NavIcon: React.FC<NavIconTypes> = ({ src, alt, onClick }) => {
+const IconLabel = styled.a`
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 20px;
+  color: #ffffff !important;
+  margin-left: 24px;
+
+  display: none;
+  ${maxWidth.tablet} {
+    display: block;
+  }
+`;
+
+const NavIcon: React.FC<NavIconTypes> = ({ src, alt, onClick, label, horizontalAligment, marginLeft }) => {
   return (
-    <Container onClick={onClick}>
-      <Icon src={src} alt={alt} />
+    <Container onClick={onClick} horizontalAligment={horizontalAligment}>
+      <Icon src={src} alt={alt} marginLeft={marginLeft} />
+      <IconLabel>{label}</IconLabel>
     </Container>
   );
 };

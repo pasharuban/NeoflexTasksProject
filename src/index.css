@@ -2,16 +2,12 @@
 
 html {
   font-size: 12px;
-  font-family: Inter;
-}
-
-html,
-body {
-  height: 100%;
+  font-family: 'Inter', sans-serif;
 }
 
 #root {
   width: 100%;
+
   margin: 0 auto;
 }
 
@@ -63,12 +59,6 @@ ol[class] {
 /* Элементы a, у которых нет класса, сбрасываем до дефолтных стилей */
 a:not([class]) {
   text-decoration-skip-ink: auto;
-}
-
-@media screen and (min-width: 2000px) {
-  Html {
-    font-size: 25px;
-  }
 }
 
 /* for adjusting styled of sweet alert npm package! */

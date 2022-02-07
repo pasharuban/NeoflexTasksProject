@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { css } from 'styled-components';
+
 import { useHistory, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { routes } from '../../routes/routes';
 import { getCurrentUserData } from '../../redux/selectors/selectors';
 
-import Illustration from './components/Illustration';
+import Illustration from './components/Illustration/Illustration';
 import Footer from '../../components/Footer/Footer';
 import LoginForm from './components/LoginForm/LoginForm';
 
@@ -19,53 +19,36 @@ import { minWidth, maxWidth } from '../../mediaQueries/mediaQueries';
 
 import { getUpdateRegistrationForm } from '../../redux/selectors/selectors';
 
-const alignCenterCenter = css`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-`;
+import { flexAlignCenterCenter, separatedBlockProperty } from '../../constants/mixins';
+import { hideElementOnTablet } from '../../utils/HelperFunctions/helperFunctions';
 
 const IllustrationSection = styled.div`
-  width: 100%;
-
-  height: 100%;
-  min-height: 100%;
-
-  flex-grow: 1;
-
-  padding: 1%;
+  ${flexAlignCenterCenter}
+  ${separatedBlockProperty}
 
   background: rgba(211, 237, 225, 0.97);
+  padding: 0 30px;
 
-  ${alignCenterCenter}
-
-  ${minWidth.largeScreen} {
-    padding: 1%;
-  }
+  ${hideElementOnTablet()};
 `;
 
-// override styles,because it has same,except bg.
-const LogoAndFormSectionContainer = styled(IllustrationSection)`
+const LogoAndFormSectionContainer = styled.div`
+  ${flexAlignCenterCenter};
+  ${separatedBlockProperty}
+
+  padding: 70px 30px;
+
   background: white;
-
-  padding: 2%;
-
-  ${minWidth.largeScreen} {
-    padding: 4% 2%;
-  }
-
-  ${maxWidth.tablet} {
-    min-height: 100vh;
-  }
 `;
 
 const MainPageContainer = styled.div`
   height: 100vh;
+  min-height: 100vh;
   width: 100%;
 
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
 
   ${maxWidth.tablet} {
     height: 100%;
@@ -79,23 +62,21 @@ const BeforeSidebarContainer = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
 
-  flex-grow: 5;
-
-  ${maxWidth.tablet} {
-    flex-wrap: wrap;
-  }
+  flex-grow: 1;
 `;
 
 const LogoFormWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
   width: 100%;
 
-  flex: 1 0 auto;
-  ${alignCenterCenter};
+  flex-grow: 1;
 `;
 
 const MainPageLogo = styled.img`
-  margin-bottom: 119px;
-
   ${minWidth.largeScreen} {
     width: 15%;
   }
@@ -104,8 +85,6 @@ const MainPageLogo = styled.img`
 const FormContainer = styled.div`
   width: 100%;
   max-width: 466px;
-
-  flex: 1 0 auto;
 
   ${minWidth.largeScreen} {
     max-width: 80%;

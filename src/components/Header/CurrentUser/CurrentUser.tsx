@@ -17,14 +17,12 @@ import {
 
 import IconUserAvatar from '../InconUserAvatar';
 import LoadingSpinner from '../../LoadingSpinner/LoadingSpinner';
+import { hideElementOnTablet } from '../../../utils/HelperFunctions/helperFunctions';
 
 const CurrentUserContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
-  width: 170px;
-  min-width: 170px;
 
   height: 60px;
 
@@ -32,18 +30,20 @@ const CurrentUserContainer = styled.div`
   align-items: center;
   justify-content: center;
 
-  margin: 0 40px 0 30px;
+  margin-left: 29px;
 `;
 
 const UserName = styled.p`
   font-family: Inter;
   font-style: normal;
   font-weight: normal;
-  font-size: 1.16em;
+  font-size: 1.1667rem;
 
   margin-left: 20px;
 
   color: #000000;
+
+  ${hideElementOnTablet()};
 `;
 
 const ErrorMessage = styled(UserName)`
@@ -61,18 +61,18 @@ const CurrentUser: React.FC<{ userName?: string }> = ({ userName }) => {
     dispatch(actionGetUserData(userId));
   }, []);
 
-  if (error) {
+  if (loading) {
     return (
       <CurrentUserContainer>
-        <ErrorMessage>{errorMessage}</ErrorMessage>
+        <LoadingSpinner smallSpinner newColor="white" />
       </CurrentUserContainer>
     );
   }
 
-  if (loading) {
+  if (error) {
     return (
       <CurrentUserContainer>
-        <LoadingSpinner spinnerClass="smallSpinner" />
+        <ErrorMessage>{errorMessage}</ErrorMessage>
       </CurrentUserContainer>
     );
   }

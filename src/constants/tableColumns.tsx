@@ -1,19 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import ActionCell from '../pages/TasksTablePage/components/ActionCell';
-import TableCellBaseFontSize from '../pages/TasksTablePage/components/TableCellBaseFontSize';
+import ActionCell from '../pages/TasksTablePage/components/Table/ActionCell/ActionCell';
+import TableCellBaseFont from '../pages/TasksTablePage/components/Table/TableCellBaseFont/TableCellBaseFont';
+
 import { tableTypeBeforeElementBackgroundColor } from '../utils/Colors/tableTypeElement';
 import { capitalizeFirstLetter, getEuropeFormatDate } from '../utils/HelperFunctions/helperFunctions';
+import { maxWidth } from '../mediaQueries/mediaQueries';
 
-const CellStatusField = styled.div<{ status: string }>`
+export const CellStatusField = styled.div<{ status: string }>`
   display: flex;
   align-items: center;
   justify-content: center;
 
-  width: 144px;
+  width: 124px;
+  height: 32px;
   border-radius: 16px;
-  padding: 9px 8px;
 
   background: ${(props) => {
     const { status } = props;
@@ -30,10 +32,14 @@ const CellStatusField = styled.div<{ status: string }>`
         return 'black';
     }
   }};
+
+  ${maxWidth.tablet} {
+    width: 93px;
+    height: 24px;
+  }
 `;
 
-const CellStatusText = styled.p`
-  font-family: Inter;
+export const CellStatusText = styled.p`
   font-style: normal;
   font-weight: 800;
   font-size: 1rem;
@@ -43,9 +49,13 @@ const CellStatusText = styled.p`
   text-transform: uppercase;
 
   color: #ffffff;
+
+  ${maxWidth.tablet} {
+    font-size: 0.667rem;
+  }
 `;
 
-const CellTypeText = styled(TableCellBaseFontSize)<{ type: string }>`
+export const CellTypeText = styled(TableCellBaseFont)<{ type: string }>`
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -67,14 +77,14 @@ const columns = [
     title: 'Title',
     dataIndex: 'title',
     key: '_id',
-    render: (text: string) => <TableCellBaseFontSize>{text}</TableCellBaseFontSize>,
+    render: (text: string) => <TableCellBaseFont>{text}</TableCellBaseFont>,
     sorter: true,
   },
   {
     title: 'Created',
     dataIndex: 'createdAt',
     key: '_id',
-    render: (text: string) => <TableCellBaseFontSize>{getEuropeFormatDate(new Date(text))}</TableCellBaseFontSize>,
+    render: (text: string) => <TableCellBaseFont>{getEuropeFormatDate(new Date(text))}</TableCellBaseFont>,
     sorter: true,
   },
   {

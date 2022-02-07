@@ -3,11 +3,11 @@ import styled from 'styled-components';
 
 import { useHistory, useRouteMatch } from 'react-router';
 
-import TableCellBaseFontSize from './TableCellBaseFontSize';
+import TableCellBaseFont from '../TableCellBaseFont/TableCellBaseFont';
 
-import { capitalizeFirstLetter } from '../../../utils/HelperFunctions/helperFunctions';
+import { capitalizeFirstLetter } from '../../../../../utils/HelperFunctions/helperFunctions';
 
-const CellActionText = styled(TableCellBaseFontSize)`
+const CellActionText = styled(TableCellBaseFont)`
   font-style: normal;
   font-weight: normal;
   line-height: 20px;
