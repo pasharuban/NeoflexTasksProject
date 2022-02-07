@@ -61,18 +61,18 @@ const CurrentUser: React.FC<{ userName?: string }> = ({ userName }) => {
     dispatch(actionGetUserData(userId));
   }, []);
 
-  if (error) {
-    return (
-      <CurrentUserContainer>
-        <ErrorMessage>{errorMessage}</ErrorMessage>
-      </CurrentUserContainer>
-    );
-  }
-
   if (loading) {
     return (
       <CurrentUserContainer>
         <LoadingSpinner smallSpinner newColor="white" />
+      </CurrentUserContainer>
+    );
+  }
+
+  if (error) {
+    return (
+      <CurrentUserContainer>
+        <ErrorMessage>{errorMessage}</ErrorMessage>
       </CurrentUserContainer>
     );
   }
