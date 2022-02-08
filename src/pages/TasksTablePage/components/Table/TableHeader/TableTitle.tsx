@@ -14,6 +14,7 @@ const Title = styled.p`
 
   ${maxWidth.tablet} {
     font-size: 2rem;
+    margin-left: 0;
   }
 `;
 

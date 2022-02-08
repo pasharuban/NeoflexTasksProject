@@ -4,7 +4,9 @@ import styled from 'styled-components';
 import ClaimTitle from '../ClaimTitle/ClaimTitle';
 import IncomingClaimForm from './IncomingClaimForm';
 
-const Container = styled.div``;
+const Container = styled.div`
+  width: 100%;
+`;
 
 const IncomingClaim: React.FC = () => {
   return (
