@@ -1,7 +1,12 @@
 import axios from 'axios';
+import createHistory from 'history/createBrowserHistory';
+
+import store from '../redux/store';
 
 import { RegistrationDataTypes } from '../types/registrationDataTypes';
 import { PostNewClaimTypes } from '../types/postNewClaimTypes';
+
+import { logout } from './HelperFunctions/helperFunctions';
 
 const token = localStorage.getItem('userToken');
 
@@ -9,6 +14,20 @@ export const api = axios.create({
   baseURL: 'https://mysterious-tundra-84714.herokuapp.com',
   headers: { Authorization: `Bearer ${token}` },
 });
+
+api.interceptors.response.use(
+  (res) => {
+    return res;
+  },
+
+  (error) => {
+    if (error.response.status === 401) {
+      logout(store.dispatch, createHistory());
+    }
+
+    return Promise.reject(error);
+  },
+);
 
 export const postRegistrationUserData = (data: RegistrationDataTypes) => api.post(`/auth/registration`, data);
 

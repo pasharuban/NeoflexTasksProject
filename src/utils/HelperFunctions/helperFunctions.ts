@@ -1,6 +1,11 @@
+import { Dispatch } from 'react';
 import { RouteComponentProps } from 'react-router';
+
 import { maxWidth } from '../../mediaQueries/mediaQueries';
+import { actionLogout } from '../../redux/actions/actionCreators';
 import { routes } from '../../routes/routes';
+import { ActionTypeTypes } from '../../types/actionTypeTypes';
+import { api } from '../api';
 
 export const capitalizeFirstLetter = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
 
@@ -45,4 +50,11 @@ export const makeIconWhiteOnTablet = () => {
   return `${maxWidth.tablet} {
     filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(0%) hue-rotate(300deg) brightness(105%) contrast(101%);
   }`;
+};
+
+export const logout = (dispatch: Dispatch<ActionTypeTypes>, history: RouteComponentProps['history']) => {
+  localStorage.removeItem('userToken');
+  delete (api.defaults.headers as any).Authorization;
+  dispatch(actionLogout());
+  redirectToMainPage(history);
 };

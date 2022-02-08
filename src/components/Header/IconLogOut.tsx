@@ -1,13 +1,14 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import iconLogOut from '../../assets/TasksTablePage/icons/log-out.svg';
-import { actionLogout } from '../../redux/actions/actionCreators';
-import { makeIconWhiteOnTablet, redirectToMainPage } from '../../utils/HelperFunctions/helperFunctions';
+import styled from 'styled-components';
 
-import { api } from '../../utils/api';
+import iconLogOut from '../../assets/TasksTablePage/icons/log-out.svg';
+
+import { makeIconWhiteOnTablet } from '../../utils/HelperFunctions/helperFunctions';
+
+import { logout } from '../../utils/HelperFunctions/helperFunctions';
 
 const Icon = styled.img`
   display: block;
@@ -29,10 +30,7 @@ const IconLogOut: React.FC = () => {
   return (
     <Icon
       onClick={() => {
-        localStorage.removeItem('userToken');
-        delete (api.defaults.headers as any).Authorization;
-        dispatch(actionLogout());
-        redirectToMainPage(history);
+        logout(dispatch, history);
       }}
       src={iconLogOut}
       alt="bell"
