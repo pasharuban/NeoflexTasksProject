@@ -15,10 +15,10 @@ const actionGetCurrentClaim = (id: string) => {
           dispatch(actionGetCurrentClaimSuccess(response.data));
         })
         .catch((error) => {
-          dispatch(actionGetDataFailure(error.toString()));
+          dispatch(actionGetDataFailure(error.message));
         });
     } catch (error) {
-      console.log(`error tryCatch:${error}`);
+      console.log(error);
     }
   };
 };

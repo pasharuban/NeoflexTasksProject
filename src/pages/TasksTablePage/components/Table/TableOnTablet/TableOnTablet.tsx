@@ -12,8 +12,13 @@ import { ClaimTypes } from '../../../../../types/claimTypes';
 
 import { setPaginationStyles } from '../../../../../constants/pagination';
 import actionGetClaims from '../../../../../redux/actions/actionGetClaims';
-import { getGetDataLoadingState } from '../../../../../redux/selectors/selectors';
+import {
+  getGetDataErrorMessage,
+  getGetDataErrorState,
+  getGetDataLoadingState,
+} from '../../../../../redux/selectors/selectors';
 import LoadingSpinner from '../../../../../components/LoadingSpinner/LoadingSpinner';
+import ErrorMessage from '../../../../../components/ErrorMessage/ErrorMessage';
 
 const TableOnTabletContainer = styled.div`
   margin: 24px 0;
@@ -33,10 +38,15 @@ const TableOnTablet: React.FC<{ tableData: ClaimTypes[]; totalItems: number; lim
   const dispatch = useDispatch();
   const loading = useSelector(getGetDataLoadingState);
 
+  const error = useSelector(getGetDataErrorState);
+  const errorMessage = useSelector(getGetDataErrorMessage);
+
   const history = useHistory();
   const { url } = useRouteMatch();
 
   if (loading) return <LoadingSpinner />;
+
+  if (error) return <ErrorMessage message={errorMessage} />;
 
   return (
     <TableOnTabletContainer>

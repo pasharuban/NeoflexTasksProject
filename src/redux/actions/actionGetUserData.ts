@@ -19,11 +19,11 @@ const actionGetUserData = (userId: string) => {
         .then((response) => {
           dispatch(actionGetUserDataSuccess(response.data));
         })
-        .catch((response) => {
-          dispatch(actionGetUserDataFailure(response.message));
+        .catch((error) => {
+          dispatch(actionGetUserDataFailure(error.message));
         });
     } catch (error) {
-      console.log(`error tryCatch:${error}`);
+      console.log(error);
     }
   };
 };

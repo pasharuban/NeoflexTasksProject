@@ -30,6 +30,7 @@ import TableOnTablet from '../TableOnTablet/TableOnTablet';
 import { setPaginationStyles } from '../../../../../constants/pagination';
 
 import { maxTabletWidth } from '../../../../../mediaQueries/mediaQueries';
+import ErrorMessage from '../../../../../components/ErrorMessage/ErrorMessage';
 
 const StyledTable = styled(Table)`
   width: 100%;
@@ -137,7 +138,7 @@ const TasksTable: React.FC = () => {
 
   if (error) {
     locale = {
-      emptyText: <span style={{ color: 'red', fontFamily: 'Inter' }}>{errorMessage}</span>,
+      emptyText: <ErrorMessage message={errorMessage} />,
     };
   }
 

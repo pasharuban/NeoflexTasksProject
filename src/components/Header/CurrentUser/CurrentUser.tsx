@@ -18,6 +18,7 @@ import {
 import IconUserAvatar from '../InconUserAvatar';
 import LoadingSpinner from '../../LoadingSpinner/LoadingSpinner';
 import { hideElementOnTablet } from '../../../utils/HelperFunctions/helperFunctions';
+import ErrorMessage from '../../ErrorMessage/ErrorMessage';
 
 const CurrentUserContainer = styled.div`
   display: flex;
@@ -46,10 +47,6 @@ const UserName = styled.p`
   ${hideElementOnTablet()};
 `;
 
-const ErrorMessage = styled(UserName)`
-  color: red;
-`;
-
 const CurrentUser: React.FC<{ userName?: string }> = ({ userName }) => {
   const dispatch = useDispatch();
   const userId = useSelector(getUserId);
@@ -72,7 +69,7 @@ const CurrentUser: React.FC<{ userName?: string }> = ({ userName }) => {
   if (error) {
     return (
       <CurrentUserContainer>
-        <ErrorMessage>{errorMessage}</ErrorMessage>
+        <ErrorMessage message={errorMessage} />
       </CurrentUserContainer>
     );
   }

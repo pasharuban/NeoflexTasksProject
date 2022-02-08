@@ -20,6 +20,7 @@ import {
   getGetDataErrorState,
   getGetDataErrorMessage,
 } from '../../../../redux/selectors/selectors';
+import ErrorMessage from '../../../../components/ErrorMessage/ErrorMessage';
 
 const Container = styled.div`
   width: 100%;
@@ -38,11 +39,6 @@ const SpinnerContainer = styled.div`
 
   margin-top: 100px;
   padding: 50px;
-`;
-
-const ErrorMessage = styled.h2`
-  margin-top: 30px;
-  color: red;
 `;
 
 const IncomingClaimForm: React.FC = () => {
@@ -69,7 +65,7 @@ const IncomingClaimForm: React.FC = () => {
     );
   }
 
-  if (error) return <ErrorMessage>{errorMessage}</ErrorMessage>;
+  if (error) return <ErrorMessage message={errorMessage} />;
 
   const fields = [
     {

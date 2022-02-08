@@ -17,7 +17,7 @@ const actionGetClaims = (limit: number, offset = 0, column = '', sort = '') => {
           dispatch(actionGetClaimsSuccess(claims, totalItems));
         })
         .catch((error) => {
-          dispatch(actionGetDataFailure(error.toString()));
+          dispatch(actionGetDataFailure(error.message));
         });
     } catch (error) {
       console.log(`error tryCatch:${error}`);
