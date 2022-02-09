@@ -18,7 +18,10 @@ const CardContentTitle = styled.p`
   color: #000000;
 `;
 
-const CardContentDescription = styled(CardContentTitle)`
+const CardContentDescription = styled.div`
+  ${baseTableCardFontOnTablet()};
+  color: #000000;
+
   font-weight: normal;
 `;
 

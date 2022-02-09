@@ -18,7 +18,14 @@ const PrivateRoute: React.FC<{
       if (!currentUser) {
         if (!jwtToken) {
           swal('Для доступа к странице нужно авторизоваться!');
-          return <Redirect to={{ pathname: routes.main, state: { backpath: props.history.location.pathname } }} />;
+          return (
+            <Redirect
+              to={{
+                pathname: routes.main,
+                state: { backpath: props.history.location.pathname },
+              }}
+            />
+          );
         }
       }
 

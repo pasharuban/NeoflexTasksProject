@@ -19,7 +19,7 @@ const Container = styled.div`
 const SearchPanel: React.FC = () => {
   return (
     <Container>
-      <InputField paddingLeft="26px" paddingRight="4px" placeholder="Search" suffix={<IconSearch />} />
+      <InputField placeholder="Search" suffix={<IconSearch />} paddingLeft="26px" paddingRight="4px" />
     </Container>
   );
 };

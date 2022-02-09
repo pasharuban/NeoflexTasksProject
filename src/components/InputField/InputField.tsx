@@ -37,7 +37,7 @@ const StyledFormItem = styled(Form.Item)`
   }
 `;
 
-const InputElement = styled(Input)<{ paddingLeft?: string; paddingRight?: string }>`
+const InputElement = styled(Input)<{ $paddingLeft?: string; $paddingRight?: string }>`
   height: 48px;
   width: 100%;
   border-radius: 16px;
@@ -45,8 +45,8 @@ const InputElement = styled(Input)<{ paddingLeft?: string; paddingRight?: string
   background: #f0f0f0;
   font-size: 1.5em;
 
-  padding-left: ${(props) => inputFieldPaddingLeft(props.paddingLeft)};
-  padding-right: ${(props) => inputFieldPaddingRight(props.paddingRight)};
+  padding-left: ${(props) => inputFieldPaddingLeft(props.$paddingLeft)};
+  padding-right: ${(props) => inputFieldPaddingRight(props.$paddingRight)};
 
   & input {
     background: inherit;
@@ -58,17 +58,9 @@ const InputElement = styled(Input)<{ paddingLeft?: string; paddingRight?: string
   }
 `;
 
-const InputField: React.FC<InputFieldTypes> = ({
-  label,
-  name,
-  rules,
-  placeholder,
-  suffix,
-  disabled,
-  type,
-  paddingLeft,
-  paddingRight,
-}) => {
+const InputField: React.FC<InputFieldTypes> = ({ label, name, rules, placeholder, suffix, disabled, type }, props) => {
+  const { paddingLeft, paddingRight } = props;
+
   return (
     <StyledFormItem label={label} name={name} rules={rules}>
       <InputElement
@@ -76,8 +68,8 @@ const InputField: React.FC<InputFieldTypes> = ({
         suffix={suffix}
         disabled={disabled}
         type={type}
-        paddingLeft={paddingLeft}
-        paddingRight={paddingRight}
+        $paddingLeft={paddingLeft}
+        $paddingRight={paddingRight}
       />
     </StyledFormItem>
   );

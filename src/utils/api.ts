@@ -1,5 +1,5 @@
 import axios from 'axios';
-import createHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
 
 import store from '../redux/store';
 
@@ -22,7 +22,7 @@ api.interceptors.response.use(
 
   (error) => {
     if (error.response.status === 401) {
-      logout(store.dispatch, createHistory());
+      logout(store.dispatch, createBrowserHistory());
     }
 
     return Promise.reject(error);

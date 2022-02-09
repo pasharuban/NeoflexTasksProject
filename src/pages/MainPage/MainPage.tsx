@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import { routes } from '../../routes/routes';
+// import { routes } from '../../routes/routes';
 import { getCurrentUserData } from '../../redux/selectors/selectors';
 
 import Illustration from './components/Illustration/Illustration';
@@ -21,6 +21,7 @@ import { getUpdateRegistrationForm } from '../../redux/selectors/selectors';
 
 import { flexAlignCenterCenter, separatedBlockProperty } from '../../constants/mixins';
 import { hideElementOnTablet } from '../../utils/HelperFunctions/helperFunctions';
+import { routes } from '../../routes/routes';
 
 const IllustrationSection = styled.div`
   ${flexAlignCenterCenter}
@@ -93,13 +94,14 @@ const FormContainer = styled.div`
 
 const MainPage: React.FC = () => {
   const location: Record<string, any> = useLocation();
-  const history = useHistory();
+  // const history = useHistory();
   const currentUser = useSelector(getCurrentUserData);
   const updateRegistrationForm = useSelector(getUpdateRegistrationForm);
 
   if (localStorage.getItem('userToken') || currentUser) {
-    if (location.state?.backpath) history.push(location.state?.backpath);
-    else history.push(routes.dashboard);
+    if (location.state?.backpath) return <Redirect to={location.state.backpath} />;
+
+    return <Redirect to={routes.dashboard} />;
   }
 
   const FormElement = updateRegistrationForm ? RegistrationForm : LoginForm;

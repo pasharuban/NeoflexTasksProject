@@ -68,7 +68,7 @@ const TableRowCard: React.FC<TableCardTypes> = ({ title, createdAt, type, status
         <CardContentRow title="Created" description={getEuropeFormatDate(new Date(createdAt))} />
 
         <CardContentRow
-          title="Created"
+          title="Type"
           description={<CellTypeText type={type.name}>{capitalizeFirstLetter(type.name)}</CellTypeText>}
         />
 

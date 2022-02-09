@@ -107,7 +107,7 @@ const SpinnerBar = styled.div``;
 const createSpinnerBars = () => {
   const bars = 11;
   const spinnerBars = [];
-  for (let i = 0; i < bars; i++) spinnerBars.push(<SpinnerBar />);
+  for (let i = 0; i < bars; i++) spinnerBars.push(<SpinnerBar key={i} />);
 
   return spinnerBars;
 };
