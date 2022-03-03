@@ -8,4 +8,5 @@ export type InputFieldTypes = {
   type?: string;
   paddingLeft?: string;
   paddingRight?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };

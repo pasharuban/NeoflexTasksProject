@@ -17,6 +17,7 @@ import {
   GET_USER_DATA_SUCCESS,
   GET_USER_DATA_FAILURE,
   GET_USER_DATA_STARTED,
+  SEARCH_CLAIMS_SUCCESS,
 } from '../../constants/actionTypes';
 
 import { PostNewClaimTypes } from '../../types/postNewClaimTypes';
@@ -32,6 +33,11 @@ export const actionGetClaimsSuccess = (data: ClaimTypes[], totalItems: number) =
 });
 export const actionGetDataFailure = (errorMessage: string) => ({ type: GET_DATA_FAILURE, payload: errorMessage });
 export const actionGetDataStarted = () => ({ type: GET_DATA_STARTED });
+
+export const actionSearchClaimsSuccess = (data: ClaimTypes[], totalItems: number) => ({
+  type: SEARCH_CLAIMS_SUCCESS,
+  payload: { data, totalItems },
+});
 
 export const actionGetCurrentClaimSuccess = (data: ClaimTypes) => ({
   type: GET_CURRENT_CLAIM_SUCCESS,

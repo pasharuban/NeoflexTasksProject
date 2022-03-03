@@ -43,3 +43,5 @@ export const getCurrentClaim = (id: string) => api.get(`/claim/${id}`);
 export const updateCurrentClaim = (data: Record<string, any>, id: string | undefined) => api.put(`/claim/${id}`, data);
 
 export const getUserData = (id: string | null) => api.get(`/user/${id}`);
+
+export const getSearchClaims = (searchTerm: string) => api.get(`/claim`, { params: { search: searchTerm } });

@@ -58,12 +58,16 @@ const InputElement = styled(Input)<{ $paddingLeft?: string; $paddingRight?: stri
   }
 `;
 
-const InputField: React.FC<InputFieldTypes> = ({ label, name, rules, placeholder, suffix, disabled, type }, props) => {
+const InputField: React.FC<InputFieldTypes> = (
+  { label, name, rules, placeholder, suffix, disabled, type, onChange },
+  props,
+) => {
   const { paddingLeft, paddingRight } = props;
 
   return (
     <StyledFormItem label={label} name={name} rules={rules}>
       <InputElement
+        onChange={onChange}
         placeholder={placeholder}
         suffix={suffix}
         disabled={disabled}

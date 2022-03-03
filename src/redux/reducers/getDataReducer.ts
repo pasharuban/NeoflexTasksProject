@@ -7,6 +7,7 @@ import {
   UPDATE_CURRENT_CLAIM_SUCCESS,
   UPDATE_CURRENT_CLAIM_STARTED,
   UPDATE_CURRENT_CLAIM_FAILURE,
+  SEARCH_CLAIMS_SUCCESS,
 } from '../../constants/actionTypes';
 import { ActionTypeTypes } from '../../types/actionTypeTypes';
 import { ClaimTypes } from '../../types/claimTypes';
@@ -67,6 +68,14 @@ const getDataReducer = (state = initialState, action: ActionTypeTypes): initialS
       return { ...state, updateClaimLoading: false, updateClaimError: true, updateClaimErrorMessage: action.payload };
     case UPDATE_CURRENT_CLAIM_STARTED:
       return { ...state, updateClaimLoading: true, updateClaimError: false };
+    case SEARCH_CLAIMS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        getDataError: false,
+        tableData: action.payload.data,
+        totalClaims: action.payload.totalItems,
+      };
     default:
       return state;
   }
