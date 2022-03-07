@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 
@@ -44,6 +44,8 @@ const TableOnTablet: React.FC<{ tableData: ClaimTypes[]; totalItems: number; lim
   const history = useHistory();
   const { url } = useRouteMatch();
 
+  const [current, setCurrent] = useState(1);
+
   if (loading) return <LoadingSpinner />;
 
   if (error) return <ErrorMessage message={errorMessage} />;
@@ -68,10 +70,11 @@ const TableOnTablet: React.FC<{ tableData: ClaimTypes[]; totalItems: number; lim
       })}
       <Pagination
         onChange={(page) => {
+          setCurrent(page);
           const offset = page * limit - limit;
           dispatch(actionGetClaims(limit, offset));
         }}
-        defaultCurrent={1}
+        current={current}
         total={totalItems}
         defaultPageSize={limit}
         showSizeChanger={false}
