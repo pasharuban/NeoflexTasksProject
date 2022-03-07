@@ -1,70 +1,57 @@
 import React from 'react';
 import styled from 'styled-components';
-import { css } from 'styled-components';
 
-import { connect } from 'react-redux';
+import { useLocation, Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-import { Illustration } from './components/Illustration';
-import { Footer } from '../../components/Footer/Footer';
-import LoginForm from '../../components/LoginForm/LoginForm';
-import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
+// import { routes } from '../../routes/routes';
+import { getCurrentUserData } from '../../redux/selectors/selectors';
 
-import { State } from '../../redux/reducer';
+import Illustration from './components/Illustration/Illustration';
+import Footer from '../../components/Footer/Footer';
+import LoginForm from './components/LoginForm/LoginForm';
 
-import mainPageLogo from '../../assets/img/main-page-logo.svg';
+import RegistrationForm from './components/RegistrationForm/RegistrationForm';
 
-import { MainPageTypes } from '../../types/mainPageTypes';
+import mainPageLogo from '../../assets/MainPage/icons/main-page-logo.svg';
 
-import breakPoints from '../../breakPoints/breakPoints';
+import { minWidth, maxWidth } from '../../mediaQueries/mediaQueries';
 
-const { smaller1100, larger2000 } = breakPoints;
+import { getUpdateRegistrationForm } from '../../redux/selectors/selectors';
 
-const alignCenterCenter = css`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-`;
+import { flexAlignCenterCenter, separatedBlockProperty } from '../../constants/mixins';
+import { hideElementOnTablet } from '../../utils/HelperFunctions/helperFunctions';
+import { routes } from '../../routes/routes';
 
 const IllustrationSection = styled.div`
-  width: 100%;
-
-  height: 100%;
-  min-height: 100%;
-
-  flex-grow: 1;
-
-  padding: 5%;
+  ${flexAlignCenterCenter}
+  ${separatedBlockProperty}
 
   background: rgba(211, 237, 225, 0.97);
+  padding: 0 30px;
 
-  ${alignCenterCenter}
-
-  @media screen and (min-width: ${larger2000}) {
-    padding: 1%;
-  }
+  ${hideElementOnTablet()};
 `;
 
-// override styles,because it has same,except bg.
-const LogoAndFormSectionContainer = styled(IllustrationSection)`
-  background: white;
+const LogoAndFormSectionContainer = styled.div`
+  ${flexAlignCenterCenter};
+  ${separatedBlockProperty}
 
-  @media screen and (min-width: ${larger2000}) {
-    padding: 4% 2%;
-  }
-  @media screen and (max-width: ${smaller1100}) {
-    min-height: 100vh;
-  }
+  padding: 70px 30px;
+
+  background: white;
 `;
 
 const MainPageContainer = styled.div`
   height: 100vh;
+  min-height: 100vh;
   width: 100%;
 
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
 
-  @media screen and (max-width: ${smaller1100}) {
+  ${maxWidth.tablet} {
     height: 100%;
   }
 `;
@@ -76,40 +63,48 @@ const BeforeSidebarContainer = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
 
-  flex-grow: 5;
-
-  @media screen and (max-width: ${smaller1100}) {
-    flex-wrap: wrap;
-  }
+  flex-grow: 1;
 `;
 
 const LogoFormWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
   width: 100%;
 
-  flex: 1 0 auto;
-  ${alignCenterCenter};
+  flex-grow: 1;
 `;
 
 const MainPageLogo = styled.img`
-  margin-bottom: 119px;
-
-  @media screen and (min-width: ${larger2000}) {
+  ${minWidth.largeScreen} {
     width: 15%;
   }
 `;
 
 const FormContainer = styled.div`
-  flex: 1 0 auto;
+  width: 100%;
+  max-width: 466px;
 
-  @media screen and (min-width: ${larger2000}) {
-    width: 80%;
+  ${minWidth.largeScreen} {
+    max-width: 80%;
   }
 `;
 
-export const MainPage: React.FC<MainPageTypes> = ({ openRegForm }) => {
-  let Form = <LoginForm />;
+const MainPage: React.FC = () => {
+  const location: Record<string, any> = useLocation();
+  // const history = useHistory();
+  const currentUser = useSelector(getCurrentUserData);
+  const updateRegistrationForm = useSelector(getUpdateRegistrationForm);
 
-  if (openRegForm) Form = <RegistrationForm />;
+  if (localStorage.getItem('userToken') || currentUser) {
+    if (location.state?.backpath) return <Redirect to={location.state.backpath} />;
+
+    return <Redirect to={routes.dashboard} />;
+  }
+
+  const FormElement = updateRegistrationForm ? RegistrationForm : LoginForm;
 
   return (
     <MainPageContainer>
@@ -120,7 +115,9 @@ export const MainPage: React.FC<MainPageTypes> = ({ openRegForm }) => {
         <LogoAndFormSectionContainer>
           <LogoFormWrapper>
             <MainPageLogo src={mainPageLogo} alt="company logo" />
-            <FormContainer>{Form}</FormContainer>
+            <FormContainer>
+              <FormElement />
+            </FormContainer>
           </LogoFormWrapper>
         </LogoAndFormSectionContainer>
       </BeforeSidebarContainer>
@@ -129,8 +126,4 @@ export const MainPage: React.FC<MainPageTypes> = ({ openRegForm }) => {
   );
 };
 
-const mapStateToProps = (state: State) => {
-  return { openRegForm: state.updateRegistrationForm };
-};
-
-export const ConnectedMainPage = connect(mapStateToProps, null)(MainPage);
+export default MainPage;

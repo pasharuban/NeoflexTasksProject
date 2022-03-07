@@ -1,0 +1,82 @@
+import React from 'react';
+import styled from 'styled-components';
+import { css } from 'styled-components';
+
+import { Input, Form } from 'antd';
+
+import { InputFieldTypes } from '../../types/inputFieldTypes';
+
+import { minWidth } from '../../mediaQueries/mediaQueries';
+
+import { inputFieldPaddingLeft, inputFieldPaddingRight } from '../../utils/Markup/inputField';
+
+const placeholderStyles = css`
+  font-family: Inter;
+  font-size: 1.5rem;
+  line-height: 32px;
+
+  color: #2d3436;
+`;
+
+// customizing antd FormItem styles
+const StyledFormItem = styled(Form.Item)`
+  width: 100%;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+  input {
+    &:disabled {
+      &::placeholder {
+        color: #adadad;
+      }
+    }
+    &::placeholder {
+      ${placeholderStyles};
+    }
+  }
+`;
+
+const InputElement = styled(Input)<{ $paddingLeft?: string; $paddingRight?: string }>`
+  height: 48px;
+  width: 100%;
+  border-radius: 16px;
+  border: none;
+  background: #f0f0f0;
+  font-size: 1.5em;
+
+  padding-left: ${(props) => inputFieldPaddingLeft(props.$paddingLeft)};
+  padding-right: ${(props) => inputFieldPaddingRight(props.$paddingRight)};
+
+  & input {
+    background: inherit;
+    border-radius: inherit;
+  }
+
+  ${minWidth.largeScreen} {
+    height: 80px;
+  }
+`;
+
+const InputField: React.FC<InputFieldTypes> = (
+  { label, name, rules, placeholder, suffix, disabled, type, onChange },
+  props,
+) => {
+  const { paddingLeft, paddingRight } = props;
+
+  return (
+    <StyledFormItem label={label} name={name} rules={rules}>
+      <InputElement
+        onChange={onChange}
+        placeholder={placeholder}
+        suffix={suffix}
+        disabled={disabled}
+        type={type}
+        $paddingLeft={paddingLeft}
+        $paddingRight={paddingRight}
+      />
+    </StyledFormItem>
+  );
+};
+
+export default InputField;

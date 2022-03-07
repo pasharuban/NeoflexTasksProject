@@ -1,8 +1,7 @@
 export type ButtonElementTypes = {
-  text?: string;
-  typeOfButton?: string;
+  typeOfButton: string;
   marginBottom?: string;
   marginTop?: string;
   width?: string;
-  onClickCallback?: () => void;
+  onClick?: () => void;
 };

@@ -1,8 +1,14 @@
 import React from 'react';
-import { ConnectedMainPage } from './pages/MainPage/MainPage';
+import { BrowserRouter as Router } from 'react-router-dom';
+
+import AppSwitch from './AppSwitch';
 
 function App() {
-  return <ConnectedMainPage />;
+  return (
+    <Router>
+      <AppSwitch />
+    </Router>
+  );
 }
 
 export default App;

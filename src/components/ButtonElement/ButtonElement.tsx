@@ -3,13 +3,36 @@ import styled from 'styled-components';
 
 import { ButtonElementTypes } from '../../types/buttonElementTypes';
 
-import breakPoints from '../../breakPoints/breakPoints';
+import { minWidth } from '../../mediaQueries/mediaQueries';
 
-const { larger2000 } = breakPoints;
+import {
+  buttonElementHoverBackground,
+  buttonElementHoverColor,
+  buttonElementHoverBorder,
+  buttonElementActiveBackground,
+  buttonElementActiveFontWeight,
+  buttonElementActiveColor,
+  buttonElementActiveBorder,
+  buttonElementBackground,
+  buttonElementColor,
+  buttonElementBorder,
+} from '../../utils/Colors/buttonElementColors';
 
-const Button = styled.button<ButtonElementTypes>`
-  height: 47px;
-  border-radius: 50px;
+import {
+  buttonElementWidth,
+  buttonElementMarginBottom,
+  buttonElementMarginTop,
+} from '../../utils/Markup/buttonElementMarkup';
+
+const ButtonElement = styled.button<ButtonElementTypes>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 6px 10px;
+
+  height: 48px;
+  border-radius: 16px;
 
   font-family: Inter;
   font-style: normal;
@@ -19,75 +42,36 @@ const Button = styled.button<ButtonElementTypes>`
 
   transition: all 0.5s;
 
-  &:hover {
-    background: #4f896c;
-    cursor: pointer;
+  ${(props) => buttonElementBackground(props.typeOfButton)};
+  ${(props) => buttonElementColor(props.typeOfButton)};
+  ${(props) => buttonElementBorder(props.typeOfButton)};
+
+  width: ${(props) => buttonElementWidth(props.width)};
+  margin-bottom: ${(props) => buttonElementMarginBottom(props.marginBottom)};
+  margin-top: ${(props) => buttonElementMarginTop(props.marginTop)};
+
+  ${minWidth.largeScreen} {
+    height: 80px;
   }
 
-  width: ${(props) => {
-    const { width } = props;
-    if (width) return width;
+  &:hover {
+    cursor: pointer;
 
-    return '200px';
-  }};
+    ${(props) => buttonElementHoverBackground(props.typeOfButton)};
+    ${(props) => buttonElementHoverColor(props.typeOfButton)};
+    ${(props) => buttonElementHoverBorder(props.typeOfButton)};
+  }
 
-  margin-bottom: ${(props) => {
-    const { marginBottom } = props;
-    if (marginBottom) return marginBottom;
+  &:active,
+  &:focus {
+    transition: all 0s;
+    cursor: pointer;
 
-    return 0;
-  }};
-
-  margin-top: ${(props) => {
-    const { marginTop } = props;
-    if (marginTop) return marginTop;
-
-    return 0;
-  }};
-
-  background: ${(props) => {
-    const { typeOfButton } = props;
-    if (typeOfButton === 'filled') return '#7DB59A';
-
-    return 'none';
-  }};
-
-  color: ${(props) => {
-    const { typeOfButton } = props;
-    if (typeOfButton === 'filled') return '#FFFFFF;';
-
-    return '#5193F4;';
-  }};
-
-  border: ${(props) => {
-    const { typeOfButton } = props;
-    if (typeOfButton === 'filled') return 'none';
-
-    return '1px solid #5193F4;';
-  }};
-
-  @media screen and (min-width: ${larger2000}) {
-    height: 80px;
+    ${(props) => buttonElementActiveBackground(props.typeOfButton)};
+    ${(props) => buttonElementActiveFontWeight(props.typeOfButton)};
+    ${(props) => buttonElementActiveColor(props.typeOfButton)};
+    ${(props) => buttonElementActiveBorder(props.typeOfButton)};
   }
 `;
 
-export const ButtonElement: React.FC<ButtonElementTypes> = ({
-  text,
-  typeOfButton,
-  marginBottom,
-  marginTop,
-  onClickCallback,
-  width,
-}) => {
-  return (
-    <Button
-      onClick={onClickCallback}
-      width={width}
-      typeOfButton={typeOfButton}
-      marginBottom={marginBottom}
-      marginTop={marginTop}
-    >
-      {text}
-    </Button>
-  );
-};
+export default ButtonElement;
