@@ -11,7 +11,7 @@ import { maxWidth } from '../../mediaQueries/mediaQueries';
 
 const HeaderContainer = styled.div`
   height: 96px;
-  min-height: 96px;
+  max-height: 96px;
 
   display: flex;
   align-items: center;
@@ -21,6 +21,7 @@ const HeaderContainer = styled.div`
 
   ${maxWidth.tablet} {
     height: 64px;
+    min-height: 64px;
     background-color: #7db59a;
   }
 `;

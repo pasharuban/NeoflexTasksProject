@@ -22,6 +22,7 @@ api.interceptors.response.use(
 
   (error) => {
     if (error.response.status === 401) {
+      alert('401');
       logout(store.dispatch, createBrowserHistory());
     }
 
