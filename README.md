@@ -3,6 +3,12 @@
 
 Создан из cra.
 
+To run project:
+
+1)npm install
+
+2)npm start
+
 
 ## Available Scripts
 
